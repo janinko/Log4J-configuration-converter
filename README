@@ -1,0 +1,15 @@
+Jan Brázdil, učo 374346
+David Jongepier, učo 374392
+Martin Kelnar, učo 374625
+Štefan Repček, učo 373862
+
+Cílem projektu je vytvořit převaděč log4j konfigurace z formátu XML do
+properties a to oběma směry. Nástroje pro toto již existují
+(http://code.google.com/p/log4j-properties-converter/). Nicméně vaším úkolem je
+tento nástroj naprogramovat buďto standardními prostředky JAXP (Java API for XML
+Processing) za použití pouze JDK případně rozhraní Dom4J. K práci na tomto
+projektu bude nutné nastudovat konfigurační možnosti Log4J a to z dokumentace
+Log4J která je dostupná online a případně z JavaDoc dokumentace Log4J. Výsledná
+aplikace bude spustitelná z příkazové řádky a z Javového kódu. Bude také
+smysluplně reagovat na špatný vstup. Správné využití unit testů při implementaci
+bude bráno jako velký plus.
