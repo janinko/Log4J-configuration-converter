@@ -1,7 +1,7 @@
 Jan Brázdil, učo 374346 -- ok
 David Jongepier, učo 374392 -- ok
 Martin Kelnar, učo 374625 -- ok
-Štefan Repček, učo 373862
+Štefan Repček, učo 373862 -- ok
 
 Cílem projektu je vytvořit převaděč log4j konfigurace z formátu XML do
 properties a to oběma směry. Nástroje pro toto již existují
