@@ -9,3 +9,5 @@ nbproject/
 bin/
 .classpath
 .settings
+/build.xml
+/manifest.mf
