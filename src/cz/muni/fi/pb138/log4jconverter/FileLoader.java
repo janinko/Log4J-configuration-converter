@@ -29,7 +29,7 @@ public class FileLoader {
         if (nameOfFile == null) {
             throw new NullPointerException("No name of file");
         }
-        if ("".equals(nameOfFile)) {
+        if (nameOfFile.isEmpty()) {
             throw new IllegalArgumentException("name is empty");
         }  
         this.nameOfFile = nameOfFile;
