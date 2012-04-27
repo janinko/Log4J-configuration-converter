@@ -2,11 +2,12 @@ package cz.muni.fi.pb138.log4jconverter;
 
 import java.io.Writer;
 import java.util.HashSet;
+import java.util.HashMap;
 
 public class Configuration implements AbstractModel{
 	RootLogger rootLogger;
 	HashSet<Renderer> renderers;
-	HashSet<Appender> appenders;
+	HashMap<String,Appender> appenders;
 	
 	
 
