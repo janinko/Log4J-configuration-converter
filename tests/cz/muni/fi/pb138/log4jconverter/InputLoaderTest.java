@@ -8,7 +8,7 @@ package cz.muni.fi.pb138.log4jconverter;
  *
  * @author fivekeyem
  */
-public class FileLoaderTest {
+public class InputLoaderTest {
     
     
     
