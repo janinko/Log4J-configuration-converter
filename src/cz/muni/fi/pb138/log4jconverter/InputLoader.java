@@ -14,7 +14,7 @@ import org.apache.commons.io.FilenameUtils;
  * 
  * @author fivekeyem
  */
-public class FileLoader {
+public class InputLoader {
     
     
     public enum Type {
@@ -25,7 +25,7 @@ public class FileLoader {
     private Properties propertiesDoc;
     private String nameOfFile;
 
-    public FileLoader(String nameOfFile) {
+    public InputLoader(String nameOfFile) {
         if (nameOfFile == null) {
             throw new NullPointerException("No name of file");
         }
@@ -37,7 +37,6 @@ public class FileLoader {
     
     
     public Type getType() {
-        // TODO
         String extension = FilenameUtils.getExtension(nameOfFile);
         if (extension.equals("xml")) {
             return Type.XML;
