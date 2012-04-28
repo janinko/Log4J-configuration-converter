@@ -11,3 +11,4 @@ bin/
 .settings
 /build.xml
 /manifest.mf
+/commons-io-2.3.jar
