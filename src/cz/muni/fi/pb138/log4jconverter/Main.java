@@ -22,9 +22,8 @@ public class Main {
        InputLoader inputLoader = new InputLoader("exampleConfigs.xml");
        System.out.println(inputLoader.getType());
     
-       
        NodeList nl = inputLoader.getDOM().getElementsByTagName("param");
-        
+       
        for (int i = 0; i < nl.getLength(); i++) {
            Node node = nl.item(i);
            if (node.getNodeType() == Node.ELEMENT_NODE) {
