@@ -12,6 +12,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * This class represents basic operations for loading
@@ -68,7 +69,27 @@ public class InputLoader {
     
     public Document getDOM() throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder(); 
+        factory.setValidating(true);
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        
+        builder.setErrorHandler(new org.xml.sax.ErrorHandler() {
+            //Ignore the fatal errors
+            public void fatalError(SAXParseException exception) throws SAXException { }
+            
+            //Validation errors 
+            public void error(SAXParseException e) throws SAXParseException {
+                System.out.println("Error at " +e.getLineNumber() + " line.");
+                System.out.println(e.getMessage());
+                System.exit(0);
+            }
+            
+            //Show warnings
+            public void warning(SAXParseException err) throws SAXParseException {
+                System.out.println(err.getMessage());
+                System.exit(0);
+            }
+        });
+        
         xmlDoc = builder.parse(this.is);
         return xmlDoc;
     }
