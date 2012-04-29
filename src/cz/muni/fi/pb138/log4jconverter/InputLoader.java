@@ -4,9 +4,14 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
+import java.io.*;
 import java.util.Properties;
-import org.w3c.dom.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.io.FilenameUtils;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /**
  * This class represents basic operations for loading
@@ -21,21 +26,35 @@ public class InputLoader {
         XML, PROPERTIES, OTHER
     }
     
-    private Document xmlDoc;
-    private Properties propertiesDoc;
+    private Document xmlDoc = null;
+    private Properties propertiesDoc = null;
+    
     private String nameOfFile;
-
+    private InputStream is;
+    
+    
+    public InputLoader(InputStream is) {
+        this.is = is;
+    }
+    
     public InputLoader(String nameOfFile) {
         if (nameOfFile == null) {
             throw new NullPointerException("No name of file");
         }
         if (nameOfFile.isEmpty()) {
-            throw new IllegalArgumentException("name is empty");
+            throw new IllegalArgumentException("Name is empty");
         }  
         this.nameOfFile = nameOfFile;
+        try {            
+            this.is = new FileInputStream(new File(nameOfFile));       
+        } catch (FileNotFoundException ex) {
+            System.out.println("File doesnt exist");
+        }
     }
     
     
+    // for now we recognize typ of input according to extension of file
+    // in the future we'll do it according content
     public Type getType() {
         String extension = FilenameUtils.getExtension(nameOfFile);
         if (extension.equals("xml")) {
@@ -46,20 +65,19 @@ public class InputLoader {
         return Type.OTHER;
     }
     
-    /*
-     * 
-     * 
-     * @return 
-     */
-    public Document getDOM() {
-        // TODO
+    
+    public Document getDOM() throws ParserConfigurationException, IOException, SAXException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder(); 
+        xmlDoc = builder.parse(this.is);
         return xmlDoc;
     }
     
     
-    public Properties getProperties() {
-        // TODO
-        return propertiesDoc;
+    public Properties getProperties() throws IOException {
+        Properties p = new Properties();
+        p.load(this.is);
+        return p;
     }
     
 }
