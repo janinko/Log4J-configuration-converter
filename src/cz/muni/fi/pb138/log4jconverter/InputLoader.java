@@ -33,6 +33,8 @@ public class InputLoader {
     private String nameOfFile;
     private InputStream is;
     
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(InputLoader.class);
+    
     
     public InputLoader(InputStream is) {
         this.is = is;
@@ -47,9 +49,10 @@ public class InputLoader {
         }  
         this.nameOfFile = nameOfFile;
         try {            
-            this.is = new FileInputStream(new File(nameOfFile));       
+            this.is = new FileInputStream(new File(nameOfFile)); 
+            logger.info("File "+ nameOfFile +" is loaded");
         } catch (FileNotFoundException ex) {
-            System.out.println("File doesnt exist");
+            logger.error("File doesn't exist");
         }
     }
     
@@ -72,6 +75,8 @@ public class InputLoader {
         factory.setValidating(true);
         DocumentBuilder builder = factory.newDocumentBuilder();
         
+        if (logger.isTraceEnabled()) { logger.trace("DocumentBuilder is ok"); }
+        
         builder.setErrorHandler(new org.xml.sax.ErrorHandler() {
             //Ignore the fatal errors
             public void fatalError(SAXParseException exception) throws SAXException { }
@@ -89,6 +94,7 @@ public class InputLoader {
                 System.exit(0);
             }
         });
+        if (logger.isTraceEnabled()) { logger.trace("setErroHanler is ok"); }
         
         xmlDoc = builder.parse(this.is);
         return xmlDoc;

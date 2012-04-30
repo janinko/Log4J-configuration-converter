@@ -7,6 +7,7 @@ import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.apache.log4j.PropertyConfigurator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -17,7 +18,7 @@ import org.xml.sax.SAXException;
 public class Main {
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
-        
+       PropertyConfigurator.configure("log4j.properties"); 
 
        InputLoader inputLoader = new InputLoader("exampleConfigs.xml");
        System.out.println(inputLoader.getType());
