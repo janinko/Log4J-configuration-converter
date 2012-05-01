@@ -11,6 +11,33 @@ public class Configuration implements AbstractModel{
 	HashMap<String,Appender> appenders;
 	HashMap<String,Logger> loggers;
         HashMap<String,Category> categoryes;
+        
+    public Appender getAppender(String name){
+    	//TODO
+    	return null;
+    }
+    
+    public Logger getLogger(String name){
+    	//TODO
+    	return null;
+    }
+    
+    public Category getCategory(String name){
+    	//TODO
+    	return null;
+    }
+    
+    public void addRenderer(Renderer r){
+    	renderers.add(r);
+    }
+    
+    public void setRootLogger(RootLogger rl){
+    	rootLogger = rl;
+    }
+    
+    public void setRootCategory(RootCategory rc){
+    	rootCategory = rc;
+    }
 
 	@Override
 	public void printXML(Writer w) {
