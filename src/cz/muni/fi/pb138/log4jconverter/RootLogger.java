@@ -42,8 +42,11 @@ public class RootLogger {
         ERROR, WARN, INFO, DEBUG, ALL
     }
     private Levels level;
-    private HashSet<Appender> appenderNames;
-    
+    private HashSet<Appender> appenderNames = new HashSet<Appender>();
+
+    public RootLogger() {
+    }
+
     
     public void addAppenderName(String appdenderName) {
         this.appenderNames.add(new Appender(appdenderName));
@@ -67,6 +70,13 @@ public class RootLogger {
 
     @Override
     public String toString() {
-        return "RootLogger=" + level + ", " + appenderNames ;
+        String result = "";
+        for (Appender appender : appenderNames) {
+            result += appender.toString() + ", ";
+        }
+        return result;
     }
+    
+    
+    
 }
