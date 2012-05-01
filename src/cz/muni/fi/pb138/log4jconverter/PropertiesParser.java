@@ -5,6 +5,7 @@
 package cz.muni.fi.pb138.log4jconverter;
 
 import java.util.Enumeration;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 /**
@@ -16,6 +17,13 @@ import java.util.Properties;
  * @author fivekeyem
  */
 public class PropertiesParser implements Parser {
+	
+	static final String               PREFIX    = "log4j";
+	static final String             APPENDER    = "appender";
+	static final String             CATEGORY    = "category";
+	static final String               LOGGER    = "logger";
+    static final String        ROOT_CATEGORY    = "rootCategory";
+    static final String          ROOT_LOGGER    = "rootLogger";
     
     static final String      CATEGORY_PREFIX    = "log4j.category.";
     static final String        LOGGER_PREFIX    = "log4j.logger.";
@@ -63,46 +71,70 @@ public class PropertiesParser implements Parser {
         }
     }
     
-    
-    private void parseProperty() {
-        Enumeration e = properties.propertyNames();
-        
-        // projdi vsechny properties
-        while (e.hasMoreElements()) {
-            String key = (String) e.nextElement();
-            
-            // log4j.rootLogger
-            if (key.startsWith(ROOT_LOGGER_PREFIX)) {
-                
-                if (logger.isTraceEnabled()) { logger.trace("parsing of " + key); }
-                
-                // ziskej value
-                String s = properties.getProperty(key);
-                RootLogger rootLogger = new RootLogger();
-                
-                // ziskej jednotlive appendery
-                String[] appdenderName = s.split(",");
-                for (int i = 1; i < appdenderName.length; i++) {
-                    // pridej novy appender
-                    rootLogger.addAppenderName(appdenderName[i].trim());
-
-                    if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
-                }
-                
-                // nakonec uloz vse do configuration
-                configuration.setRootLogger(rootLogger);
-                if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }
-            }
-            
-        }
+    private void parsePropeties(){
+    	for(Entry<Object, Object> e : properties.entrySet()){
+    		String[] key = ((String) e.getKey()).split(".");
+    		String value = (String) e.getValue();
+    		
+    		parseProperty(key,value);
+    	}
+    	
     }
+    
+    private void parseProperty(String[] key, String value) {
+    	if(key.length < 2) throw new IllegalArgumentException("Key must have at least 2 parts");
+    	if(!PREFIX.equals(key[0])) throw new IllegalArgumentException("Key must have prefix " + PREFIX);
+    	
+    	String specifier = key[1];
+    	
+    	if(APPENDER.equals(specifier)){
+    		parseAppender(key, value);
+    	}else if(LOGGER.equals(specifier) || CATEGORY.equals(specifier)){
+    		parseLogger(key, value);
+    	}else if(ROOT_LOGGER.equals(specifier) || ROOT_CATEGORY.equals(specifier)){
+    		parseRootLogger(key, value);
+    	}
+    	
+	}
+
+
+	private void parseRootLogger(String[] key, String value) {
+		if (logger.isTraceEnabled()) { logger.trace("parsing of " + key); }
+        
+        RootLogger rootLogger = new RootLogger();
+        
+        // ziskej jednotlive appendery
+        String[] appdenderName = value.split(",");
+        for (int i = 1; i < appdenderName.length; i++) {
+            // pridej novy appender
+            rootLogger.addAppenderName(appdenderName[i].trim());
+
+            if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
+        }
+        
+        // nakonec uloz vse do configuration
+        configuration.setRootLogger(rootLogger);
+        if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
+	}
+
+
+	private void parseLogger(String[] key, String value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void parseAppender(String[] key, String value) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 	@Override
 	public Configuration parse() {
 		if(configuration == null){
 			configuration = new Configuration();
-			parseProperty();
+			parsePropeties();
 		}
 		return null;
 	}
