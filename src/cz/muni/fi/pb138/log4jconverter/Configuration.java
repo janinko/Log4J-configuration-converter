@@ -6,7 +6,6 @@ import java.util.HashSet;
 
 public class Configuration implements AbstractModel{
 	RootLogger rootLogger;
-        RootCategory rootCategory;
 	HashSet<Renderer> renderers;
 	HashMap<String,Appender> appenders;
 	HashMap<String,Logger> loggers;
@@ -45,10 +44,6 @@ public class Configuration implements AbstractModel{
     
     public void setRootLogger(RootLogger rl){
     	rootLogger = rl;
-    }
-    
-    public void setRootCategory(RootCategory rc){
-    	rootCategory = rc;
     }
 
     public RootLogger getRootLogger() {
