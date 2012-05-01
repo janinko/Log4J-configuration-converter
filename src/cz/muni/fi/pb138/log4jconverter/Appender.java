@@ -79,12 +79,14 @@ public class Appender implements AbstractModel{
     
     private HashSet<Item> items; //dostal som napad vsetky tie rozne vedlajsie atributy(ci co toje) davat do jedneho HashSetu
 
-    public Appender(String name) {
-    	appenderName = name;
-    	//TODO
-	}
 
-	public boolean isAppend() {
+    
+    public Appender(String appenderName) {
+        this.appenderName = appenderName;
+    }
+    
+
+    public boolean isAppend() {
         return append;
     }
 
@@ -186,6 +188,7 @@ public class Appender implements AbstractModel{
         return hash;
     }
 
+
 	@Override
 	public void printXML(Writer w) {
 		// TODO Auto-generated method stub
@@ -198,6 +201,10 @@ public class Appender implements AbstractModel{
 		
 	}
     
-   
+    @Override
+    public String toString() {
+        return "name of appdender: " + appenderName;
+    }
     
+
 }

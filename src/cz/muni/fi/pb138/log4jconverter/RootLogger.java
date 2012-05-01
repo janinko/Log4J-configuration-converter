@@ -43,7 +43,17 @@ public class RootLogger implements AbstractModel{
         ERROR, WARN, INFO, DEBUG, ALL
     }
     private Levels level;
-    private HashSet<String> appenderNames;
+    private HashSet<String> appenderNames = new HashSet<String>();;
+
+
+    public RootLogger() {
+    }
+
+    
+    public void addAppenderName(String appdenderName) {
+        this.appenderNames.add(appdenderName);
+    }
+
 
     public HashSet<String> getAppenderNames() {
         return appenderNames;
@@ -63,8 +73,13 @@ public class RootLogger implements AbstractModel{
 
     @Override
     public String toString() {
-        return "RootLogger=" + level + ", " + appenderNames ;
+        String result = "";
+        for (String appender : appenderNames) {
+            result += appender.toString() + ", ";
+        }
+        return result;
     }
+
 
 	@Override
 	public void printXML(Writer w) {
@@ -77,4 +92,5 @@ public class RootLogger implements AbstractModel{
 		// TODO Auto-generated method stub
 		
 	}
+
 }
