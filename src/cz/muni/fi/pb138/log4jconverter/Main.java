@@ -37,12 +37,15 @@ public class Main {
        * 
        */
        
+       Configuration configuration = new Configuration();
        
        InputLoader inputLoader = new InputLoader("examples/exampleConfigs.properties");
        Properties properties = inputLoader.getProperties();
        
-       PropertyConfiguration pc = new PropertyConfiguration(properties, null);
-       pc.writeAllProperties();
+       PropertyConfiguration pc = new PropertyConfiguration(properties, configuration);
+       pc.parseProperty();
+       
+        System.out.println(configuration);
        
                
     }
