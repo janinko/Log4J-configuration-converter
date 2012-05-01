@@ -12,9 +12,21 @@ public class Configuration implements AbstractModel{
 	HashMap<String,Logger> loggers;
         HashMap<String,Category> categoryes;
         
+    public Configuration(){
+    	renderers = new HashSet<Renderer>();
+    	appenders = new HashMap<String,Appender>();
+    	loggers = new HashMap<String,Logger>();
+    	categoryes = new HashMap<String,Category>();
+    }
+        
     public Appender getAppender(String name){
-    	//TODO
-    	return null;
+    	if(appenders.containsKey(name))
+    		return appenders.get(name);
+    	
+    	Appender a = new Appender(name);
+    	appenders.put(name, a);
+    	
+    	return a;
     }
     
     public Logger getLogger(String name){
