@@ -77,7 +77,7 @@ public class PropertiesParser implements Parser {
     
     private void parsePropeties(){
     	for(Entry<Object, Object> e : properties.entrySet()){
-    		String[] key = ((String) e.getKey()).split(".");
+    		String[] key = ((String) e.getKey()).split("\\.");
     		String value = (String) e.getValue();
     		
     		try {
