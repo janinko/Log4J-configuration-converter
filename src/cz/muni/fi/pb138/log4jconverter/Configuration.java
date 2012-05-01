@@ -9,6 +9,8 @@ public class Configuration implements AbstractModel{
 	HashSet<Renderer> renderers;
 	HashMap<String,Appender> appenders;
 	HashMap<String,Logger> loggers;
+	
+	boolean debug = false;
         
     public Configuration(){
     	renderers = new HashSet<Renderer>();
@@ -55,10 +57,14 @@ public class Configuration implements AbstractModel{
 
         
         
-        @Override
-        public String toString() {
-            return rootLogger.toString();
-        }
+	@Override
+	public String toString() {
+		return rootLogger.toString();
+	}
+
+	public void setDebug(boolean b) {
+		debug = b;
+	}
         
 	
 }
