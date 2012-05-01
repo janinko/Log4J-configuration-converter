@@ -64,7 +64,7 @@ public class Appender {
     
     private String appenderName;
     private HashSet<Option> options;
-    private HashSet<Layout> layouts;
+    private Layout layout;
     private HashSet<Filter> filters;
     private HashSet<Errorhandler> errorhandlers;
     private Levels treshold;
@@ -124,13 +124,9 @@ public class Appender {
     public void setItems(HashSet<Item> items) {
         this.items = items;
     }
-
-    public HashSet<Layout> getLayouts() {
-        return layouts;
-    }
-
-    public void setLayouts(HashSet<Layout> layouts) {
-        this.layouts = layouts;
+    
+    public void setLayout(Layout l){
+    	layout = l;
     }
 
     public String getMaxBackupIndex() {
