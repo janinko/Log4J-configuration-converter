@@ -39,6 +39,20 @@ public class Configuration implements AbstractModel{
     	rootCategory = rc;
     }
 
+        
+        
+        
+        public Configuration() {
+        }
+
+        
+        public RootLogger getRootLogger() {
+            return rootLogger;
+        }
+
+    
+
+        
 	@Override
 	public void printXML(Writer w) {
 		// TODO Auto-generated method stub
@@ -49,5 +63,12 @@ public class Configuration implements AbstractModel{
 		// TODO Auto-generated method stub
 	}
 
+        
+        
+        @Override
+        public String toString() {
+            return rootLogger.toString();
+        }
+        
 	
 }
