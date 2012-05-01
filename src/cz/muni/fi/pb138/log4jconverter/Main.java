@@ -20,8 +20,11 @@ public class Main {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
        PropertyConfigurator.configure("log4j.properties"); 
 
-       InputLoader inputLoader = new InputLoader("exampleConfigs.xml");
+       
     
+       /*
+        
+       InputLoader inputLoader = new InputLoader("examples/exampleConfigs.xml");
        NodeList nl = inputLoader.getDOM().getElementsByTagName("param");
        
        for (int i = 0; i < nl.getLength(); i++) {
@@ -31,14 +34,15 @@ public class Main {
                 System.out.println(e.getNodeName());
            }
        }
-       
-       
-       /*
-       Properties properties = inputLoader.getProperties();
-       String one = properties.getProperty("log4j.appender.A1.layout");
-       System.out.println(one);
        * 
        */
+       
+       
+       InputLoader inputLoader = new InputLoader("examples/exampleConfigs.properties");
+       Properties properties = inputLoader.getProperties();
+       
+       
+       
                
     }
     
