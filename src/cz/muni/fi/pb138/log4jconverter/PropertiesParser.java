@@ -24,6 +24,7 @@ public class PropertiesParser implements Parser {
 	static final String               LOGGER    = "logger";
     static final String        ROOT_CATEGORY    = "rootCategory";
     static final String          ROOT_LOGGER    = "rootLogger";
+    static final String                DEBUG    = "debug";
     
     static final String      CATEGORY_PREFIX    = "log4j.category.";
     static final String        LOGGER_PREFIX    = "log4j.logger.";
@@ -76,12 +77,17 @@ public class PropertiesParser implements Parser {
     		String[] key = ((String) e.getKey()).split(".");
     		String value = (String) e.getValue();
     		
-    		parseProperty(key,value);
+    		try {
+				parseProperty(key,value);
+			} catch (ParseExceception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
     	}
     	
     }
     
-    private void parseProperty(String[] key, String value) {
+    private void parseProperty(String[] key, String value) throws ParseExceception {
     	if(key.length < 2) throw new IllegalArgumentException("Key must have at least 2 parts");
     	if(!PREFIX.equals(key[0])) throw new IllegalArgumentException("Key must have prefix " + PREFIX);
     	
@@ -93,6 +99,14 @@ public class PropertiesParser implements Parser {
     		parseLogger(key, value);
     	}else if(ROOT_LOGGER.equals(specifier) || ROOT_CATEGORY.equals(specifier)){
     		parseRootLogger(key, value);
+    	}else if(DEBUG.equals(specifier)){
+    		if(value.equals("true")){
+    			configuration.setDebug(true);
+    		}else if(value.equals("false")){
+    			configuration.setDebug(false);
+    		}else{
+    			throw new ParseExceception("Unknown value for " + PREFIX + "." + DEBUG + ": " + value);
+    		}
     	}
     	
 	}
