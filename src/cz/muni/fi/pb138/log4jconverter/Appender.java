@@ -77,6 +77,12 @@ public class Appender {
     
     private HashSet<Item> items; //dostal som napad vsetky tie rozne vedlajsie atributy(ci co toje) davat do jedneho HashSetu
 
+    
+    public Appender(String appenderName) {
+        this.appenderName = appenderName;
+    }
+    
+
     public boolean isAppend() {
         return append;
     }
