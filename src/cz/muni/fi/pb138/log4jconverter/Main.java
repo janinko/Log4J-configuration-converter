@@ -20,10 +20,12 @@ public class Main {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
        PropertyConfigurator.configure("log4j.properties"); 
 
-       
+       // ABSTRAKT MODEL
+       Configuration configuration = new Configuration();
     
        /*
-        
+        * InputLoader
+        * 
        InputLoader inputLoader = new InputLoader("examples/exampleConfigs.xml");
        NodeList nl = inputLoader.getDOM().getElementsByTagName("param");
        
@@ -33,12 +35,13 @@ public class Main {
                 Element e = (Element) node;
                 System.out.println(e.getNodeName());
            }
-       }
-       * 
+       } 
        */
        
-       Configuration configuration = new Configuration();
        
+       /*
+        * properties -> abstract
+        * 
        InputLoader inputLoader = new InputLoader("examples/exampleConfigs.properties");
        Properties properties = inputLoader.getProperties();
        
@@ -46,6 +49,8 @@ public class Main {
        pc.parseProperty();
        
         System.out.println(configuration);
+        * 
+        */
        
                
     }
