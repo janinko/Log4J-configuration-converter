@@ -12,6 +12,22 @@ public class Configuration implements AbstractModel{
 	HashMap<String,Logger> loggers;
         HashMap<String,Category> categoryes;
 
+        
+        
+        
+        public Configuration() {
+        }
+
+        
+        public RootLogger getRootLogger() {
+            return rootLogger;
+        }
+
+        public void setRootLogger(RootLogger rootLogger) {
+            this.rootLogger = rootLogger;
+        }
+
+        
 	@Override
 	public void printXML(Writer w) {
 		// TODO Auto-generated method stub
@@ -22,5 +38,12 @@ public class Configuration implements AbstractModel{
 		// TODO Auto-generated method stub
 	}
 
+        
+        
+        @Override
+        public String toString() {
+            return rootLogger.toString();
+        }
+        
 	
 }
