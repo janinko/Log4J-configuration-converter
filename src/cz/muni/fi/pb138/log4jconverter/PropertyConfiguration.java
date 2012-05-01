@@ -42,6 +42,7 @@ public class PropertyConfiguration {
 
     static final private String INTERNAL_ROOT_NAME = "root";
     
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(PropertyConfiguration.class);
     
     private Properties properties;
     private Configuration configuration;
@@ -64,7 +65,36 @@ public class PropertyConfiguration {
     
     
     public void parseProperty() {
+        Enumeration e = properties.propertyNames();
         
+        // projdi vsechny properties
+        while (e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+            
+            // log4j.rootLogger
+            if (key.startsWith(ROOT_LOGGER_PREFIX)) {
+                
+                if (logger.isTraceEnabled()) { logger.trace("parsing of " + key); }
+                
+                // ziskej value
+                String s = properties.getProperty(key);
+                RootLogger rootLogger = new RootLogger();
+                
+                // ziskej jednotlive appendery
+                String[] appdenderName = s.split(",");
+                for (int i = 1; i < appdenderName.length; i++) {
+                    // pridej novy appender
+                    rootLogger.addAppenderName(appdenderName[i].trim());
+
+                    if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
+                }
+                
+                // nakonec uloz vse do configuration
+                configuration.setRootLogger(rootLogger);
+                if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }
+            }
+            
+        }
     }
     
     
