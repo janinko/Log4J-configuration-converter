@@ -136,7 +136,7 @@ public class PropertiesParser implements Parser {
 			configuration = new Configuration();
 			parsePropeties();
 		}
-		return null;
+		return configuration;
 	}
     
     
