@@ -43,13 +43,13 @@ public class RootLogger implements AbstractModel{
         ERROR, WARN, INFO, DEBUG, ALL
     }
     private Levels level;
-    private HashSet<Appender> appenderNames;
+    private HashSet<String> appenderNames;
 
-    public HashSet<Appender> getAppenderNames() {
+    public HashSet<String> getAppenderNames() {
         return appenderNames;
     }
 
-    public void setAppenderNames(HashSet<Appender> appenderNames) {
+    public void setAppenderNames(HashSet<String> appenderNames) {
         this.appenderNames = appenderNames;
     }
 
