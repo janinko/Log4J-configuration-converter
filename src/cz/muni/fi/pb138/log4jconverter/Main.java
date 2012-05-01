@@ -21,7 +21,6 @@ public class Main {
        PropertyConfigurator.configure("log4j.properties"); 
 
        InputLoader inputLoader = new InputLoader("exampleConfigs.xml");
-       System.out.println(inputLoader.getType());
     
        NodeList nl = inputLoader.getDOM().getElementsByTagName("param");
        
