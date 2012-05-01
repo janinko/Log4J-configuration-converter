@@ -4,6 +4,7 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
+import java.io.Writer;
 import java.util.HashSet;
 
 /**
@@ -17,7 +18,7 @@ import java.util.HashSet;
  * log4j.rootCategory=[level], appenderName, appenderName, ...
  * </pre>
  */
-public class RootCategory {
+public class RootCategory implements AbstractModel{
     
     private RootLogger.Levels level;
     private HashSet<Appender> appenderNames;
@@ -42,6 +43,18 @@ public class RootCategory {
     public String toString() {
         return "RootCategory="  + level + ", " + appenderNames;
     }
+
+	@Override
+	public void printXML(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printProperties(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }

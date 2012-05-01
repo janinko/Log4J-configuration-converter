@@ -5,13 +5,15 @@
 package cz.muni.fi.pb138.log4jconverter;
 
 import cz.muni.fi.pb138.log4jconverter.RootLogger.Levels;
+
+import java.io.Writer;
 import java.util.HashSet;
 
 /**
  *
  * @author Admin
  */
-public class Category {
+public class Category implements AbstractModel{
     private String categoryName;
     private RootLogger.Levels level;
     //optional
@@ -66,5 +68,17 @@ public class Category {
     public String toString() {
         return categoryName +"="  + level + ", " + appenderNames;
     }
+
+	@Override
+	public void printXML(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printProperties(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
     
 }

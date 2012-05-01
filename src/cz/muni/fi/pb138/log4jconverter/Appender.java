@@ -5,6 +5,8 @@
 package cz.muni.fi.pb138.log4jconverter;
 
 import cz.muni.fi.pb138.log4jconverter.RootLogger.Levels;
+
+import java.io.Writer;
 import java.util.HashSet;
 
 /**
@@ -60,7 +62,7 @@ import java.util.HashSet;
  * 
  */
 
-public class Appender {
+public class Appender implements AbstractModel{
     
     private String appenderName;
     private HashSet<Option> options;
@@ -178,6 +180,18 @@ public class Appender {
         hash = 79 * hash + (this.appenderName != null ? this.appenderName.hashCode() : 0);
         return hash;
     }
+
+	@Override
+	public void printXML(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printProperties(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
     
    
     

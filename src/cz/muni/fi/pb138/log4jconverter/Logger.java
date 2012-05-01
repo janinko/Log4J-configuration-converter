@@ -4,6 +4,7 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
+import java.io.Writer;
 import java.util.HashSet;
 
 /**
@@ -14,7 +15,7 @@ import java.util.HashSet;
 
 
 
-public class Logger {
+public class Logger implements AbstractModel{
     
     private String loggerName;
     private RootLogger.Levels level;
@@ -71,6 +72,18 @@ public class Logger {
     public String toString() {
         return loggerName +"="  + level + ", " + appenderNames;
     }
+
+	@Override
+	public void printXML(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printProperties(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
     
     
 }

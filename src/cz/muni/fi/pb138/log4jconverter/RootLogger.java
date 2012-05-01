@@ -4,6 +4,7 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
+import java.io.Writer;
 import java.util.HashSet;
 
 /**
@@ -34,7 +35,7 @@ import java.util.HashSet;
  * logger. The named appender is defined using the appender syntax defined
  * above.
  */
-public class RootLogger {
+public class RootLogger implements AbstractModel{
 
     public enum Levels {
 
@@ -64,4 +65,16 @@ public class RootLogger {
     public String toString() {
         return "RootLogger=" + level + ", " + appenderNames ;
     }
+
+	@Override
+	public void printXML(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void printProperties(Writer w) {
+		// TODO Auto-generated method stub
+		
+	}
 }
