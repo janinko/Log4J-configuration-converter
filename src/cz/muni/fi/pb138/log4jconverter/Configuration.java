@@ -51,19 +51,9 @@ public class Configuration implements AbstractModel{
     	rootCategory = rc;
     }
 
-        
-        
-        
-        public Configuration() {
-        }
-
-        
-        public RootLogger getRootLogger() {
-            return rootLogger;
-        }
-
-    
-
+    public RootLogger getRootLogger() {
+    	return rootLogger;
+	}
         
 	@Override
 	public void printXML(Writer w) {
