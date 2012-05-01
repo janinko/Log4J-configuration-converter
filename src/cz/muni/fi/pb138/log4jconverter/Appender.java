@@ -192,7 +192,12 @@ public class Appender {
         hash = 79 * hash + (this.appenderName != null ? this.appenderName.hashCode() : 0);
         return hash;
     }
+
     
-   
+    @Override
+    public String toString() {
+        return "name of appdender: " + appenderName;
+    }
     
+
 }
