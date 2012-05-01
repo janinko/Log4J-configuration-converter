@@ -43,6 +43,11 @@ public class RootLogger {
     }
     private Levels level;
     private HashSet<Appender> appenderNames;
+    
+    
+    public void addAppenderName(String appdenderName) {
+        this.appenderNames.add(new Appender(appdenderName));
+    }
 
     public HashSet<Appender> getAppenderNames() {
         return appenderNames;
