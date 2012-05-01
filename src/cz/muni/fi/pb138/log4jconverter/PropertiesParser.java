@@ -15,7 +15,7 @@ import java.util.Properties;
  *
  * @author fivekeyem
  */
-public class PropertiesParser {
+public class PropertiesParser implements Parser {
     
     static final String      CATEGORY_PREFIX    = "log4j.category.";
     static final String        LOGGER_PREFIX    = "log4j.logger.";
@@ -48,9 +48,9 @@ public class PropertiesParser {
     private Configuration configuration;
     
     
-    public PropertiesParser(Properties properties, Configuration configuration) {
+    public PropertiesParser(Properties properties) {
         this.properties = properties;
-        this.configuration = configuration;
+        this.configuration = null;
     }
     
     
@@ -64,7 +64,7 @@ public class PropertiesParser {
     }
     
     
-    public void parseProperty() {
+    private void parseProperty() {
         Enumeration e = properties.propertyNames();
         
         // projdi vsechny properties
@@ -96,6 +96,16 @@ public class PropertiesParser {
             
         }
     }
+
+
+	@Override
+	public Configuration parse() {
+		if(configuration == null){
+			configuration = new Configuration();
+			parseProperty();
+		}
+		return null;
+	}
     
     
 }
