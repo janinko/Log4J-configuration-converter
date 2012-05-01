@@ -41,7 +41,8 @@ public class Main {
        InputLoader inputLoader = new InputLoader("examples/exampleConfigs.properties");
        Properties properties = inputLoader.getProperties();
        
-       
+       PropertyConfiguration pc = new PropertyConfiguration(properties, null);
+       pc.writeAllProperties();
        
                
     }

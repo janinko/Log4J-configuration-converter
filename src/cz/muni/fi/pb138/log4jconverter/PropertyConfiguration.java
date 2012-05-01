@@ -4,6 +4,9 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
+import java.util.Enumeration;
+import java.util.Properties;
+
 /**
  * 
  * Init Configuration from property external file.
@@ -12,7 +15,7 @@ package cz.muni.fi.pb138.log4jconverter;
  *
  * @author fivekeyem
  */
-public class PropertyConfigurator {
+public class PropertyConfiguration {
     
     static final String      CATEGORY_PREFIX    = "log4j.category.";
     static final String        LOGGER_PREFIX    = "log4j.logger.";
@@ -40,7 +43,29 @@ public class PropertyConfigurator {
     static final private String INTERNAL_ROOT_NAME = "root";
     
     
-    public Pr
+    private Properties properties;
+    private Configuration configuration;
+    
+    
+    public PropertyConfiguration(Properties properties, Configuration configuration) {
+        this.properties = properties;
+        this.configuration = configuration;
+    }
+    
+    
+    public void writeAllProperties() {
+        Enumeration e = properties.propertyNames();
+
+        while (e.hasMoreElements()) {
+            String key = (String) e.nextElement();
+            System.out.println(key + " -- " + properties.getProperty(key));
+        }
+    }
+    
+    
+    public void parseProperty() {
+        
+    }
     
     
 }
