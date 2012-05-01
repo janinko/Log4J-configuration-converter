@@ -2,6 +2,8 @@ package cz.muni.fi.pb138.log4jconverter;
 
 import java.util.HashMap;
 import org.junit.*;
+
+import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import static org.junit.Assert.*;
 
 /**

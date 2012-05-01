@@ -14,6 +14,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+
 
 public class Main {
 

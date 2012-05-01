@@ -2,6 +2,9 @@ package cz.muni.fi.pb138.log4jconverter;
 
 import org.junit.Test;
 
+import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
+import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+
 import junit.framework.TestCase;
 
 public class ConfigurationTest extends TestCase {

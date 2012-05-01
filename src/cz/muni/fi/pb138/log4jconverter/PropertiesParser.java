@@ -8,6 +8,9 @@ import java.util.Enumeration;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import cz.muni.fi.pb138.log4jconverter.configuration.RootLogger;
+
 /**
  * 
  * Init Configuration from property external file.

@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pb138.log4jconverter;
+package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import cz.muni.fi.pb138.log4jconverter.RootLogger.Levels;
+import cz.muni.fi.pb138.log4jconverter.configuration.RootLogger.Levels;
 
 import java.io.Writer;
 import java.util.HashSet;
