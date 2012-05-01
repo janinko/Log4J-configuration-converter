@@ -107,4 +107,7 @@ public class InputLoader {
         return p;
     }
     
+    public String getNameOfFile() {
+        return nameOfFile;
+    }
 }
