@@ -88,8 +88,8 @@ public class PropertiesParser implements Parser {
     }
     
     private void parseProperty(String[] key, String value) throws ParseExceception {
-    	if(key.length < 2) throw new IllegalArgumentException("Key must have at least 2 parts");
-    	if(!PREFIX.equals(key[0])) throw new IllegalArgumentException("Key must have prefix " + PREFIX);
+    	if(key.length < 2) throw new ParseExceception("Key must have at least 2 parts");
+    	if(!PREFIX.equals(key[0])) throw new ParseExceception("Key must have prefix " + PREFIX);
     	
     	String specifier = key[1];
     	
