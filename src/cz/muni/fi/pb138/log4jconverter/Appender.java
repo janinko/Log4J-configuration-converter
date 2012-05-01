@@ -66,7 +66,7 @@ public class Appender {
     private HashSet<Option> options;
     private Layout layout;
     private HashSet<Filter> filters;
-    private HashSet<Errorhandler> errorhandlers;
+    private Errorhandler errorhandler;
     private Levels treshold;
     
     
@@ -92,13 +92,9 @@ public class Appender {
     public void setAppenderName(String appenderName) {
         this.appenderName = appenderName;
     }
-
-    public HashSet<Errorhandler> getErrorhandlers() {
-        return errorhandlers;
-    }
-
-    public void setErrorhandlers(HashSet<Errorhandler> errorhandlers) {
-        this.errorhandlers = errorhandlers;
+    
+    public void setErrorHandler(Errorhandler eh){
+    	errorhandler = eh;
     }
 
     public String getFile() {
