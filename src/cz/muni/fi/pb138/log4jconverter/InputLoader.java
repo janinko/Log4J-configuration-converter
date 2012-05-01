@@ -42,7 +42,7 @@ public class InputLoader {
     
     public InputLoader(String nameOfFile) {
         if (nameOfFile == null) {
-            throw new NullPointerException("No name of file");
+            throw new IllegalArgumentException("No name of file");
         }
         if (nameOfFile.isEmpty()) {
             throw new IllegalArgumentException("Name is empty");

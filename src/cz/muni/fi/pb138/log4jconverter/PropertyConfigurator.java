@@ -40,7 +40,7 @@ public class PropertyConfigurator {
     static final private String INTERNAL_ROOT_NAME = "root";
     
     
-    public Pr
+    //public Pr
     
     
 }
