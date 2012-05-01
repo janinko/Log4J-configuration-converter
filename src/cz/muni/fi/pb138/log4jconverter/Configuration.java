@@ -9,13 +9,11 @@ public class Configuration implements AbstractModel{
 	HashSet<Renderer> renderers;
 	HashMap<String,Appender> appenders;
 	HashMap<String,Logger> loggers;
-        HashMap<String,Category> categoryes;
         
     public Configuration(){
     	renderers = new HashSet<Renderer>();
     	appenders = new HashMap<String,Appender>();
     	loggers = new HashMap<String,Logger>();
-    	categoryes = new HashMap<String,Category>();
     }
         
     public Appender getAppender(String name){
@@ -29,11 +27,6 @@ public class Configuration implements AbstractModel{
     }
     
     public Logger getLogger(String name){
-    	//TODO
-    	return null;
-    }
-    
-    public Category getCategory(String name){
     	//TODO
     	return null;
     }
