@@ -15,7 +15,7 @@ import java.util.Properties;
  *
  * @author fivekeyem
  */
-public class PropertyConfiguration {
+public class PropertiesParser {
     
     static final String      CATEGORY_PREFIX    = "log4j.category.";
     static final String        LOGGER_PREFIX    = "log4j.logger.";
@@ -42,13 +42,13 @@ public class PropertyConfiguration {
 
     static final private String INTERNAL_ROOT_NAME = "root";
     
-    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(PropertyConfiguration.class);
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(PropertiesParser.class);
     
     private Properties properties;
     private Configuration configuration;
     
     
-    public PropertyConfiguration(Properties properties, Configuration configuration) {
+    public PropertiesParser(Properties properties, Configuration configuration) {
         this.properties = properties;
         this.configuration = configuration;
     }

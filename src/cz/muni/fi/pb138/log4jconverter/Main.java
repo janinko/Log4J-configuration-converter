@@ -42,7 +42,7 @@ public class Main {
        InputLoader inputLoader = new InputLoader("examples/exampleConfigs.properties");
        Properties properties = inputLoader.getProperties();
        
-       PropertyConfiguration pc = new PropertyConfiguration(properties, configuration);
+       PropertiesParser pc = new PropertiesParser(properties, configuration);
        pc.parseProperty();
        
         System.out.println(configuration);
