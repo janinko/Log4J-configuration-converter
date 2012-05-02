@@ -10,27 +10,20 @@ import java.util.HashMap;
  *
  * @author Admin
  */
-public class ConnectionSource {
+public class DataSource {
     //required
     private String className;
-    
     //optional
-    private DataSource dataSource;
-    private HashMap<String,String> params;
+    private HashMap<String,String> params = new HashMap<String,String>();
 
-    public ConnectionSource() {
-        
-        this.params = new HashMap<String, String>();
+    public String getClassName() {
+        return className;
     }
 
     public void setClassName(String className) {
         this.className = className;
     }
 
-    public String getClassName() {
-        return className;
-    }
-    
     public HashMap<String, String> getParams() {
         return params;
     }
@@ -38,15 +31,6 @@ public class ConnectionSource {
     public void setParams(HashMap<String, String> params) {
         this.params = params;
     }
-
-    public DataSource getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-    
     
     
     
