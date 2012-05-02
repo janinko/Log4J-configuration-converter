@@ -4,6 +4,7 @@
  */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
+
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -35,20 +36,21 @@ import java.util.HashSet;
  * logger. The named appender is defined using the appender syntax defined
  * above.
  */
-public class Root {
+public class Root{
 
-    public enum Levels {
-
-        OFF, FATAL,
-        ERROR, WARN, INFO, DEBUG, ALL
-    }
-    private HashMap<String, String> params = new HashMap<String, String>();
+    
+    
+    private HashMap<String,String> params = new HashMap<String,String>();
     //bud priority alebo Level
+    
     private Priority priority;
-    private Levels level;
+    private Level level;
     private HashSet<String> appenderRefs = new HashSet<String>();
     private boolean isRootCategory = false;
 
+    
+    
+    
     public HashSet<String> getAppenderRefs() {
         return appenderRefs;
     }
@@ -81,15 +83,27 @@ public class Root {
         this.priority = priority;
     }
 
-    public void isRootCategory(boolean b) {
-        isRootCategory = b;
+
+   
+
+   
+
+    public void isRootCategory(boolean b){
+    	isRootCategory = b;
     }
 
-    public Levels getLevel() {
+    
+
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(Levels level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
+
+   
+
+
+
 }
