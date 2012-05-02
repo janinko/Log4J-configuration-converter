@@ -23,6 +23,10 @@ public class Logger implements AbstractModel{
     private HashSet<Appender> appenderNames;
     private boolean isCategory = false;
 
+    public void addAppender(Appender appender){
+    	appenderNames.add(appender);
+    }
+    
     public void isCategory(boolean b){
     	isCategory = b;
     }
