@@ -21,7 +21,12 @@ public class Logger implements AbstractModel{
     private RootLogger.Levels level;
     //optional
     private HashSet<Appender> appenderNames;
-    
+    private boolean isCategory = false;
+
+    public void isCategory(boolean b){
+    	isCategory = b;
+    }
+
     public HashSet<Appender>  getAppenderNames() {
         return appenderNames;
     }
