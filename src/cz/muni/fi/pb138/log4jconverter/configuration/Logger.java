@@ -4,39 +4,61 @@
  */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import java.io.Writer;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
  *
  * @author Admin
  */
+public class Logger {
+    //required
 
-
-
-
-public class Logger implements AbstractModel{
-    
     private String loggerName;
-    private RootLogger.Levels level;
+    //implies
+    private String className;
+    //neviem ci som spravne pochopil z toho dtd ze deafulat hodnota je true
+    private boolean additivity = true;
     //optional
-    private HashSet<Appender> appenderNames;
-    private boolean isCategory = false;
+    private HashMap<String, String> params;
+    private HashSet<String> appenderRefs;
+    private RootLogger.Levels level;
 
-    public void addAppender(Appender appender){
-    	appenderNames.add(appender);
-    }
-    
-    public void isCategory(boolean b){
-    	isCategory = b;
+    public Logger() {
+        this.params = new HashMap<String, String>();
+        this.appenderRefs = new HashSet<String>();
     }
 
-    public HashSet<Appender>  getAppenderNames() {
-        return appenderNames;
+    public boolean isAdditivity() {
+        return additivity;
     }
 
-    public void setAppenderNames(HashSet<Appender> appenderNames) {
-        this.appenderNames = appenderNames;
+    public void setAdditivity(boolean additivity) {
+        this.additivity = additivity;
+    }
+
+    public HashSet<String> getAppenderRefs() {
+        return appenderRefs;
+    }
+
+    public void setAppenderRefs(HashSet<String> appenderRefs) {
+        this.appenderRefs = appenderRefs;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public HashMap<String, String> getParams() {
+        return params;
+    }
+
+    public void setParams(HashMap<String, String> params) {
+        this.params = params;
     }
 
     public RootLogger.Levels getLevel() {
@@ -76,23 +98,4 @@ public class Logger implements AbstractModel{
         hash = 97 * hash + (this.loggerName != null ? this.loggerName.hashCode() : 0);
         return hash;
     }
-    
-    @Override
-    public String toString() {
-        return loggerName +"="  + level + ", " + appenderNames;
-    }
-
-	@Override
-	public void printXML(Writer w) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void printProperties(Writer w) {
-		// TODO Auto-generated method stub
-		
-	}
-    
-    
 }
