@@ -43,7 +43,8 @@ public class RootLogger implements AbstractModel{
         ERROR, WARN, INFO, DEBUG, ALL
     }
     private Levels level;
-    private HashSet<String> appenderNames = new HashSet<String>();;
+    private HashSet<String> appenderNames = new HashSet<String>();
+    private boolean isRootCategory = false;
 
 
     public RootLogger() {
@@ -54,6 +55,9 @@ public class RootLogger implements AbstractModel{
         this.appenderNames.add(appdenderName);
     }
 
+    public void isRootCategory(boolean b){
+    	isRootCategory = b;
+    }
 
     public HashSet<String> getAppenderNames() {
         return appenderNames;
