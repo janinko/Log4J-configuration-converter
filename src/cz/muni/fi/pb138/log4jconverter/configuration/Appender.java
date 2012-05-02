@@ -4,9 +4,8 @@
  */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import cz.muni.fi.pb138.log4jconverter.configuration.RootLogger.Levels;
 
-import java.io.Writer;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -62,37 +61,52 @@ import java.util.HashSet;
  * 
  */
 
-public class Appender implements AbstractModel{
-    
+public class Appender {
+    //required
     private String appenderName;
-    private HashSet<Option> options;
+    private String className;
+    
+    
+    //optional
+    
     private Layout layout;
     private HashSet<Filter> filters;
     private Errorhandler errorhandler;
-    private Levels treshold;
-    
-    
-    private String maxBackupIndex;
-    private String maxFileSize;
-    private String file;
-    private boolean append;
-    
-    private HashSet<Item> items; //dostal som napad vsetky tie rozne vedlajsie atributy(ci co toje) davat do jedneho HashSetu
-
+    private RollingPolicy rollingPolicy;
+    private TriggeringPolicy triggeringPolicy;
+    private ConnectionSource connectionSource;
+    private HashMap<String,String> params;
+    private HashSet<String> appenderRefs;
 
     
-    public Appender(String appenderName) {
+    
+    public Appender(String appenderName,String className) {
         this.appenderName = appenderName;
+        this.className = className;
+        this.filters = new HashSet<Filter>();
+        this.params = new HashMap<String,String>();
+        this.appenderRefs = new HashSet<String>();
+        
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public Errorhandler getErrorhandler() {
+        return errorhandler;
+    }
+
+    public void setErrorhandler(Errorhandler errorhandler) {
+        this.errorhandler = errorhandler;
     }
     
-
-    public boolean isAppend() {
-        return append;
-    }
-
-    public void setAppend(boolean append) {
-        this.append = append;
-    }
+    
+   
 
     public String getAppenderName() {
         return appenderName;
@@ -102,17 +116,8 @@ public class Appender implements AbstractModel{
         this.appenderName = appenderName;
     }
     
-    public void setErrorHandler(Errorhandler eh){
-    	errorhandler = eh;
-    }
+   
 
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
-    }
 
     public HashSet<Filter> getFilters() {
         return filters;
@@ -122,49 +127,60 @@ public class Appender implements AbstractModel{
         this.filters = filters;
     }
 
-    public HashSet<Item> getItems() {
-        return items;
+    public Layout getLayout()
+    {
+        return layout;
     }
-
-    public void setItems(HashSet<Item> items) {
-        this.items = items;
-    }
+    
     
     public void setLayout(Layout l){
     	layout = l;
     }
-
-    public String getMaxBackupIndex() {
-        return maxBackupIndex;
+    public HashSet<String> getAppenderRefs() {
+        return appenderRefs;
     }
 
-    public void setMaxBackupIndex(String maxBackupIndex) {
-        this.maxBackupIndex = maxBackupIndex;
+    public void setAppenderRefs(HashSet<String> appenderRefs) {
+        this.appenderRefs = appenderRefs;
     }
 
-    public String getMaxFileSize() {
-        return maxFileSize;
+    public ConnectionSource getConnectionSource() {
+        return connectionSource;
     }
 
-    public void setMaxFileSize(String maxFileSize) {
-        this.maxFileSize = maxFileSize;
+    public void setConnectionSource(ConnectionSource connectionSource) {
+        this.connectionSource = connectionSource;
     }
 
-    public HashSet<Option> getOptions() {
-        return options;
+    public HashMap<String, String> getParams() {
+        return params;
     }
 
-    public void setOptions(HashSet<Option> options) {
-        this.options = options;
+    public void setParams(HashMap<String, String> params) {
+        this.params = params;
     }
 
-    public Levels getTreshold() {
-        return treshold;
+    public RollingPolicy getRollingPolicy() {
+        return rollingPolicy;
     }
 
-    public void setTreshold(Levels treshold) {
-        this.treshold = treshold;
+    public void setRollingPolicy(RollingPolicy rollingPolicy) {
+        this.rollingPolicy = rollingPolicy;
     }
+
+    public TriggeringPolicy getTriggeringPolicy() {
+        return triggeringPolicy;
+    }
+
+    public void setTriggeringPolicy(TriggeringPolicy triggeringPolicy) {
+        this.triggeringPolicy = triggeringPolicy;
+    }
+    
+  
+    
+
+  
+   
 
     @Override
     public boolean equals(Object obj) {
@@ -189,21 +205,10 @@ public class Appender implements AbstractModel{
     }
 
 
-	@Override
-	public void printXML(Writer w) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void printProperties(Writer w) {
-		// TODO Auto-generated method stub
-		
-	}
     
     @Override
     public String toString() {
-        return "name of appdender: " + appenderName;
+        return "." + appenderName;
     }
     
 
