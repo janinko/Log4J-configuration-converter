@@ -22,7 +22,7 @@ public class Logger {
     //optional
     private HashMap<String, String> params;
     private HashSet<String> appenderRefs;
-    private RootLogger.Levels level;
+    private Level level;
 
     public Logger() {
         this.params = new HashMap<String, String>();
@@ -61,11 +61,11 @@ public class Logger {
         this.params = params;
     }
 
-    public RootLogger.Levels getLevel() {
+    public Level getLevel() {
         return level;
     }
 
-    public void setLevel(RootLogger.Levels level) {
+    public void setLevel(Level level) {
         this.level = level;
     }
 
