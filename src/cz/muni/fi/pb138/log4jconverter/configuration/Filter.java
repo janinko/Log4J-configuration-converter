@@ -37,5 +37,27 @@ public class Filter {
     public void setParams(HashMap<String, String> params) {
         this.params = params;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Filter other = (Filter) obj;
+        if ((this.className == null) ? (other.className != null) : !this.className.equals(other.className)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + (this.className != null ? this.className.hashCode() : 0);
+        return hash;
+    }
     
 }
