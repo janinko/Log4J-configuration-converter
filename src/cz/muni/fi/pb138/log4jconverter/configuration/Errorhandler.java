@@ -23,11 +23,15 @@ public class Errorhandler {
     private String appenderRef;
     
     
-    public Errorhandler(String className)
+    public Errorhandler()
     {
-        this.className = className;
+        
         this.params = new HashMap<String, String>();
         this.loggerRefs = new HashSet<String>();
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public String getAppenderRef() {

@@ -20,10 +20,17 @@ public class RollingPolicy {
     
     private HashMap<String,String> params;
 
-    public RollingPolicy(String name, String className) {
-        this.name = name;
-        this.className = className;
+    public RollingPolicy() {
+        
         this.params = new HashMap<String,String>();
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getClassName() {

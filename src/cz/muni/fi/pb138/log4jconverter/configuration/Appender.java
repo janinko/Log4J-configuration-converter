@@ -80,9 +80,8 @@ public class Appender {
 
     
     
-    public Appender(String appenderName,String className) {
-        this.appenderName = appenderName;
-        this.className = className;
+    public Appender() {
+        
         this.filters = new HashSet<Filter>();
         this.params = new HashMap<String,String>();
         this.appenderRefs = new HashSet<String>();

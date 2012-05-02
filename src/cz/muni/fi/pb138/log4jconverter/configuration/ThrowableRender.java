@@ -8,18 +8,17 @@ import java.util.HashMap;
 
 /**
  *
- * @author Admin
+ * @author Steve
  */
-public class ConnectionSource {
-    //required
+    public class ThrowableRender {
+    
     private String className;
     
-    //optional
     private HashMap<String,String> params;
 
-    public ConnectionSource() {
+    public ThrowableRender() {
         
-        this.params = new HashMap<String, String>();
+        this.params = new HashMap<String, String>() ;
     }
 
     public void setClassName(String className) {
@@ -29,7 +28,7 @@ public class ConnectionSource {
     public String getClassName() {
         return className;
     }
-    
+
     public HashMap<String, String> getParams() {
         return params;
     }
@@ -37,6 +36,7 @@ public class ConnectionSource {
     public void setParams(HashMap<String, String> params) {
         this.params = params;
     }
+    
     
     
     

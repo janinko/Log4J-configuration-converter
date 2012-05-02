@@ -20,13 +20,22 @@ public class TriggeringPolicy {
     private HashMap<String,String> params;
     private HashSet<Filter> filters;
 
-    public TriggeringPolicy(String name, String className) {
-        this.name = name;
-        this.className = className;
+    public TriggeringPolicy() {
+      
         this.params = new HashMap<String, String>();
         this.filters = new HashSet<Filter>();
     }
 
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    
+    
     public String getClassName() {
         return className;
     }

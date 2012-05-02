@@ -17,8 +17,8 @@ public class Filter {
     //optional
     private HashMap<String,String> params;
 
-    public Filter(String className) {
-        this.className = className;
+    public Filter() {
+        
         this.params = new HashMap<String,String>();
     }
 

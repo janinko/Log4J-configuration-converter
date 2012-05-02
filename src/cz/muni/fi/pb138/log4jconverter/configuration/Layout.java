@@ -17,8 +17,8 @@ public class Layout {
     //optional
     private HashMap<String,String> params;
 
-    public Layout(String className) {
-        this.className = className;
+    public Layout() {
+        
         this.params = new HashMap<String,String>();
     }
     
