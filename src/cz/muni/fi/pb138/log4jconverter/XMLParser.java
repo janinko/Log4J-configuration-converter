@@ -6,16 +6,35 @@ import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 
 public class XMLParser implements Parser {
 	
-	Document doc;
+	private Document doc;
+        private Configuration configuration;
 	
 	public XMLParser(Document document){
-		doc = document;
+		this.doc = document;
+                this.configuration = null;
 	}
+        
+        
+        /*
+         * Helpful for development
+         */
+        public void writeAllXML() {
+            // TODO
+        }
+        
+        
+        public void parseXML() {
+            // TODO
+        }
+        
 
 	@Override
 	public Configuration parse() {
-		// TODO Auto-generated method stub
-		return null;
+		if(configuration == null){
+			configuration = new Configuration();
+			parseXML();
+		}
+		return configuration;
 	}
 
 }
