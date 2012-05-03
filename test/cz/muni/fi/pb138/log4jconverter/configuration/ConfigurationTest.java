@@ -30,7 +30,7 @@ public class ConfigurationTest {
         Appender a1 = prepareAppander1();  
         Appender a2 = c.getAppender(a1.getAppenderName());
         
-        assertEquals(a1, a2);  // maybe wrong too, because the same appender is twice in configuration
+        assertEquals(a1, a2);
     }
     
     
