@@ -19,9 +19,9 @@ public class Level {
     }
     //implies
     private String className;
-    //optional
-    private Levels value;
     //requires
+    private Levels value;
+    //optional
     private HashMap<String,String> params = new HashMap<String,String>();
 
     public String getClassName() {
