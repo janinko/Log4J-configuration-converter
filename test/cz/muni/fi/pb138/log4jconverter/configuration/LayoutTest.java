@@ -1,17 +1,19 @@
-package cz.muni.fi.pb138.log4jconverter;
+package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 
 /**
  *
  * @author Jonge
  */
-public class LoggerTest {
+public class LayoutTest {
     
-    public LoggerTest() {
+    public LayoutTest() {
     }
-
     
     @Before
     public void setUp() {
@@ -22,5 +24,6 @@ public class LoggerTest {
     public void testSomething() {
         fail("Test not implemented");
     }
-   
+    
+    
 }
