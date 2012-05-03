@@ -34,12 +34,11 @@ public class Configuration implements AbstractModel {
         categoryes = new HashMap<String, Category>();
     }
 
-    public Appender getAppender(String name) {
-        if (appenders.containsKey(name)) {
-            return appenders.get(name);
-        } else {
-            return null;
+    public Appender getAppender(String name) { 
+        if (!appenders.containsKey(name)) {
+            appenders.put(name, new Appender(name));
         }
+        return appenders.get(name);
     }
     
     

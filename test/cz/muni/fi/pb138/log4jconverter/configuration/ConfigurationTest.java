@@ -29,6 +29,7 @@ public class ConfigurationTest {
     public void testCreateAppender1() {
         Appender a1 = prepareAppander1();  
         Appender a2 = c.getAppender(a1.getAppenderName());
+        a2.setClassName(a1.getClassName());
         
         assertEquals(a1, a2);
     }
@@ -41,8 +42,7 @@ public class ConfigurationTest {
         assertFalse(c.isAppender(a1.getAppenderName()));
         c.getAppender(a1.getAppenderName());                // creating new appender
         assertTrue(c.isAppender(a1.getAppenderName()));
-        
-         
+      
     }
     
 

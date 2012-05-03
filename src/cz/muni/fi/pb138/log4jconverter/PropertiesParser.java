@@ -117,7 +117,7 @@ public class PropertiesParser implements Parser {
 
 
 	private void parseRootLogger(String[] key, String value) {
-		if (logger.isTraceEnabled()) { logger.trace("parsing of " + key); }
+		if (logger.isTraceEnabled()) { logger.trace("parsing root logger: '" + value + "'"); }
         
                 Root rootLogger = new Root();
 

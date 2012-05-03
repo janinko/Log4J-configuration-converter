@@ -23,7 +23,7 @@ public class Main {
        PropertyConfigurator.configure("log4j.properties"); 
 
        // ABSTRAKT MODEL
-       Configuration c = new Configuration();
+       Configuration c;
     
        /*
         * InputLoader
@@ -42,19 +42,28 @@ public class Main {
        
        
        /*
-        * properties -> abstract
-        * 
-        * 
+        * properties -> abstract 
         */
-       InputLoader inputLoader = new InputLoader("examples/exampleConfigs1.properties");
-       Properties properties = inputLoader.getProperties();
+        InputLoader il1 = new InputLoader("examples/exampleConfigs1.properties");
+        Properties properties = il1.getProperties();
        
-       PropertiesParser pp = new PropertiesParser(properties);
-       c = pp.parse();
-       
-       System.out.println(c);
+        PropertiesParser pp = new PropertiesParser(properties);
+        c = pp.parse();     
+        System.out.println(c);
         
        
+       
+       /*
+        * xml -> abstract 
+        *   
+        InputLoader il2 = new InputLoader("examples/exampleConfigs1.xml");
+        Document doc = il2.getDOM();
+       
+        XMLParser xmlp = new XMLParser(doc);
+        c = xmlp.parse();
+        System.out.println(c);
+        * 
+        */
                
     }
     
