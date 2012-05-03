@@ -156,6 +156,14 @@ public class Configuration implements AbstractModel {
         // TODO Auto-generated method stub
     }
 
+    @Override
+    public String toString() {
+        return root.toString();
+    }
+
+    
+    
+    
 
    
 }

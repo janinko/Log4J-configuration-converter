@@ -104,6 +104,19 @@ public class Root{
         this.level = level;
     }
 
+    @Override
+    public String toString() {
+        String result = "";
+        for (String appenderRef : appenderRefs) {
+            result += appenderRef + ", ";
+        }
+        return result;
+    }
+    
+    
+    
+    
+
    
 
 
