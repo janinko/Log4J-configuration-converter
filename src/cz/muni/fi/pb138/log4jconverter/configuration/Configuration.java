@@ -159,7 +159,5 @@ public class Configuration implements AbstractModel {
     }
 
 
-    public void setDebug(boolean b) {
-        debug = b;
-    }
+   
 }
