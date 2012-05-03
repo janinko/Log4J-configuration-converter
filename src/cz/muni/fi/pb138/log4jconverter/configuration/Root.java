@@ -49,7 +49,9 @@ public class Root{
     private boolean isRootCategory = false;
 
     
-    
+    public void addAppenderRef(String appenderName){
+    	appenderRefs.add(appenderName);
+    }
     
     public HashSet<String> getAppenderRefs() {
         return appenderRefs;
