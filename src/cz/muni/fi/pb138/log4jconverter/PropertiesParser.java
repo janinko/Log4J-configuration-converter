@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
-import cz.muni.fi.pb138.log4jconverter.configuration.RootLogger;
+import cz.muni.fi.pb138.log4jconverter.configuration.Root;
 
 /**
  * 
@@ -118,19 +118,19 @@ public class PropertiesParser implements Parser {
 	private void parseRootLogger(String[] key, String value) {
 		if (logger.isTraceEnabled()) { logger.trace("parsing of " + key); }
         
-        RootLogger rootLogger = new RootLogger();
+        Root rootLogger = new Root();
         
         // ziskej jednotlive appendery
         String[] appdenderName = value.split(",");
         for (int i = 1; i < appdenderName.length; i++) {
             // pridej novy appender
-            rootLogger.addAppenderName(appdenderName[i].trim());
+            rootLogger.addAppenderRef(appdenderName[i].trim());
 
             if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
         }
         
         // nakonec uloz vse do configuration
-        configuration.setRootLogger(rootLogger);
+        configuration.setRoot(rootLogger);
         if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
 	}
 
