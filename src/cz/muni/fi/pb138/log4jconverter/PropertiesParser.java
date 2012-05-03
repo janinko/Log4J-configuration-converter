@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 import cz.muni.fi.pb138.log4jconverter.configuration.Root;
 
@@ -74,7 +75,8 @@ public class PropertiesParser implements Parser {
             System.out.println(key + " -- " + properties.getProperty(key));
         }
     }
-    
+
+	// goes for all properties, split key into array and parse
     private void parsePropeties(){
     	for(Entry<Object, Object> e : properties.entrySet()){
     		String[] key = ((String) e.getKey()).split("\\.");
@@ -83,8 +85,7 @@ public class PropertiesParser implements Parser {
     		try {
 				parseProperty(key,value);
 			} catch (ParseExceception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				logger.warn("Unexpected property: " + e.getKey() + "=" + e.getValue(),e1);
 			}
     	}
     	
@@ -108,7 +109,7 @@ public class PropertiesParser implements Parser {
     		}else if(value.equals("false")){
     			configuration.setDebug(false);
     		}else{
-    			throw new ParseExceception("Unknown value for " + PREFIX + "." + DEBUG + ": " + value);
+    			throw new ParseExceception("Unknown value for " + PREFIX + "." + DEBUG);
     		}
     	}
     	
@@ -141,8 +142,25 @@ public class PropertiesParser implements Parser {
 	}
 
 
-	private void parseAppender(String[] key, String value) {
-		// TODO Auto-generated method stub
+	private void parseAppender(String[] key, String value) throws ParseExceception {
+		if(key.length < 3) throw new ParseExceception("Appender key must have at least 3 parts");
+		
+		String appenderName = key[2];
+		Appender appender = configuration.getAppender(appenderName);
+		
+		if(key.length == 3){ // log4j.appender.APNAME = org.example.myclass
+			appender.setClassName(value);
+		}else{ // length > 3
+			if("layout".equals(key[3])){
+				//TODO
+			}else if("filter".equals(key[3])){
+				//TODO
+			}else if(key.length == 4){ // this should be miscellaneous parameters
+				appender.addParam(key[3],value);
+			}else{ // if it has length > 4 and isn't parsed yet, it is wrong or unknown
+				new ParseExceception("Unknown appender key");
+			}
+		}
 		
 	}
 
