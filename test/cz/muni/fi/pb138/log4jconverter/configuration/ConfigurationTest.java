@@ -26,11 +26,23 @@ public class ConfigurationTest {
 
     
     @Test
-    public void testCreateAppender() {
+    public void testCreateAppender1() {
         Appender a1 = prepareAppander1();  
         Appender a2 = c.getAppender(a1.getAppenderName());
         
-        assertEquals(a1, a2);  
+        assertEquals(a1, a2);  // maybe wrong too, because the same appender is twice in configuration
+    }
+    
+    
+    @Test
+    public void testCreateAppender2() {
+        Appender a1 = prepareAppander1();  
+        
+        assertFalse(c.isAppender(a1.getAppenderName()));
+        c.getAppender(a1.getAppenderName());                // creating new appender
+        assertTrue(c.isAppender(a1.getAppenderName()));
+        
+         
     }
     
 
