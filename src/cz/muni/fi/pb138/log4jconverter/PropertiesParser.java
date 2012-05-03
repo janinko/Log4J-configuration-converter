@@ -22,10 +22,10 @@ import cz.muni.fi.pb138.log4jconverter.configuration.Root;
  */
 public class PropertiesParser implements Parser {
 	
-	static final String               PREFIX    = "log4j";
-	static final String             APPENDER    = "appender";
-	static final String             CATEGORY    = "category";
-	static final String               LOGGER    = "logger";
+    static final String               PREFIX    = "log4j";
+    static final String             APPENDER    = "appender";
+    static final String             CATEGORY    = "category";
+    static final String               LOGGER    = "logger";
     static final String        ROOT_CATEGORY    = "rootCategory";
     static final String          ROOT_LOGGER    = "rootLogger";
     static final String                DEBUG    = "debug";
@@ -119,20 +119,20 @@ public class PropertiesParser implements Parser {
 	private void parseRootLogger(String[] key, String value) {
 		if (logger.isTraceEnabled()) { logger.trace("parsing of " + key); }
         
-        Root rootLogger = new Root();
-        
-        // ziskej jednotlive appendery
-        String[] appdenderName = value.split(",");
-        for (int i = 1; i < appdenderName.length; i++) {
-            // pridej novy appender
-            rootLogger.addAppenderRef(appdenderName[i].trim());
+                Root rootLogger = new Root();
 
-            if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
-        }
-        
-        // nakonec uloz vse do configuration
-        configuration.setRoot(rootLogger);
-        if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
+                // ziskej jednotlive appendery
+                String[] appdenderName = value.split(",");
+                for (int i = 1; i < appdenderName.length; i++) {
+                    // pridej novy appender
+                    rootLogger.addAppenderRef(appdenderName[i].trim());
+
+                    if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
+                }
+
+                // nakonec uloz vse do configuration
+                configuration.setRoot(rootLogger);
+                if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
 	}
 
 
