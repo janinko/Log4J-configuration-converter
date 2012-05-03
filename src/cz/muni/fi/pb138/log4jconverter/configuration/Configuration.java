@@ -1,7 +1,6 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -15,7 +14,7 @@ public class Configuration implements AbstractModel {
     private Boolean debug = null;
     private boolean reset = false;
     
-    private ArrayList<Root> root;
+    private Root root;
     private HashSet<Renderer> renderers;
     private ThrowableRender throwableRenderer;
     private HashMap<String, Appender> appenders;
@@ -29,7 +28,6 @@ public class Configuration implements AbstractModel {
     
 
     public Configuration() {
-        root = new ArrayList<Root>();
         renderers = new HashSet<Renderer>();
         appenders = new HashMap<String, Appender>();
         loggers = new HashMap<String, Logger>();
@@ -126,11 +124,11 @@ public class Configuration implements AbstractModel {
         this.renderers = renderers;
     }
 
-    public ArrayList<Root> getRoot() {
+    public Root getRoot() {
         return root;
     }
 
-    public void setRoot(ArrayList<Root> root) {
+    public void setRoot(Root root) {
         this.root = root;
     }
 
