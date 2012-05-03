@@ -41,6 +41,17 @@ public class Configuration implements AbstractModel {
             return null;
         }
     }
+    
+    
+    /*
+     * It's used in tests
+     */
+    public boolean isAppender(String name) {
+        if (appenders.containsKey(name)) {
+            return true;
+        }
+        return false;
+    }
 
     public HashMap<String, Appender> getAppenders() {
         return appenders;
