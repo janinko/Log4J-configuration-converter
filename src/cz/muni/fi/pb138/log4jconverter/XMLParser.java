@@ -53,7 +53,7 @@ public class XMLParser implements Parser {
         }
         
         public Appender parseAppender(Element appenderElement) {
-            Appender appender = null;
+            Appender appender = new Appender();
             
             // Required attributes
             appender.setAppenderName(appenderElement.getAttribute("name"));
@@ -72,7 +72,7 @@ public class XMLParser implements Parser {
         }
         
         public ErrorHandler parseErrorHandler(Element errorHandlerElement) {
-            ErrorHandler errorHandler = null;
+            ErrorHandler errorHandler = new ErrorHandler();
             int i;
             
             // Required attribute
