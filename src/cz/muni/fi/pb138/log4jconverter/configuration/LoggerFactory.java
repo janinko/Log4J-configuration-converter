@@ -16,6 +16,7 @@ public class LoggerFactory {
     private String className;
     //optional
     private HashMap<String,String> params = new HashMap<String,String>();
+    private boolean isCategoryFactory = false;
 
     public String getClassName() {
         return className;
@@ -31,6 +32,10 @@ public class LoggerFactory {
 
     public void setParams(HashMap<String, String> params) {
         this.params = params;
+    }
+    
+    public void isCategoryFactory(boolean b){
+    	isCategoryFactory = b;
     }
     
 }
