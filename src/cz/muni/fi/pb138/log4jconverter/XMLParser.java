@@ -35,6 +35,7 @@ public class XMLParser implements Parser {
                 appender = null;
                 element = (Element) appenderNodes.item(i);
                 appender.setAppenderName(element.getAttribute("name"));
+                appender.setClassName(element.getAttribute("class"));
                 
                 // Do this after the whole appender loading process
                 configuration.addAppender(appender);
