@@ -1,8 +1,8 @@
 package cz.muni.fi.pb138.log4jconverter;
 
+import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -11,6 +11,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class XMLParser implements Parser {
 	
@@ -22,6 +24,24 @@ public class XMLParser implements Parser {
             this.configuration = null;
 	}
         
+        public void parseXML() {
+            Element element;
+            
+            // Load appenders
+            Appender appender;
+            NodeList appenderNodes = doc.getElementsByTagName("appender");
+            
+            for (int i = 0; i < appenderNodes.getLength(); i++) {
+                appender = null;
+                element = (Element) appenderNodes.item(i);
+                appender.setAppenderName(element.getAttribute("name"));
+                //configuration.addAppender(appender);
+            }
+        }
+        
+        /*
+         * This method just prints the document, not the configuration (for testing purposes only)
+         */
         public void writeAllXML(URI output) throws TransformerConfigurationException, TransformerException {
             TransformerFactory factory = TransformerFactory.newInstance();
             Transformer transformer = factory.newTransformer();
@@ -32,10 +52,6 @@ public class XMLParser implements Parser {
         
         public void writeAllXML(File output) throws TransformerConfigurationException, TransformerException {
             writeAllXML(output.toURI());
-        }
-        
-        public void parseXML() {
-            // TODO
         }
 
 	@Override
