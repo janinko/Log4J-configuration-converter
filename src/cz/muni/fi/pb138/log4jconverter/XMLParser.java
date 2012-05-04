@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import cz.muni.fi.pb138.log4jconverter.configuration.ErrorHandler;
 import java.io.File;
 import java.net.URI;
 import javax.xml.transform.Transformer;
@@ -34,17 +35,29 @@ public class XMLParser implements Parser {
                 // XML not valid, throw exception, write error message etc.
             }
             
-            Element element;
+            Element appenderElement;
             
             // Load appenders
             Appender appender;
             NodeList appenderNodes = doc.getElementsByTagName("appender");
             
+            // Each cycle is one appender
             for (int i = 0; i < appenderNodes.getLength(); i++) {
                 appender = null;
-                element = (Element) appenderNodes.item(i);
-                appender.setAppenderName(element.getAttribute("name"));
-                appender.setClassName(element.getAttribute("class"));
+                appenderElement = (Element) appenderNodes.item(i);
+                
+                appender.setAppenderName(appenderElement.getAttribute("name"));
+                appender.setClassName(appenderElement.getAttribute("class"));
+                
+                // ErrorHandler, optional
+                NodeList errorHandlerList = appenderElement.getElementsByTagName("errorHandler");
+                if (errorHandlerList.getLength() == 1) {
+                    ErrorHandler errorHandler = null;
+                    Element errorHandlerElement = (Element) errorHandlerList.item(0);
+                    
+                    errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
+                    appender.setErrorhandler(errorHandler);
+                }
                 
                 // Do this after the whole appender loading process
                 configuration.addAppender(appender);

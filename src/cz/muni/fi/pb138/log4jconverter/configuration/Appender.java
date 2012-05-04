@@ -71,7 +71,7 @@ public class Appender {
     
     private Layout layout;
     private HashSet<Filter> filters;
-    private Errorhandler errorhandler;
+    private ErrorHandler errorhandler;
     private RollingPolicy rollingPolicy;
     private TriggeringPolicy triggeringPolicy;
     private ConnectionSource connectionSource;
@@ -104,11 +104,11 @@ public class Appender {
         this.className = className;
     }
 
-    public Errorhandler getErrorhandler() {
+    public ErrorHandler getErrorhandler() {
         return errorhandler;
     }
 
-    public void setErrorhandler(Errorhandler errorhandler) {
+    public void setErrorhandler(ErrorHandler errorhandler) {
         this.errorhandler = errorhandler;
     }
     

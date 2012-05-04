@@ -11,7 +11,7 @@ import java.util.HashSet;
  *
  * @author Admin
  */
-public class Errorhandler {
+public class ErrorHandler {
     
     //required
     private String className;
@@ -23,7 +23,7 @@ public class Errorhandler {
     private String appenderRef;
     
     
-    public Errorhandler()
+    public ErrorHandler()
     {
         
         this.params = new HashMap<String, String>();
