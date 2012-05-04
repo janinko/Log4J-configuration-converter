@@ -15,16 +15,20 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+/**
+ *
+ * @author Jonge
+ */
 public class XMLParser implements Parser {
 	
 	private Document doc;
         private Configuration configuration;
 	
-	public XMLParser(Document document) {
-            if (document == null) {
-                throw new IllegalArgumentException("document");
+	public XMLParser(Document doc) {
+            if (doc == null) {
+                throw new IllegalArgumentException("doc");
             }
-            this.doc = document;
+            this.doc = doc;
             this.configuration = null;
 	}
         
@@ -54,16 +58,24 @@ public class XMLParser implements Parser {
         
         public Appender parseAppender(Element appenderElement) {
             Appender appender = new Appender();
+            int i;
             
             // Required attributes
             appender.setAppenderName(appenderElement.getAttribute("name"));
             appender.setClassName(appenderElement.getAttribute("class"));
 
-            // ErrorHandler, optional
+            // errorHandler
             NodeList errorHandlerList = appenderElement.getElementsByTagName("errorHandler");
             if (errorHandlerList.getLength() == 1) {
                 ErrorHandler errorHandler = parseErrorHandler((Element) errorHandlerList.item(0));
                 appender.setErrorhandler(errorHandler);
+            }
+            
+            // param
+            NodeList paramList = appenderElement.getElementsByTagName("param");
+            for (i = 0; i < paramList.getLength(); i++) {
+                Element paramElement = (Element) paramList.item(i);
+                appender.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
             }
             
             // TODO: Load additional attributes
@@ -125,7 +137,7 @@ public class XMLParser implements Parser {
 
 	@Override
 	public Configuration parse() {
-            if(configuration == null){
+            if (configuration == null) {
                 configuration = new Configuration();
                 parseXML();
             }
