@@ -45,7 +45,7 @@ public class Configuration implements AbstractModel {
     /*
      * It's used in tests
      */
-    public boolean isAppender(String name) {
+    boolean isAppender(String name) {
         if (appenders.containsKey(name)) {
             return true;
         }
