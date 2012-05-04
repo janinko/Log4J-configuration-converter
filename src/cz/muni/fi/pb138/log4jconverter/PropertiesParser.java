@@ -84,16 +84,16 @@ public class PropertiesParser implements Parser {
     		
     		try {
 				parseProperty(key,value);
-			} catch (ParseExceception e1) {
+			} catch (ParseException e1) {
 				logger.warn("Unexpected property: " + e.getKey() + "=" + e.getValue(),e1);
 			}
     	}
     	
     }
     
-    private void parseProperty(String[] key, String value) throws ParseExceception {
-    	if(key.length < 2) throw new ParseExceception("Key must have at least 2 parts");
-    	if(!PREFIX.equals(key[0])) throw new ParseExceception("Key must have prefix " + PREFIX);
+    private void parseProperty(String[] key, String value) throws ParseException {
+    	if(key.length < 2) throw new ParseException("Key must have at least 2 parts");
+    	if(!PREFIX.equals(key[0])) throw new ParseException("Key must have prefix " + PREFIX);
     	
     	String specifier = key[1];
     	
@@ -109,7 +109,7 @@ public class PropertiesParser implements Parser {
     		}else if(value.equals("false")){
     			configuration.setDebug(false);
     		}else{
-    			throw new ParseExceception("Unknown value for " + PREFIX + "." + DEBUG);
+    			throw new ParseException("Unknown value for " + PREFIX + "." + DEBUG);
     		}
     	}
     	
@@ -142,8 +142,8 @@ public class PropertiesParser implements Parser {
 	}
 
 
-	private void parseAppender(String[] key, String value) throws ParseExceception {
-		if(key.length < 3) throw new ParseExceception("Appender key must have at least 3 parts");
+	private void parseAppender(String[] key, String value) throws ParseException {
+		if(key.length < 3) throw new ParseException("Appender key must have at least 3 parts");
 		
 		String appenderName = key[2];
 		Appender appender = configuration.getAppender(appenderName);
@@ -158,7 +158,7 @@ public class PropertiesParser implements Parser {
 			}else if(key.length == 4){ // this should be miscellaneous parameters
 				appender.addParam(key[3],value);
 			}else{ // if it has length > 4 and isn't parsed yet, it is wrong or unknown
-				new ParseExceception("Unknown appender key");
+				new ParseException("Unknown appender key");
 			}
 		}
 		

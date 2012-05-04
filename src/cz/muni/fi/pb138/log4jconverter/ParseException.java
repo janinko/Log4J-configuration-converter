@@ -1,22 +1,22 @@
 package cz.muni.fi.pb138.log4jconverter;
 
-public class ParseExceception extends Exception {
+public class ParseException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public ParseExceception() {
+	public ParseException() {
 		super();
 	}
 
-	public ParseExceception(String message, Throwable cause) {
+	public ParseException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public ParseExceception(String message) {
+	public ParseException(String message) {
 		super(message);
 	}
 
-	public ParseExceception(Throwable cause) {
+	public ParseException(Throwable cause) {
 		super(cause);
 	}
 
