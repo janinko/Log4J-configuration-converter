@@ -45,11 +45,12 @@ public class XMLParser implements Parser {
                 appender = parseAppender((Element) appenderList.item(i));
                 configuration.addAppender(appender);
             }
+            
+            // TODO: Load additional attributes
         }
         
         public Appender parseAppender(Element appenderElement) {
             Appender appender = null;
-            int i;
             
             // Required attributes
             appender.setAppenderName(appenderElement.getAttribute("name"));
@@ -62,6 +63,8 @@ public class XMLParser implements Parser {
                 appender.setErrorhandler(errorHandler);
             }
             
+            // TODO: Load additional attributes
+            
             return appender;
         }
         
@@ -72,6 +75,13 @@ public class XMLParser implements Parser {
             // Required attribute
             errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
 
+            // param
+            NodeList paramList = errorHandlerElement.getElementsByTagName("param");
+            for (i = 0; i < paramList.getLength(); i++) {
+                Element paramElement = (Element) paramList.item(i);
+                errorHandler.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
+            }
+            
             // root-ref
             NodeList rootRefList = errorHandlerElement.getElementsByTagName("root-ref");
             if (rootRefList.getLength() == 1) {
@@ -90,13 +100,6 @@ public class XMLParser implements Parser {
             if (appenderRefList.getLength() == 1) {
                 Element appenderRefElement = (Element) appenderRefList.item(0);
                 errorHandler.setAppenderRef(appenderRefElement.getAttribute("ref"));
-            }
-
-            // param
-            NodeList paramList = errorHandlerElement.getElementsByTagName("param");
-            for (i = 0; i < paramList.getLength(); i++) {
-                Element paramElement = (Element) paramList.item(i);
-                errorHandler.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
             }
             
             return errorHandler;
