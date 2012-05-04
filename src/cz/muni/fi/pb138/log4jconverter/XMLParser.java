@@ -40,12 +40,12 @@ public class XMLParser implements Parser {
             
             // Load appenders
             Appender appender;
-            NodeList appenderNodes = doc.getElementsByTagName("appender");
+            NodeList appenderList = doc.getElementsByTagName("appender");
             
             // Each cycle is one appender
-            for (int i = 0; i < appenderNodes.getLength(); i++) {
+            for (int i = 0; i < appenderList.getLength(); i++) {
                 appender = null;
-                appenderElement = (Element) appenderNodes.item(i);
+                appenderElement = (Element) appenderList.item(i);
                 
                 // Required attributes
                 appender.setAppenderName(appenderElement.getAttribute("name"));
@@ -65,6 +65,15 @@ public class XMLParser implements Parser {
                     if (rootRefList.getLength() == 1) {
                         errorHandler.setRootRef(true);
                     }
+                    
+                    // logger-ref
+                    NodeList loggerRefList = errorHandlerElement.getElementsByTagName("logger-ref");
+                    for (int j = 0; j < loggerRefList.getLength(); i++) {
+                        Element loggerRefElement = (Element) loggerRefList.item(j);
+                        errorHandler.addLoggerRef(loggerRefElement.getAttribute("ref"));
+                    }
+                    
+                    
                     
                     // TODO: Load other optional attributes
                     

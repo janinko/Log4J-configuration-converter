@@ -52,8 +52,8 @@ public class ErrorHandler {
         return loggerRefs;
     }
 
-    public void setLoggerRefs(HashSet<String> loggerRefs) {
-        this.loggerRefs = loggerRefs;
+    public void addLoggerRef(String loggerRefs) {
+        this.loggerRefs.add(loggerRefs);
     }
 
     public HashMap<String, String> getParams() {
