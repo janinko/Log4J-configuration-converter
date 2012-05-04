@@ -20,7 +20,10 @@ public class XMLParser implements Parser {
 	private Document doc;
         private Configuration configuration;
 	
-	public XMLParser(Document document){
+	public XMLParser(Document document) {
+            if (document == null) {
+                throw new IllegalArgumentException("document");
+            }
             this.doc = document;
             this.configuration = null;
 	}
