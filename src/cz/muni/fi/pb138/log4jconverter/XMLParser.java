@@ -24,7 +24,16 @@ public class XMLParser implements Parser {
             this.configuration = null;
 	}
         
+        public boolean validateXML() {
+            // TODO
+            return false;
+        }
+        
         public void parseXML() {
+            if (!validateXML()) {
+                // XML not valid, throw exception, write error message etc.
+            }
+            
             Element element;
             
             // Load appenders
