@@ -47,6 +47,7 @@ public class XMLParser implements Parser {
                 appender = null;
                 appenderElement = (Element) appenderNodes.item(i);
                 
+                // Required attributes
                 appender.setAppenderName(appenderElement.getAttribute("name"));
                 appender.setClassName(appenderElement.getAttribute("class"));
                 
@@ -56,7 +57,14 @@ public class XMLParser implements Parser {
                     ErrorHandler errorHandler = null;
                     Element errorHandlerElement = (Element) errorHandlerList.item(0);
                     
+                    // Required attribute
                     errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
+                    
+                    // root-ref
+                    NodeList rootRefList = errorHandlerElement.getElementsByTagName("root-ref");
+                    if (rootRefList.getLength() == 1) {
+                        errorHandler.setRootRef(true);
+                    }
                     
                     // TODO: Load other optional attributes
                     
