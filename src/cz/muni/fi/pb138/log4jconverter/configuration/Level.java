@@ -23,6 +23,10 @@ public class Level {
     private Levels value;
     //optional
     private HashMap<String,String> params = new HashMap<String,String>();
+    /* Priority is deprecated synonym of Level, this boolean keeps
+    information about actual name of Level.
+	*/
+    private boolean isPriority = false;
 
     public String getClassName() {
         return className;
@@ -46,6 +50,10 @@ public class Level {
 
     public void setValues(Levels value) {
         this.value = value;
+    }
+    
+    public void isPriority(boolean b){
+    	isPriority = b;
     }
     
 }

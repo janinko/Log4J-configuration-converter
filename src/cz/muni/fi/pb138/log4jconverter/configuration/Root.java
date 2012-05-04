@@ -41,9 +41,7 @@ public class Root{
     
     
     private HashMap<String,String> params = new HashMap<String,String>();
-    //bud priority alebo Level
     
-    private Priority priority;
     private Level level;
     private HashSet<String> appenderRefs = new HashSet<String>();
     private boolean isRootCategory = false;
@@ -76,19 +74,6 @@ public class Root{
     public void setIsRootCategory(boolean isRootCategory) {
         this.isRootCategory = isRootCategory;
     }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(Priority priority) {
-        this.priority = priority;
-    }
-
-
-   
-
-   
 
     public void isRootCategory(boolean b){
     	isRootCategory = b;
