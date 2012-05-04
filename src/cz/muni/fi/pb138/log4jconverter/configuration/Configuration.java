@@ -44,6 +44,7 @@ public class Configuration implements AbstractModel {
     
     /*
      * It's used in tests
+     * default visibility is OK for tests
      */
     boolean isAppender(String name) {
         if (appenders.containsKey(name)) {
