@@ -45,6 +45,24 @@ public class ConfigurationTest {
       
     }
     
+    @Test
+    public void testGetAppender1(){
+    	String a1name = "A1";
+    	
+    	Appender a1 = c.getAppender(a1name);
+    	assertEquals(a1name, a1.getAppenderName());
+    	assertSame(a1,c.getAppender(a1name));
+    }
+    
+    @Test
+    public void testGetAppender2(){
+    	String a1name = "A1";
+    	
+    	Appender a1 = new Appender(a1name);
+    	c.addAppender(a1);
+    	assertSame(a1,c.getAppender(a1name));
+    }
+    
 
     private Appender prepareAppander1() {
             Appender a1 = new Appender();
