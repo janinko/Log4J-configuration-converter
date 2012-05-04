@@ -39,6 +39,10 @@ public class TriggeringPolicy {
     public String getName() {
         return name;
     }
+
+	public void addParam(String key, String value) {
+		params.put(key, value);
+	}
     
     public HashMap<String, String> getParams() {
         return params;
