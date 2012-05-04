@@ -174,5 +174,16 @@ public class PropertiesParser implements Parser {
 		return configuration;
 	}
     
+	private static String concateKeyParts(String[] key, int from){
+		if(from >= key.length) return "";
+		StringBuilder sb = new StringBuilder();
+		sb.append(key[from]);
+		for(int i=from+1; i < key.length; i++){
+			sb.append('.');
+			sb.append(key[i]);
+		}
+		
+		return sb.toString();
+	}
     
 }
