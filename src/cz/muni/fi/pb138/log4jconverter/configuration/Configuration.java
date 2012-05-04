@@ -144,6 +144,10 @@ public class Configuration implements AbstractModel {
     public void addRenderer(Renderer r) {
         renderers.add(r);
     }
+    
+    public void addAppender(Appender a) {
+        appenders.put(a.getAppenderName(), a);
+    }
 
     
 
