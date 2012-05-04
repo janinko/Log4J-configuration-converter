@@ -36,65 +36,70 @@ public class XMLParser implements Parser {
                 return;
             }
             
-            Element appenderElement;
-            int i, j;
+            int i;
             
             // Load appenders
             Appender appender;
             NodeList appenderList = doc.getElementsByTagName("appender");
-            
-            // Each cycle is one appender
             for (i = 0; i < appenderList.getLength(); i++) {
-                appender = null;
-                appenderElement = (Element) appenderList.item(i);
-                
-                // Required attributes
-                appender.setAppenderName(appenderElement.getAttribute("name"));
-                appender.setClassName(appenderElement.getAttribute("class"));
-                
-                // ErrorHandler, optional
-                NodeList errorHandlerList = appenderElement.getElementsByTagName("errorHandler");
-                if (errorHandlerList.getLength() == 1) {
-                    ErrorHandler errorHandler = null;
-                    Element errorHandlerElement = (Element) errorHandlerList.item(0);
-                    
-                    // Required attribute
-                    errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
-                    
-                    // root-ref
-                    NodeList rootRefList = errorHandlerElement.getElementsByTagName("root-ref");
-                    if (rootRefList.getLength() == 1) {
-                        errorHandler.setRootRef(true);
-                    }
-                    
-                    // logger-ref
-                    NodeList loggerRefList = errorHandlerElement.getElementsByTagName("logger-ref");
-                    for (j = 0; j < loggerRefList.getLength(); j++) {
-                        Element loggerRefElement = (Element) loggerRefList.item(j);
-                        errorHandler.addLoggerRef(loggerRefElement.getAttribute("ref"));
-                    }
-                    
-                    // appender-ref
-                    NodeList appenderRefList = errorHandlerElement.getElementsByTagName("appender-ref");
-                    if (appenderRefList.getLength() == 1) {
-                        Element appenderRefElement = (Element) appenderRefList.item(0);
-                        errorHandler.setAppenderRef(appenderRefElement.getAttribute("ref"));
-                    }
-                    
-                    // param
-                    NodeList paramList = errorHandlerElement.getElementsByTagName("param");
-                    for (j = 0; j < paramList.getLength(); j++) {
-                        Element paramElement = (Element) paramList.item(j);
-                        errorHandler.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
-                    }
-                    
-                    // Set the ErrorHandler to current Appender
-                    appender.setErrorhandler(errorHandler);
-                }
-                
-                // Do this after the whole appender loading process
+                appender = parseAppender((Element) appenderList.item(i));
                 configuration.addAppender(appender);
             }
+        }
+        
+        public Appender parseAppender(Element appenderElement) {
+            Appender appender = null;
+            int i;
+            
+            // Required attributes
+            appender.setAppenderName(appenderElement.getAttribute("name"));
+            appender.setClassName(appenderElement.getAttribute("class"));
+
+            // ErrorHandler, optional
+            NodeList errorHandlerList = appenderElement.getElementsByTagName("errorHandler");
+            if (errorHandlerList.getLength() == 1) {
+                ErrorHandler errorHandler = parseErrorHandler((Element) errorHandlerList.item(0));
+                appender.setErrorhandler(errorHandler);
+            }
+            
+            return appender;
+        }
+        
+        public ErrorHandler parseErrorHandler(Element errorHandlerElement) {
+            ErrorHandler errorHandler = null;
+            int i;
+            
+            // Required attribute
+            errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
+
+            // root-ref
+            NodeList rootRefList = errorHandlerElement.getElementsByTagName("root-ref");
+            if (rootRefList.getLength() == 1) {
+                errorHandler.setRootRef(true);
+            }
+
+            // logger-ref
+            NodeList loggerRefList = errorHandlerElement.getElementsByTagName("logger-ref");
+            for (i = 0; i < loggerRefList.getLength(); i++) {
+                Element loggerRefElement = (Element) loggerRefList.item(i);
+                errorHandler.addLoggerRef(loggerRefElement.getAttribute("ref"));
+            }
+
+            // appender-ref
+            NodeList appenderRefList = errorHandlerElement.getElementsByTagName("appender-ref");
+            if (appenderRefList.getLength() == 1) {
+                Element appenderRefElement = (Element) appenderRefList.item(0);
+                errorHandler.setAppenderRef(appenderRefElement.getAttribute("ref"));
+            }
+
+            // param
+            NodeList paramList = errorHandlerElement.getElementsByTagName("param");
+            for (i = 0; i < paramList.getLength(); i++) {
+                Element paramElement = (Element) paramList.item(i);
+                errorHandler.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
+            }
+            
+            return errorHandler;
         }
         
         /*
