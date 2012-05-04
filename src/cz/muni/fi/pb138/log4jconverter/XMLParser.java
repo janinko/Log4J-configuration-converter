@@ -32,7 +32,8 @@ public class XMLParser implements Parser {
         
         public void parseXML() {
             if (!validateXML()) {
-                // XML not valid, throw exception, write error message etc.
+                // XML not valid, throw exception, write error message etc. and quit
+                return;
             }
             
             Element appenderElement;
@@ -56,6 +57,9 @@ public class XMLParser implements Parser {
                     Element errorHandlerElement = (Element) errorHandlerList.item(0);
                     
                     errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
+                    
+                    // TODO: Load other optional attributes
+                    
                     appender.setErrorhandler(errorHandler);
                 }
                 
