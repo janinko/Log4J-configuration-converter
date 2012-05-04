@@ -22,7 +22,6 @@ public class Configuration implements AbstractModel {
     private HashMap<String, Plugin> plugins;
     private LoggerFactory logFactory;
     
-    
 
     public Configuration() {
         renderers = new HashSet<Renderer>();
@@ -30,13 +29,25 @@ public class Configuration implements AbstractModel {
         loggers = new HashMap<String, Logger>();
     }
 
+    /* returns Appender by its name, if it does'n exists,
+	 * creates new one.
+     */
     public Appender getAppender(String name) { 
         if (!appenders.containsKey(name)) {
             appenders.put(name, new Appender(name));
         }
         return appenders.get(name);
     }
-    
+
+    /* returns Logger by its name, if it does'n exists,
+	 * creates new one.
+     */
+    public Logger getLogger(String name) { 
+        if (!loggers.containsKey(name)) {
+        	loggers.put(name, new Logger(name));
+        }
+        return loggers.get(name);
+    }
     
     /*
      * It's used in tests
@@ -105,8 +116,6 @@ public class Configuration implements AbstractModel {
         this.treshold = treshold;
     }
 
-    
-
     public HashSet<Renderer> getRenderers() {
         return renderers;
     }
@@ -139,8 +148,6 @@ public class Configuration implements AbstractModel {
         appenders.put(a.getAppenderName(), a);
     }
 
-    
-
     @Override
     public void printXML(Writer w) {
         // TODO Auto-generated method stub
@@ -156,9 +163,4 @@ public class Configuration implements AbstractModel {
         return root.toString();
     }
 
-    
-    
-    
-
-   
 }

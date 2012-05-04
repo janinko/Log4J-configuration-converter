@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
@@ -11,14 +7,12 @@ import java.util.HashMap;
  * @author Admin
  */
 public class Filter {
-    
-       //required
+    //required
     private String className;
     //optional
     private HashMap<String,String> params;
 
     public Filter() {
-        
         this.params = new HashMap<String,String>();
     }
 

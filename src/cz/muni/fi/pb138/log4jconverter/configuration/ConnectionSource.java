@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
@@ -13,13 +9,11 @@ import java.util.HashMap;
 public class ConnectionSource {
     //required
     private String className;
-    
     //optional
     private DataSource dataSource;
     private HashMap<String,String> params;
 
     public ConnectionSource() {
-        
         this.params = new HashMap<String, String>();
     }
 
@@ -46,9 +40,5 @@ public class ConnectionSource {
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
-    
-    
-    
-    
-    
+
 }

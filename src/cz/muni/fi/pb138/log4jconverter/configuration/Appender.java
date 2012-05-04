@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 
@@ -65,10 +61,7 @@ public class Appender {
     //required
     private String appenderName;
     private String className;
-    
-    
     //optional
-    
     private Layout layout;
     private HashSet<Filter> filters;
     private ErrorHandler errorhandler;
@@ -78,14 +71,10 @@ public class Appender {
     private HashMap<String,String> params;
     private HashSet<String> appenderRefs;
 
-    
-    
     public Appender() {
-        
         this.filters = new HashSet<Filter>();
         this.params = new HashMap<String,String>();
         this.appenderRefs = new HashSet<String>();
-        
     }
     
     public Appender(String name) {
@@ -93,7 +82,6 @@ public class Appender {
         this.filters = new HashSet<Filter>();
         this.params = new HashMap<String,String>();
         this.appenderRefs = new HashSet<String>();
-        
     }
 
     public String getClassName() {
@@ -111,9 +99,6 @@ public class Appender {
     public void setErrorhandler(ErrorHandler errorhandler) {
         this.errorhandler = errorhandler;
     }
-    
-    
-   
 
     public String getAppenderName() {
         return appenderName;
@@ -122,9 +107,6 @@ public class Appender {
     public void setAppenderName(String appenderName) {
         this.appenderName = appenderName;
     }
-    
-   
-
 
     public HashSet<Filter> getFilters() {
         return filters;
@@ -138,7 +120,6 @@ public class Appender {
     {
         return layout;
     }
-    
     
     public void setLayout(Layout l){
     	layout = l;
@@ -186,12 +167,6 @@ public class Appender {
     public void setTriggeringPolicy(TriggeringPolicy triggeringPolicy) {
         this.triggeringPolicy = triggeringPolicy;
     }
-    
-  
-    
-
-  
-   
 
     @Override
     public boolean equals(Object obj) {
@@ -215,12 +190,9 @@ public class Appender {
         return hash;
     }
 
-
-    
     @Override
     public String toString() {
         return "." + appenderName;
     }
-    
 
 }

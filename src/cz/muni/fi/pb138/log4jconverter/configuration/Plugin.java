@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
@@ -71,8 +67,5 @@ public class Plugin {
         hash = 89 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
-    
-    
-    
-    
+ 
 }

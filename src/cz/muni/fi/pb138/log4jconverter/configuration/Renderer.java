@@ -6,13 +6,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
  */
 public class Renderer {
     //required
-    
     private String renderedClass;
     private String renderingClass;
-
-    
-    
-    
     
     public void setRenderedClass(String renderedClass) {
         this.renderedClass = renderedClass;
@@ -21,8 +16,6 @@ public class Renderer {
     public void setRenderingClass(String renderingClass) {
         this.renderingClass = renderingClass;
     }
-
-   
 
     public String getRenderedClass() {
         return renderedClass;
@@ -57,11 +50,5 @@ public class Renderer {
         hash = 67 * hash + (this.renderingClass != null ? this.renderingClass.hashCode() : 0);
         return hash;
     }
-    
-    
-    
-    
-    
-    
     
 }
