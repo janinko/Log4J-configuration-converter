@@ -60,8 +60,8 @@ public class ErrorHandler {
         return params;
     }
 
-    public void setParams(HashMap<String, String> params) {
-        this.params = params;
+    public void addParam(String name, String value) {
+        params.put(name, value);
     }
 
     public boolean isRootRef() {

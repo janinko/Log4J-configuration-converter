@@ -81,10 +81,14 @@ public class XMLParser implements Parser {
                         errorHandler.setAppenderRef(appenderRefElement.getAttribute("ref"));
                     }
                     
+                    // param
+                    NodeList paramList = errorHandlerElement.getElementsByTagName("param");
+                    for (j = 0; j < paramList.getLength(); j++) {
+                        Element paramElement = (Element) paramList.item(j);
+                        errorHandler.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
+                    }
                     
-                    
-                    // TODO: Load other optional attributes
-                    
+                    // Set the ErrorHandler to current Appender
                     appender.setErrorhandler(errorHandler);
                 }
                 
