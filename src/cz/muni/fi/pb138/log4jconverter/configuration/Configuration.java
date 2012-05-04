@@ -20,7 +20,6 @@ public class Configuration implements AbstractModel {
     private HashMap<String, Appender> appenders;
     private HashMap<String, Logger> loggers;
     private HashMap<String, Plugin> plugins;
-    private HashMap<String, Category> categoryes;
     //bud CategoryFactory alebo LoggerFactory
     private CategoryFactory catFactory;
     private LoggerFactory logFactory;
@@ -31,7 +30,6 @@ public class Configuration implements AbstractModel {
         renderers = new HashSet<Renderer>();
         appenders = new HashMap<String, Appender>();
         loggers = new HashMap<String, Logger>();
-        categoryes = new HashMap<String, Category>();
     }
 
     public Appender getAppender(String name) { 
@@ -67,14 +65,6 @@ public class Configuration implements AbstractModel {
 
     public void setCatFactory(CategoryFactory catFactory) {
         this.catFactory = catFactory;
-    }
-
-    public HashMap<String, Category> getCategoryes() {
-        return categoryes;
-    }
-
-    public void setCategoryes(HashMap<String, Category> categoryes) {
-        this.categoryes = categoryes;
     }
 
     public Boolean getDebug() {

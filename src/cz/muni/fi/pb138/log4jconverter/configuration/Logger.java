@@ -23,10 +23,18 @@ public class Logger {
     private HashMap<String, String> params;
     private HashSet<String> appenderRefs;
     private Level level;
+    /* Category is deprecated synonym of Logger, this boolean keeps
+       information about actual name of Logger.
+    */
+    private boolean isCategory = false;
 
     public Logger() {
         this.params = new HashMap<String, String>();
         this.appenderRefs = new HashSet<String>();
+    }
+
+    public void isCategory(boolean b){
+    	isCategory = b;
     }
 
     public boolean isAdditivity() {
