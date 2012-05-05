@@ -3,6 +3,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 
 /**
  *
@@ -95,5 +96,10 @@ public class Root{
         }
         return result;
     }
+
+	public void generateProperties(Properties p) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
