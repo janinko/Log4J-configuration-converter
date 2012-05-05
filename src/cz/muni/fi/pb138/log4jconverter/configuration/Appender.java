@@ -3,6 +3,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 
 /**
  *
@@ -194,5 +195,10 @@ public class Appender {
     public String toString() {
         return "." + appenderName;
     }
+
+	public void generateProperties(Properties p) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
