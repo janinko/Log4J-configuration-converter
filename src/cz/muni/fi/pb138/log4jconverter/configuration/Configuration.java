@@ -4,9 +4,10 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 public class Configuration implements AbstractModel {
@@ -161,7 +162,64 @@ public class Configuration implements AbstractModel {
 
     @Override
     public void printXML(Writer w) {
-        // TODO Auto-generated method stub
+        
+        Element config = doc.createElement("log4j:configuration");
+        config.setAttribute("xmlns:log4j","http://jakarta.apache.org/log4j/");
+        if(treshold !=null){
+            config.setAttribute("treshold",treshold.toString());
+        }
+        if(debug!=null)
+        {
+            config.setAttribute("debug",debug.toString());
+        }
+        if(reset){
+        config.setAttribute("reset","true");    
+        }
+        else{
+        config.setAttribute("reset","false");        
+        }
+        doc.appendChild(config);
+        
+        
+        if(root!= null)
+        {
+           root.printXML(doc, config);
+        }
+        for(Renderer renderer : renderers)
+        {
+            renderer.printXML(doc, config);
+        }
+        
+        if(throwableRenderer!= null){
+            throwableRenderer.printXML(doc, config);
+        }
+        
+        for(Appender appender : appenders.values())
+        {
+            appender.printXML(doc, config);
+        }
+        
+        for(Logger logger : loggers.values())
+        {
+           logger.printXML(doc, config);
+        }
+        
+        for (Plugin plugin : plugins.values())
+        {
+            plugin.printXML(doc, config);
+        }
+        
+        if(logFactory!= null)
+        {
+            logFactory.printXML(doc, config);
+        }
+            
+        
+        
+        
+        
+        
+        
     }
 
     @Override

@@ -1,9 +1,12 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Properties;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -101,5 +104,15 @@ public class Root{
 		// TODO Auto-generated method stub
 		
 	}
+
+   
+    public void printXML(Document doc, Element config) {
+        
+    }
+
+   
+    public void printProperties(Writer w) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

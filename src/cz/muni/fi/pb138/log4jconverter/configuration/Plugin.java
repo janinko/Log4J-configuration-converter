@@ -1,6 +1,8 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -66,6 +68,10 @@ public class Plugin {
         int hash = 7;
         hash = 89 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
+    }
+
+    void printXML(Document doc, Element config) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
  
 }

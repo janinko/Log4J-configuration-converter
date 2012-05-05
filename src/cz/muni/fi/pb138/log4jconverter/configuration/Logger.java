@@ -2,6 +2,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -102,5 +104,9 @@ public class Logger {
         int hash = 3;
         hash = 97 * hash + (this.loggerName != null ? this.loggerName.hashCode() : 0);
         return hash;
+    }
+
+    void printXML(Document doc, Element config) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 }

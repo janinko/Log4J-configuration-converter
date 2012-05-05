@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -213,5 +215,9 @@ public class Appender {
 		// TODO Auto-generated method stub
 		
 	}
+
+    void printXML(Document doc, Element config) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
 }

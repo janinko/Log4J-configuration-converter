@@ -1,6 +1,8 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -39,6 +41,10 @@ public class LoggerFactory {
     
     public void isCategoryFactory(boolean b){
     	isCategoryFactory = b;
+    }
+
+    void printXML(Document doc, Element config) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }
