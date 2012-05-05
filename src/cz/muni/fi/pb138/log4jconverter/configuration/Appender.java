@@ -1,8 +1,11 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -64,7 +67,7 @@ public class Appender {
     private String className;
     //optional
     private Layout layout;
-    private HashSet<Filter> filters;
+    private ArrayList<Filter> filters; // filters are ordered
     private ErrorHandler errorhandler;
     private RollingPolicy rollingPolicy;
     private TriggeringPolicy triggeringPolicy;
@@ -73,14 +76,14 @@ public class Appender {
     private HashSet<String> appenderRefs;
 
     public Appender() {
-        this.filters = new HashSet<Filter>();
+        this.filters = new ArrayList<Filter>();
         this.params = new HashMap<String,String>();
         this.appenderRefs = new HashSet<String>();
     }
     
     public Appender(String name) {
         this.appenderName = name;
-        this.filters = new HashSet<Filter>();
+        this.filters = new ArrayList<Filter>();
         this.params = new HashMap<String,String>();
         this.appenderRefs = new HashSet<String>();
     }
@@ -108,12 +111,22 @@ public class Appender {
     public void setAppenderName(String appenderName) {
         this.appenderName = appenderName;
     }
+    
+    // Add copy of filter to filters
+    public void addFilter(Filter f){
+    	filters.add(new Filter(f));
+    	
+    	// if filter have name, we must order filters by name
+    	if(f.getName() != null){
+    		Collections.sort(filters);
+    	}
+    }
 
-    public HashSet<Filter> getFilters() {
+    public ArrayList<Filter> getFilters() {
         return filters;
     }
 
-    public void setFilters(HashSet<Filter> filters) {
+    public void setFilters(ArrayList<Filter> filters) {
         this.filters = filters;
     }
 
