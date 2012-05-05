@@ -11,9 +11,19 @@ public class Filter {
     private String className;
     //optional
     private HashMap<String,String> params;
+    //used in Properties to distinguish filters and to order them
+    private String name;
 
     public Filter() {
         this.params = new HashMap<String,String>();
+    }
+    
+    public String getName(){
+    	return name;
+    }
+    
+    public void setName(String name){
+    	this.name = name;
     }
 
     public String getClassName() {
