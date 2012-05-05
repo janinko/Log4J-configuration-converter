@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
@@ -13,16 +9,16 @@ import java.util.HashMap;
 public class Level {
     
     public enum Levels {
-
         OFF, FATAL,
         ERROR, WARN, INFO, DEBUG, ALL
     }
-    //implies
-    private String className;
     //requires
     private Levels value;
+    //implies
+    private String className;
     //optional
     private HashMap<String,String> params = new HashMap<String,String>();
+    
     /* Priority is deprecated synonym of Level, this boolean keeps
     information about actual name of Level.
 	*/
@@ -35,6 +31,10 @@ public class Level {
     public void setClassName(String className) {
         this.className = className;
     }
+
+	public void addParam(String key, String value) {
+		params.put(key, value);
+	}
 
     public HashMap<String, String> getParams() {
         return params;

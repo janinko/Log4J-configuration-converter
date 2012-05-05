@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
@@ -13,7 +9,6 @@ import java.util.HashSet;
  */
 public class Logger {
     //required
-
     private String loggerName;
     //implies
     private String className;
@@ -23,6 +18,7 @@ public class Logger {
     private HashMap<String, String> params;
     private HashSet<String> appenderRefs;
     private Level level;
+    
     /* Category is deprecated synonym of Logger, this boolean keeps
      * information about actual name of Logger.
      */

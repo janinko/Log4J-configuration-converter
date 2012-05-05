@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
 
 /**
  *
@@ -37,15 +34,15 @@ import java.util.HashSet;
  * above.
  */
 public class Root{
-
-    
-    
+    //optional
     private HashMap<String,String> params = new HashMap<String,String>();
-    
     private Level level;
     private HashSet<String> appenderRefs = new HashSet<String>();
-    private boolean isRootCategory = false;
 
+    /* RootCategory is deprecated synonym of RootLogger, this boolean keeps
+     * information about actual name of RootLogger.
+     */
+    private boolean isRootCategory = false;
     
     public void addAppenderRef(String appenderName){
     	appenderRefs.add(appenderName);
@@ -63,6 +60,10 @@ public class Root{
         return isRootCategory;
     }
 
+	public void addParam(String key, String value) {
+		params.put(key, value);
+	}
+
     public HashMap<String, String> getParams() {
         return params;
     }
@@ -78,8 +79,6 @@ public class Root{
     public void isRootCategory(boolean b){
     	isRootCategory = b;
     }
-
-    
 
     public Level getLevel() {
         return level;
@@ -97,13 +96,10 @@ public class Root{
         }
         return result;
     }
-    
-    
-    
-    
 
-   
-
-
+	public void generateProperties(Properties p) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

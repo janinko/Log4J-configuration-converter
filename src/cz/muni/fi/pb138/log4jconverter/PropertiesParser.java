@@ -137,12 +137,14 @@ public class PropertiesParser implements Parser {
 
 
 	private void parseLogger(String[] key, String value) {
+		if (logger.isTraceEnabled()) { logger.trace("parsing logger: " +concateKeyParts(key, 0)+"=" + value); }
 		// TODO Auto-generated method stub
 		
 	}
 
 
 	private void parseAppender(String[] key, String value) throws ParseException {
+		if (logger.isTraceEnabled()) { logger.trace("parsing appender: " +concateKeyParts(key, 0)+"=" + value); }
 		if(key.length < 3) throw new ParseException("Appender key must have at least 3 parts");
 		
 		String appenderName = key[2];
@@ -174,5 +176,16 @@ public class PropertiesParser implements Parser {
 		return configuration;
 	}
     
+	private static String concateKeyParts(String[] key, int from){
+		if(from >= key.length) return "";
+		StringBuilder sb = new StringBuilder();
+		sb.append(key[from]);
+		for(int i=from+1; i < key.length; i++){
+			sb.append('.');
+			sb.append(key[i]);
+		}
+		
+		return sb.toString();
+	}
     
 }

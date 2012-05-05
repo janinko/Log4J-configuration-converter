@@ -1,7 +1,9 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.*;
+import org.omg.CORBA.ExceptionList;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import static org.junit.Assert.*;
@@ -40,5 +42,79 @@ public class AppenderTest {
         //appender2.setMaxFileSize(null);
         //assertEquals(appender1.getMaxFileSize(), "");
         //assertNull(appender2.getMaxFileSize());
+    }
+    
+    @Test
+    public void testFilterOrdering1(){
+    	Appender a = new Appender();
+    	Filter f1 = new Filter();
+    	Filter f2 = new Filter();
+    	Filter f3 = new Filter();
+    	Filter f4 = new Filter();
+    	Filter f5 = new Filter();
+
+    	a.addFilter(f1);
+    	a.addFilter(f2);
+    	a.addFilter(f3);
+    	a.addFilter(f4);
+    	a.addFilter(f5);
+    	
+    	ArrayList<Filter> filters = a.getFilters();
+
+    	assertEquals(f1,filters.get(0));
+    	assertEquals(f2,filters.get(1));
+    	assertEquals(f3,filters.get(2));
+    	assertEquals(f4,filters.get(3));
+    	assertEquals(f5,filters.get(4));
+    }
+    
+    @Test
+    public void testFilterOrdering2(){
+    	Appender a = new Appender();
+    	Filter f1 = new Filter();
+    	f1.setName("01");
+    	Filter f2 = new Filter();
+    	f2.setName("02");
+    	Filter f3 = new Filter();
+    	f3.setName("00");
+    	Filter f4 = new Filter();
+    	f4.setName("04");
+    	Filter f5 = new Filter();
+    	f5.setName("03");
+
+    	a.addFilter(f1);
+    	a.addFilter(f2);
+    	a.addFilter(f3);
+    	a.addFilter(f4);
+    	a.addFilter(f5);
+    	
+    	ArrayList<Filter> filters = a.getFilters();
+
+    	assertEquals(f1,filters.get(1));
+    	assertEquals(f2,filters.get(2));
+    	assertEquals(f3,filters.get(0));
+    	assertEquals(f4,filters.get(4));
+    	assertEquals(f5,filters.get(3));
+    }
+    
+    @Test
+    public void testFilterOrdering4(){
+    	Appender a = new Appender();
+    	Filter f1 = new Filter();
+    	Filter f2 = new Filter();
+    	
+    	a.addFilter(f1);
+    	f1.setName("Blah"); // should not change name of stored filter
+    	assertNull(a.getFilters().get(0).getName());
+    	a.addFilter(f2);
+    	
+    	Filter f3 = new Filter();
+    	f3.setName("00");
+
+    	try{
+    		a.addFilter(f3);
+    	}catch (IllegalArgumentException e){
+    		// OK
+    	}
     }
 }
