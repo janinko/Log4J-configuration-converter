@@ -3,6 +3,11 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
+import javax.xml.parsers.DocumentBuilder;
+import org.w3c.dom.Document;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 
 public class Configuration implements AbstractModel {
     
@@ -10,6 +15,8 @@ public class Configuration implements AbstractModel {
         all,trace,debug,info,warn,error,fatal,off,
     }
     
+    
+    private Document doc = null;
     private Tresholds treshold = null;
     private Boolean debug = null;
     private boolean reset = false;
@@ -23,10 +30,14 @@ public class Configuration implements AbstractModel {
     private LoggerFactory logFactory;
     
 
-    public Configuration() {
+    public Configuration() throws ParserConfigurationException {
         renderers = new HashSet<Renderer>();
         appenders = new HashMap<String, Appender>();
         loggers = new HashMap<String, Logger>();
+        
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        this.doc = builder.newDocument();
     }
 
     /* returns Appender by its name, if it does'n exists,
