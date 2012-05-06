@@ -105,11 +105,13 @@ public class Root {
     }
 
     public void generateProperties(Properties p) {
-		String value = level.getValues().toString();
+    	StringBuilder value = new StringBuilder();
+		value.append(level.getValues());
 		for (String appenderRef : appenderRefs) {
-			value += ", " + appenderRef;
+			value.append(", ");
+			value.append(appenderRef);
 		}
-        p.setProperty(PropertiesParser.ROOT_LOGGER_PREFIX, value);
+        p.setProperty(PropertiesParser.ROOT_LOGGER_PREFIX, value.toString());
 		if (logger.isTraceEnabled()) { logger.trace(PropertiesParser.ROOT_LOGGER_PREFIX+"="+p.getProperty(PropertiesParser.ROOT_LOGGER_PREFIX)); }
     }
 
