@@ -95,6 +95,7 @@ public class PropertiesParser implements Parser {
     }
     
     private void parseProperty(String[] key, String value) throws ParseException {
+		if (logger.isTraceEnabled()) { logger.trace("parsing key: " + concateKeyParts(key, 0)); }
     	if(key.length < 2) throw new ParseException("Key must have at least 2 parts");
     	if(!PREFIX.equals(key[0])) throw new ParseException("Key must have prefix " + PREFIX);
     	
@@ -115,7 +116,7 @@ public class PropertiesParser implements Parser {
     			throw new ParseException("Unknown value for " + PREFIX + "." + DEBUG);
     		}
     	}else{
-    		new ParseException("Unknown key");
+    		throw new ParseException("Unknown key");
     	}
     	
 	}
