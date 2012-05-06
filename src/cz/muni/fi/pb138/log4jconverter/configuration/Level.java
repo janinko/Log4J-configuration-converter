@@ -98,5 +98,28 @@ public class Level {
                 
         
     }
+
+	public static Level getLevel(String level) {
+		Level l = new Level();
+		if("OFF".equals(level.toUpperCase())){
+			l.setValues(Levels.OFF);
+		}else if("FATAL".equals(level.toUpperCase())){
+			l.setValues(Levels.FATAL);
+		}else if("ERROR".equals(level.toUpperCase())){
+			l.setValues(Levels.ERROR);
+		}else if("WARN".equals(level.toUpperCase())){
+			l.setValues(Levels.WARN);
+		}else if("INFO".equals(level.toUpperCase())){
+			l.setValues(Levels.INFO);
+		}else if("DEBUG".equals(level.toUpperCase())){
+			l.setValues(Levels.DEBUG);
+		}else if("ALL".equals(level.toUpperCase())){
+			l.setValues(Levels.ALL);
+		}else{
+			throw new IllegalArgumentException("Unknown level name");
+		}
+		
+		return l;
+	}
     
 }
