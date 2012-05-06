@@ -156,7 +156,7 @@ public class PropertiesParser implements Parser {
 			if("layout".equals(key[3])){
 				parseLayout(key,value,appender);
 			}else if("filter".equals(key[3])){
-				//TODO
+				parseFilter(key,value,appender);
 			}else if(key.length == 4){ // this should be miscellaneous parameters
 				appender.addParam(key[3],value);
 			}else{ // if it has length > 4 and isn't parsed yet, it is wrong or unknown
@@ -165,6 +165,21 @@ public class PropertiesParser implements Parser {
 		}
 		
 	}
+
+	private void parseFilter(String[] key, String value, Appender appender) throws ParseException {
+		if (logger.isTraceEnabled()) { logger.trace("parsing appender filter: " +concateKeyParts(key, 0)+"=" + value); }
+		if(key.length < 5) throw new ParseException("Appender filter key must have at least 5 parts");
+
+		String filterName = key[4];
+		if(key.length == 5){
+			appender.getFilter(filterName).setClassName(value);
+		}else if(key.length == 6){
+			appender.getFilter(filterName).addParam(key[5], value);
+		}else{
+			throw new ParseException("Unknown appender key");
+		}
+	}
+
 
 	private void parseLayout(String[] key, String value, Appender appender) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing appender layout: " +concateKeyParts(key, 0)+"=" + value); }
