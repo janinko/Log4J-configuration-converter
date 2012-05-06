@@ -1,6 +1,7 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import org.junit.*;
 import org.omg.CORBA.ExceptionList;
@@ -89,6 +90,8 @@ public class AppenderTest {
     	a.addFilter(f5);
     	
     	ArrayList<Filter> filters = a.getFilters();
+    	Collections.sort(filters);
+    	
 
     	assertEquals(f1,filters.get(1));
     	assertEquals(f2,filters.get(2));
@@ -102,17 +105,13 @@ public class AppenderTest {
     	Appender a = new Appender();
     	Filter f1 = new Filter();
     	Filter f2 = new Filter();
-    	
+    	f2.setName("00");
+
     	a.addFilter(f1);
-    	f1.setName("Blah"); // should not change name of stored filter
-    	assertNull(a.getFilters().get(0).getName());
     	a.addFilter(f2);
-    	
-    	Filter f3 = new Filter();
-    	f3.setName("00");
 
     	try{
-    		a.addFilter(f3);
+    		Collections.sort(a.getFilters());
     	}catch (IllegalArgumentException e){
     		// OK
     	}
