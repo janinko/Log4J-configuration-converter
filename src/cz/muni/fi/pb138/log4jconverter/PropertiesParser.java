@@ -146,11 +146,20 @@ public class PropertiesParser implements Parser {
 		
 		String loggerName = concateKeyParts(key, 2);
 		Logger l = new Logger(loggerName);
-		try{
-			l.setLevel(Level.getLevel(value));
-		}catch (IllegalArgumentException ex){
-			throw new ParseException(ex);
+		
+		String[] values = value.split(",");
+		if(values.length >= 1){
+			try{
+				l.setLevel(Level.getLevel(values[0]));
+			}catch (IllegalArgumentException ex){
+				throw new ParseException(ex);
+			}
+			for(int i=1; i < values.length; i++){
+				l.addAppenderRef(values[i]);
+			}
 		}
+		
+		
 		configuration.addLogger(l);
 	}
 

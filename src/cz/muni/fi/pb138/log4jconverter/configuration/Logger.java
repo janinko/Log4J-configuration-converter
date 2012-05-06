@@ -46,6 +46,10 @@ public class Logger {
         this.additivity = additivity;
     }
 
+	public void addAppenderRef(String appenderName) {
+		appenderRefs.add(appenderName);
+	}
+
     public HashSet<String> getAppenderRefs() {
         return appenderRefs;
     }

@@ -132,6 +132,9 @@ public class Appender {
     }
 
     public Layout getLayout() {
+    	if(layout == null){
+    		layout = new Layout();
+    	}
         return layout;
     }
 
