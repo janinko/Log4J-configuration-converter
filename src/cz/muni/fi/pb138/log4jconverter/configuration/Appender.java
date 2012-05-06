@@ -207,7 +207,7 @@ public class Appender {
         // TODO Auto-generated method stub
     }
 
-    void printXML(Document doc, Element config) {
+    public void printXML(Document doc, Element config) {
         Element appender = doc.createElement("appender");
         appender.setAttribute("name", appenderName);
         appender.setAttribute("class", className);

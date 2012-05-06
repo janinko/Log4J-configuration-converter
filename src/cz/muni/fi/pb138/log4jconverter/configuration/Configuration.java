@@ -181,10 +181,7 @@ public class Configuration implements AbstractModel {
         
         
         
-        if(root!= null)
-        {
-           root.printXML(doc, config);
-        }
+      
         for(Renderer renderer : renderers)
         {
             renderer.printXML(doc, config);
@@ -199,14 +196,20 @@ public class Configuration implements AbstractModel {
             appender.printXML(doc, config);
         }
         
-        for(Logger logger : loggers.values())
-        {
-           logger.printXML(doc, config);
-        }
+       
         
         for (Plugin plugin : plugins.values())
         {
             plugin.printXML(doc, config);
+        }
+         for(Logger logger : loggers.values())
+        {
+           logger.printXML(doc, config);
+        }
+         
+          if(root!= null)
+        {
+           root.printXML(doc, config);
         }
         
         if(logFactory!= null)

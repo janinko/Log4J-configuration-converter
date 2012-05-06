@@ -47,7 +47,7 @@ public class ConnectionSource {
         this.dataSource = dataSource;
     }
 
-    void printXML(Document doc, Element appender) {
+    void printXML(Document doc, Element elem) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
