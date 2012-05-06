@@ -114,6 +114,8 @@ public class PropertiesParser implements Parser {
     		}else{
     			throw new ParseException("Unknown value for " + PREFIX + "." + DEBUG);
     		}
+    	}else{
+    		new ParseException("Unknown key");
     	}
     	
 	}
@@ -122,20 +124,20 @@ public class PropertiesParser implements Parser {
 	private void parseRootLogger(String[] key, String value) {
 		if (logger.isTraceEnabled()) { logger.trace("parsing root logger: '" + value + "'"); }
         
-                Root rootLogger = new Root();
+        Root rootLogger = new Root();
 
-                // ziskej jednotlive appendery
-                String[] appdenderName = value.split(",");
-                for (int i = 1; i < appdenderName.length; i++) {
-                    // pridej novy appender
-                    rootLogger.addAppenderRef(appdenderName[i].trim());
+        // ziskej jednotlive appendery
+        String[] appdenderName = value.split(",");
+        for (int i = 1; i < appdenderName.length; i++) {
+        	// pridej novy appender
+        	rootLogger.addAppenderRef(appdenderName[i].trim());
 
-                    if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
-                }
+        	if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
+        }
 
-                // nakonec uloz vse do configuration
-                configuration.setRoot(rootLogger);
-                if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
+        // nakonec uloz vse do configuration
+        configuration.setRoot(rootLogger);
+        if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
 	}
 
 
