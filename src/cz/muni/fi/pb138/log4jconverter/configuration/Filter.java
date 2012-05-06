@@ -111,7 +111,7 @@ public class Filter implements Comparable<Filter> {
         return name.compareTo(o.name);
     }
 
-    void printXML(Document doc, Element elem) {
+    public void printXML(Document doc, Element elem) {
         Element filter = doc.createElement("filter");
 
         filter.setAttribute("class", className);

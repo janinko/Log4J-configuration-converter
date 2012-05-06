@@ -35,7 +35,7 @@ public class DataSource {
         this.params = params;
     }
 
-    void printXML(Document doc, Element conSource) {
+   public void printXML(Document doc, Element conSource) {
         Element dataSource = doc.createElement("dataSource");
       
         dataSource.setAttribute("class", className);

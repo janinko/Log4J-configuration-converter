@@ -1,6 +1,7 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -71,7 +72,32 @@ public class Plugin {
     }
 
     void printXML(Document doc, Element config) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Element plugin = doc.createElement("plugin");
+        plugin.setAttribute("name", name);
+        plugin.setAttribute("class", className);
+        
+        
+         if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name",it1.next().toString());
+                param.setAttribute("value",it2.next().toString());
+                plugin.appendChild(param);
+                
+            }
+            
+        }
+         if(connSource!=null)
+         {
+             connSource.printXML(doc, plugin);
+         }
+         
+         config.appendChild(plugin);
+         
+        
     }
  
 }

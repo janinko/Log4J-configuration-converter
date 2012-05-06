@@ -43,7 +43,7 @@ public class LoggerFactory {
     	isCategoryFactory = b;
     }
 
-    void printXML(Document doc, Element config) {
+    public void printXML(Document doc, Element config) {
         throw new UnsupportedOperationException("Not yet implemented");
     }
     

@@ -41,7 +41,7 @@ public class Layout {
     
     // layout moze byt iba jeden cize equals a hashcode si myslim ze su zbytocne
 
-    void printXML(Document doc, Element appender) {
+    public void printXML(Document doc, Element appender) {
         Element layout = doc.createElement("layout");
       
         layout.setAttribute("class", className);

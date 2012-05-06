@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -11,6 +12,7 @@ import org.w3c.dom.Element;
  */
 public class Logger {
     //required
+
     private String loggerName;
     //implies
     private String className;
@@ -20,20 +22,20 @@ public class Logger {
     private HashMap<String, String> params;
     private HashSet<String> appenderRefs;
     private Level level;
-    
-    /* Category is deprecated synonym of Logger, this boolean keeps
-     * information about actual name of Logger.
+    /*
+     * Category is deprecated synonym of Logger, this boolean keeps information
+     * about actual name of Logger.
      */
     private boolean isCategory = false;
 
     public Logger(String name) {
-    	loggerName = name;
+        loggerName = name;
         this.params = new HashMap<String, String>();
         this.appenderRefs = new HashSet<String>();
     }
 
-    public void isCategory(boolean b){
-    	isCategory = b;
+    public void isCategory(boolean b) {
+        isCategory = b;
     }
 
     public boolean isAdditivity() {
@@ -106,7 +108,51 @@ public class Logger {
         return hash;
     }
 
-    void printXML(Document doc, Element config) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public void printXML(Document doc, Element config) {
+
+        Element logger;
+        if (!isCategory) {
+            logger = doc.createElement("logger");
+        } else {
+            logger = doc.createElement("category");
+        }
+        logger.setAttribute("loggerName", loggerName);
+        if (className != null) {
+            logger.setAttribute("class", className);
+        }
+        if (additivity) {
+            logger.setAttribute("additivity", "true");
+        } else {
+            logger.setAttribute("additivity", "false");
+        }
+
+
+        if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name", it1.next().toString());
+                param.setAttribute("value", it2.next().toString());
+                logger.appendChild(param);
+
+            }
+
+        }
+
+        if (level != null) {
+            level.printXML(doc, logger);
+        }
+
+        for (String ref : appenderRefs) {
+            Element apRef = doc.createElement("appender-ref");
+            apRef.setAttribute("ref", ref);
+            logger.appendChild(apRef);
+        }
+
+
+        config.appendChild(logger);
+
     }
 }

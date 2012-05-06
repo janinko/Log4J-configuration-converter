@@ -1,12 +1,16 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  * @author Admin
  */
 public class Level {
+
+    
     
     public enum Levels {
         OFF, FATAL,
@@ -54,6 +58,10 @@ public class Level {
     
     public void isPriority(boolean b){
     	isPriority = b;
+    }
+    
+    public void printXML(Document doc, Element logger) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
 }

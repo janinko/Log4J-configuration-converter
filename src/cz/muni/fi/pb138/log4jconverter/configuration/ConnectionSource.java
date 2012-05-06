@@ -48,7 +48,7 @@ public class ConnectionSource {
         this.dataSource = dataSource;
     }
 
-    void printXML(Document doc, Element elem) {
+  public  void printXML(Document doc, Element elem) {
         Element conSource = doc.createElement("connectionSource");
       
         conSource.setAttribute("class", className);

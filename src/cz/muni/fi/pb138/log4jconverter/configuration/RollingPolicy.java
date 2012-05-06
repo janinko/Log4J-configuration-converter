@@ -48,7 +48,7 @@ public class RollingPolicy {
         this.params = params;
     }
 
-    void printXML(Document doc, Element appender) {
+    public void printXML(Document doc, Element appender) {
         Element rollPolicy = doc.createElement("rollingPolicy");
         rollPolicy.setAttribute("name", name);
         rollPolicy.setAttribute("class", className);
