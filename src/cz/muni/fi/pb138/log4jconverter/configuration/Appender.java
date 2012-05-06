@@ -1,12 +1,6 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -16,55 +10,53 @@ import org.w3c.dom.Element;
  */
 /**
  * <h3>Appender configuration</h3>
-
-    <p>Appender configuration syntax is:
-    <pre>
-    # For appender named <i>appenderName</i>, set its class.
-    # Note: The appender name can contain dots.
-    log4j.appender.appenderName=fully.qualified.name.of.appender.class
-
-    # Set appender specific options.
-    log4j.appender.appenderName.option1=value1
-    ...
-    log4j.appender.appenderName.optionN=valueN
-    </pre>
-
-    For each named appender you can configure its {@link Layout}. The
-    syntax for configuring an appender's layout is:
-    <pre>
-    log4j.appender.appenderName.layout=fully.qualified.name.of.layout.class
-    log4j.appender.appenderName.layout.option1=value1
-    ....
-    log4j.appender.appenderName.layout.optionN=valueN
-    </pre>
-
-    The syntax for adding {@link Filter}s to an appender is:
-    <pre>
-    log4j.appender.appenderName.filter.ID=fully.qualified.name.of.filter.class
-    log4j.appender.appenderName.filter.ID.option1=value1
-    ...
-    log4j.appender.appenderName.filter.ID.optionN=valueN
-    </pre>
-    The first line defines the class name of the filter identified by ID;
-    subsequent lines with the same ID specify filter option - value
-    paris. Multiple filters are added to the appender in the lexicographic
-    order of IDs.
-
-    The syntax for adding an {@link ErrorHandler} to an appender is:
-    <pre>
-    log4j.appender.appenderName.errorhandler=fully.qualified.name.of.filter.class
-    log4j.appender.appenderName.errorhandler.root-ref={true|false}
-    log4j.appender.appenderName.errorhandler.logger-ref=loggerName
-    log4j.appender.appenderName.errorhandler.appender-ref=appenderName
-    log4j.appender.appenderName.errorhandler.option1=value1
-    ...
-    log4j.appender.appenderName.errorhandler.optionN=valueN
-    </pre>
- * 
+ *
+ * <p>Appender configuration syntax is:
+ * <pre>
+ * # For appender named <i>appenderName</i>, set its class.
+ * # Note: The appender name can contain dots.
+ * log4j.appender.appenderName=fully.qualified.name.of.appender.class
+ *
+ * # Set appender specific options.
+ * log4j.appender.appenderName.option1=value1
+ * ...
+ * log4j.appender.appenderName.optionN=valueN
+ * </pre>
+ *
+ * For each named appender you can configure its {@link Layout}. The syntax for
+ * configuring an appender's layout is:
+ * <pre>
+ * log4j.appender.appenderName.layout=fully.qualified.name.of.layout.class
+ * log4j.appender.appenderName.layout.option1=value1
+ * ....
+ * log4j.appender.appenderName.layout.optionN=valueN
+ * </pre>
+ *
+ * The syntax for adding {@link Filter}s to an appender is:
+ * <pre>
+ * log4j.appender.appenderName.filter.ID=fully.qualified.name.of.filter.class
+ * log4j.appender.appenderName.filter.ID.option1=value1
+ * ...
+ * log4j.appender.appenderName.filter.ID.optionN=valueN
+ * </pre> The first line defines the class name of the filter identified by ID;
+ * subsequent lines with the same ID specify filter option - value paris.
+ * Multiple filters are added to the appender in the lexicographic order of IDs.
+ *
+ * The syntax for adding an {@link ErrorHandler} to an appender is:
+ * <pre>
+ * log4j.appender.appenderName.errorhandler=fully.qualified.name.of.filter.class
+ * log4j.appender.appenderName.errorhandler.root-ref={true|false}
+ * log4j.appender.appenderName.errorhandler.logger-ref=loggerName
+ * log4j.appender.appenderName.errorhandler.appender-ref=appenderName
+ * log4j.appender.appenderName.errorhandler.option1=value1
+ * ...
+ * log4j.appender.appenderName.errorhandler.optionN=valueN
+ * </pre>
+ *
  */
-
 public class Appender {
     //required
+
     private String appenderName;
     private String className;
     //optional
@@ -74,19 +66,19 @@ public class Appender {
     private RollingPolicy rollingPolicy;
     private TriggeringPolicy triggeringPolicy;
     private ConnectionSource connectionSource;
-    private HashMap<String,String> params;
+    private HashMap<String, String> params;
     private HashSet<String> appenderRefs;
 
     public Appender() {
         this.filters = new ArrayList<Filter>();
-        this.params = new HashMap<String,String>();
+        this.params = new HashMap<String, String>();
         this.appenderRefs = new HashSet<String>();
     }
-    
+
     public Appender(String name) {
         this.appenderName = name;
         this.filters = new ArrayList<Filter>();
-        this.params = new HashMap<String,String>();
+        this.params = new HashMap<String, String>();
         this.appenderRefs = new HashSet<String>();
     }
 
@@ -113,15 +105,15 @@ public class Appender {
     public void setAppenderName(String appenderName) {
         this.appenderName = appenderName;
     }
-    
+
     // Add copy of filter to filters
-    public void addFilter(Filter f){
-    	filters.add(new Filter(f));
-    	
-    	// if filter have name, we must order filters by name
-    	if(f.getName() != null){
-    		Collections.sort(filters);
-    	}
+    public void addFilter(Filter f) {
+        filters.add(new Filter(f));
+
+        // if filter have name, we must order filters by name
+        if (f.getName() != null) {
+            Collections.sort(filters);
+        }
     }
 
     public ArrayList<Filter> getFilters() {
@@ -132,14 +124,14 @@ public class Appender {
         this.filters = filters;
     }
 
-    public Layout getLayout()
-    {
+    public Layout getLayout() {
         return layout;
     }
-    
-    public void setLayout(Layout l){
-    	layout = l;
+
+    public void setLayout(Layout l) {
+        layout = l;
     }
+
     public HashSet<String> getAppenderRefs() {
         return appenderRefs;
     }
@@ -156,9 +148,9 @@ public class Appender {
         this.connectionSource = connectionSource;
     }
 
-	public void addParam(String key, String value) {
-		params.put(key, value);
-	}
+    public void addParam(String key, String value) {
+        params.put(key, value);
+    }
 
     public HashMap<String, String> getParams() {
         return params;
@@ -211,13 +203,66 @@ public class Appender {
         return "." + appenderName;
     }
 
-	public void generateProperties(Properties p) {
-		// TODO Auto-generated method stub
-		
-	}
-
-    void printXML(Document doc, Element config) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public void generateProperties(Properties p) {
+        // TODO Auto-generated method stub
     }
 
+    void printXML(Document doc, Element config) {
+        Element appender = doc.createElement("appender");
+        appender.setAttribute("name", appenderName);
+        appender.setAttribute("class", className);
+
+
+        if (errorhandler != null) {
+            errorhandler.printXML(doc, appender);
+        }
+        if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name",it1.next().toString());
+                param.setAttribute("value",it2.next().toString());
+                appender.appendChild(param);
+                
+            }
+            
+        }
+        
+        if(rollingPolicy!=null)
+        {
+            rollingPolicy.printXML(doc,appender);
+        }
+        
+        if(triggeringPolicy!=null)
+        {
+            triggeringPolicy.printXML(doc,appender);
+        }
+        
+        if(connectionSource!=null)
+        {
+            connectionSource.printXML(doc,appender);
+        }
+        
+        if (layout != null) {
+            layout.printXML(doc, appender);
+        }
+        
+        for (Filter filter : filters) {
+            filter.printXML(doc, appender);
+        }
+        for(String ref : appenderRefs)
+        {
+            Element apRef = doc.createElement("appender-ref");
+            apRef.setAttribute("ref", ref);
+            appender.appendChild(apRef);
+        }
+
+
+        config.appendChild(appender);
+
+
+
+    }
 }

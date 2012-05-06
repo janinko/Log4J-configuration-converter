@@ -2,6 +2,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -60,6 +62,10 @@ public class ErrorHandler {
 
     public void setRootRef(boolean rootRef) {
         this.rootRef = rootRef;
+    }
+
+    void printXML(Document doc, Element appender) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
 }

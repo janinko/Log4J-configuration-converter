@@ -1,6 +1,8 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -37,5 +39,9 @@ public class Layout {
     }
     
     // layout moze byt iba jeden cize equals a hashcode si myslim ze su zbytocne
+
+    void printXML(Document doc, Element appender) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 
 }

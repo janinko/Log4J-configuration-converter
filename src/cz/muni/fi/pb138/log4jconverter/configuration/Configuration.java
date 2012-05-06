@@ -178,7 +178,7 @@ public class Configuration implements AbstractModel {
         else{
         config.setAttribute("reset","false");        
         }
-        doc.appendChild(config);
+        
         
         
         if(root!= null)
@@ -213,14 +213,9 @@ public class Configuration implements AbstractModel {
         {
             logFactory.printXML(doc, config);
         }
-            
+        doc.appendChild(config);    
         
-        
-        
-        
-        
-        
-    }
+        }
 
     @Override
     public void printProperties(Writer w) {

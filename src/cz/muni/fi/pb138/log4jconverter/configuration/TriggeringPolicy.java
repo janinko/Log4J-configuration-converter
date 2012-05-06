@@ -2,6 +2,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -59,6 +61,10 @@ public class TriggeringPolicy {
 
     public void setFilters(HashSet<Filter> filters) {
         this.filters = filters;
+    }
+
+    void printXML(Document doc, Element appender) {
+        throw new UnsupportedOperationException("Not yet implemented");
     }
     
     

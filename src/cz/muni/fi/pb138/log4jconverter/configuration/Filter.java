@@ -1,6 +1,8 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -97,5 +99,9 @@ public class Filter implements Comparable<Filter> {
 		}
 		return name.compareTo(o.name);
 	}
+
+    void printXML(Document doc, Element appender) {
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
     
 }
