@@ -95,6 +95,10 @@ public class Configuration{
     public void setLogFactory(LoggerFactory logFactory) {
         this.logFactory = logFactory;
     }
+    
+    public void addLogger(Logger l){
+    	loggers.add(l);
+    }
 
     public HashSet<Logger> getLoggers() {
         return loggers;
