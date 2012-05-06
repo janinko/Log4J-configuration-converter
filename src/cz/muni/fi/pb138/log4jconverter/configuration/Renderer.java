@@ -55,7 +55,10 @@ public class Renderer {
     }
 
     void printXML(Document doc, Element config) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Element renderer = doc.createElement("renderer");
+        renderer.setAttribute("renderedClass", renderedClass);
+        renderer.setAttribute("renderingClass", renderingClass);
+        config.appendChild(renderer);
     }
     
 }
