@@ -35,7 +35,7 @@ public class Configuration{
     private HashSet<Renderer> renderers;
     private ThrowableRender throwableRenderer;
     private HashMap<String, Appender> appenders;
-    private HashMap<String, Logger> loggers;
+    private HashSet<Logger> loggers;
     private HashMap<String, Plugin> plugins;
     private LoggerFactory logFactory;
     
@@ -43,7 +43,7 @@ public class Configuration{
     public Configuration() throws ParserConfigurationException {
         renderers = new HashSet<Renderer>();
         appenders = new HashMap<String, Appender>();
-        loggers = new HashMap<String, Logger>();
+        loggers = new HashSet<Logger>();
         
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
@@ -58,16 +58,6 @@ public class Configuration{
             appenders.put(name, new Appender(name));
         }
         return appenders.get(name);
-    }
-
-    /* returns Logger by its name, if it does'n exists,
-	 * creates new one.
-     */
-    public Logger getLogger(String name) { 
-        if (!loggers.containsKey(name)) {
-        	loggers.put(name, new Logger(name));
-        }
-        return loggers.get(name);
     }
     
     /*
@@ -105,11 +95,11 @@ public class Configuration{
         this.logFactory = logFactory;
     }
 
-    public HashMap<String, Logger> getLoggers() {
+    public HashSet<Logger> getLoggers() {
         return loggers;
     }
 
-    public void setLoggers(HashMap<String, Logger> loggers) {
+    public void setLoggers(HashSet<Logger> loggers) {
         this.loggers = loggers;
     }
 
@@ -210,7 +200,7 @@ public class Configuration{
         {
             plugin.printXML(doc, config);
         }
-         for(Logger logger : loggers.values())
+         for(Logger logger : loggers)
         {
            logger.printXML(doc, config);
         }
