@@ -10,6 +10,8 @@ import java.util.Properties;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import cz.muni.fi.pb138.log4jconverter.configuration.Level;
+import cz.muni.fi.pb138.log4jconverter.configuration.Logger;
 import cz.muni.fi.pb138.log4jconverter.configuration.Root;
 
 /**
@@ -112,6 +114,8 @@ public class PropertiesParser implements Parser {
     		}else{
     			throw new ParseException("Unknown value for " + PREFIX + "." + DEBUG);
     		}
+    	}else{
+    		new ParseException("Unknown key");
     	}
     	
 	}
@@ -120,27 +124,34 @@ public class PropertiesParser implements Parser {
 	private void parseRootLogger(String[] key, String value) {
 		if (logger.isTraceEnabled()) { logger.trace("parsing root logger: '" + value + "'"); }
         
-                Root rootLogger = new Root();
+        Root rootLogger = new Root();
 
-                // ziskej jednotlive appendery
-                String[] appdenderName = value.split(",");
-                for (int i = 1; i < appdenderName.length; i++) {
-                    // pridej novy appender
-                    rootLogger.addAppenderRef(appdenderName[i].trim());
+        // ziskej jednotlive appendery
+        String[] appdenderName = value.split(",");
+        for (int i = 1; i < appdenderName.length; i++) {
+        	// pridej novy appender
+        	rootLogger.addAppenderRef(appdenderName[i].trim());
 
-                    if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
-                }
+        	if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
+        }
 
-                // nakonec uloz vse do configuration
-                configuration.setRoot(rootLogger);
-                if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
+        // nakonec uloz vse do configuration
+        configuration.setRoot(rootLogger);
+        if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
 	}
 
 
-	private void parseLogger(String[] key, String value) {
+	private void parseLogger(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing logger: " +concateKeyParts(key, 0)+"=" + value); }
-		// TODO Auto-generated method stub
 		
+		String loggerName = concateKeyParts(key, 2);
+		Logger l = new Logger(loggerName);
+		try{
+			l.setLevel(Level.getLevel(value));
+		}catch (IllegalArgumentException ex){
+			throw new ParseException(ex);
+		}
+		configuration.addLogger(l);
 	}
 
 
@@ -155,9 +166,9 @@ public class PropertiesParser implements Parser {
 			appender.setClassName(value);
 		}else{ // length > 3
 			if("layout".equals(key[3])){
-				//TODO
+				parseLayout(key,value,appender);
 			}else if("filter".equals(key[3])){
-				//TODO
+				parseFilter(key,value,appender);
 			}else if(key.length == 4){ // this should be miscellaneous parameters
 				appender.addParam(key[3],value);
 			}else{ // if it has length > 4 and isn't parsed yet, it is wrong or unknown
@@ -167,6 +178,33 @@ public class PropertiesParser implements Parser {
 		
 	}
 
+	private void parseFilter(String[] key, String value, Appender appender) throws ParseException {
+		if (logger.isTraceEnabled()) { logger.trace("parsing appender filter: " +concateKeyParts(key, 0)+"=" + value); }
+		if(key.length < 5) throw new ParseException("Appender filter key must have at least 5 parts");
+
+		String filterName = key[4];
+		if(key.length == 5){
+			appender.getFilter(filterName).setClassName(value);
+		}else if(key.length == 6){
+			appender.getFilter(filterName).addParam(key[5], value);
+		}else{
+			throw new ParseException("Unknown filter key");
+		}
+	}
+
+
+	private void parseLayout(String[] key, String value, Appender appender) throws ParseException {
+		if (logger.isTraceEnabled()) { logger.trace("parsing appender layout: " +concateKeyParts(key, 0)+"=" + value); }
+		if(key.length < 4) throw new ParseException("Appender layout key must have at least 4 parts");
+		
+		if(key.length == 4){
+			appender.getLayout().setClassName(value);
+		}else if(key.length == 5){ // parameter
+			appender.getLayout().addParam(key[4], value);
+		}else{
+			throw new ParseException("Unknown layout key");
+		}
+	}
 
 	@Override
 	public Configuration parse() {
