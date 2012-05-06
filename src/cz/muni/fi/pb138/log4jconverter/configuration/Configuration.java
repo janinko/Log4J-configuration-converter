@@ -230,9 +230,10 @@ public class Configuration{
         return doc;
     }
 
-    public Properties printProperties() {
-        // TODO Auto-generated method stub
-		return null;
+    public Properties generateProperties() {
+    	Properties props = new Properties();
+    	//TODO
+		return props;
     }
 
     @Override
