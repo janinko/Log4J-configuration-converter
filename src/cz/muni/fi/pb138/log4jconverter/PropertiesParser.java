@@ -127,12 +127,15 @@ public class PropertiesParser implements Parser {
         Root rootLogger = new Root();
 
         // ziskej jednotlive appendery
-        String[] appdenderName = value.split(",");
-        for (int i = 1; i < appdenderName.length; i++) {
+        String[] rootLoggerValue = value.split(",");
+		Level l = new Level();
+		l.setValues(Level.Levels.valueOf(rootLoggerValue[0]));
+		rootLogger.setLevel(l);
+        for (int i = 1; i < rootLoggerValue.length; i++) {
         	// pridej novy appender
-        	rootLogger.addAppenderRef(appdenderName[i].trim());
+        	rootLogger.addAppenderRef(rootLoggerValue[i].trim());
 
-        	if (logger.isTraceEnabled()) { logger.trace("new appender ("+ appdenderName[i].trim() +") created"); }
+        	if (logger.isTraceEnabled()) { logger.trace("new appender ("+ rootLoggerValue[i].trim() +") created"); }
         }
 
         // nakonec uloz vse do configuration
