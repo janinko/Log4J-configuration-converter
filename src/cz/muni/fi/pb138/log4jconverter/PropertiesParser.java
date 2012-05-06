@@ -177,7 +177,7 @@ public class PropertiesParser implements Parser {
 		}else if(key.length == 6){
 			appender.getFilter(filterName).addParam(key[5], value);
 		}else{
-			throw new ParseException("Unknown appender key");
+			throw new ParseException("Unknown filter key");
 		}
 	}
 
