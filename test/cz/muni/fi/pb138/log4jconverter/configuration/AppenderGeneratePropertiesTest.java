@@ -23,7 +23,7 @@ public class AppenderGeneratePropertiesTest {
 	public void testAppenderClassName() {
 		String classname = "org.apache.log4j.ConsoleAppender";
 		a.setClassName(classname);
-		
+
 		a.generateProperties(p);
 		
 		assertTrue(p.containsKey(keyprefix));
@@ -40,9 +40,9 @@ public class AppenderGeneratePropertiesTest {
 		l.setClassName(layoutClass);
 		l.addParam(paramName, paramValue);
 		a.setLayout(l);
-		
-		a.generateProperties(p);
 
+		a.generateProperties(p);
+		
 		assertTrue(p.containsKey(keyprefix+".layout"));
 		assertEquals(layoutClass, p.getProperty(keyprefix+".layout"));
 		assertTrue(p.containsKey(keyprefix+".layout."+paramName));

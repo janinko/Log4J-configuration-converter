@@ -2,6 +2,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -38,6 +40,25 @@ public class Layout {
     public void setParams(HashMap<String, String> params) {
         this.params = params;
     }
+	
+	
+	
+	public void generateProperties(Properties p, String prefixKey) {
+		if (!className.isEmpty()) p.setProperty(prefixKey, className);
+
+		// prefixKey.PARAM=VALUE
+		if (!params.isEmpty()) {
+			
+			Iterator i = params.entrySet().iterator(); 
+			while(i.hasNext()) { 
+				Map.Entry pairs = (Map.Entry)i.next();
+				String paramKey = (String) pairs.getKey();
+				String paramValue = (String) pairs.getValue();	
+				p.setProperty(prefixKey + "." + paramKey, paramValue);
+			} 
+		}
+	}
+	
     
     // layout moze byt iba jeden cize equals a hashcode si myslim ze su zbytocne
 

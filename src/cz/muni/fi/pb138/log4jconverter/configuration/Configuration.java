@@ -21,6 +21,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
+import java.util.*;
 
 
 public class Configuration{
@@ -236,7 +237,20 @@ public class Configuration{
 
     public Properties generateProperties() {
     	Properties props = new Properties();
-    	root.generateProperties(props);
+    	
+		// log4j.rootLogger
+		if (root != null) root.generateProperties(props);
+			
+		// log4j.appender
+		if (!appenders.isEmpty()) {
+			Iterator i = appenders.entrySet().iterator(); 
+			while(i.hasNext()) { 
+				Map.Entry pairs = (Map.Entry)i.next();
+				Appender a = (Appender) pairs.getValue();
+				a.generateProperties(props);
+			} 
+		}
+		
 		return props;
     }
 

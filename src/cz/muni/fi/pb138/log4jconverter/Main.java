@@ -15,6 +15,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import java.util.Enumeration;
 
 
 public class Main {
@@ -44,12 +45,14 @@ public class Main {
        /*
         * properties -> abstract 
         */
-        InputLoader il1 = new InputLoader("examples/exampleConfigs1.properties");
+        InputLoader il1 = new InputLoader("examples/exampleConfigs.properties");
         Properties properties = il1.getProperties();
        
         PropertiesParser pp = new PropertiesParser(properties);
         c = pp.parse();     
-        c.generateProperties();
+        c.generateProperties().list(System.out);
+			
+		
         
        
        

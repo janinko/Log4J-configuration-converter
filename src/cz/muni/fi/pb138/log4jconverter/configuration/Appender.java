@@ -1,5 +1,6 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import java.util.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -214,7 +215,22 @@ public class Appender {
     }
 
     public void generateProperties(Properties p) {
-        // TODO Auto-generated method stub
+		String prefixKey = PropertiesParser.APPENDER_PREFIX + appenderName;
+        if (!appenderName.isEmpty()) p.setProperty(prefixKey, className);
+		
+		// prefixKey.PARAM=VALUE
+		if (!params.isEmpty()) {
+			Iterator i = params.entrySet().iterator(); 
+			while(i.hasNext()) { 
+				Map.Entry pairs = (Map.Entry)i.next();
+				String paramKey = (String) pairs.getKey();
+				String paramValue = (String) pairs.getValue();	
+				p.setProperty(prefixKey + "." + paramKey, paramValue);
+			} 
+		}
+		if (layout != null) {
+			layout.generateProperties(p, prefixKey + ".layout");
+		}
     }
 
     public void printXML(Document doc, Element config) {
