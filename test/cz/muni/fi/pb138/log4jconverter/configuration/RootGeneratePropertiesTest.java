@@ -71,8 +71,8 @@ public class RootGeneratePropertiesTest {
 	public void rootTest5() {
 		l.setValues(Levels.INFO);
 		r.setLevel(l);
-		r.generateProperties(p);
 		r.addAppenderRef("A1");
+		r.generateProperties(p);
 		
 		testExpected("INFO, A1");
 	}
