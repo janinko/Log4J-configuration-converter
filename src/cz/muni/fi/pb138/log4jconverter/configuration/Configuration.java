@@ -236,7 +236,7 @@ public class Configuration{
 
     public Properties generateProperties() {
     	Properties props = new Properties();
-    	//TODO
+    	root.generateProperties(props);
 		return props;
     }
 

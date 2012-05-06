@@ -1,5 +1,6 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,6 +49,7 @@ public class Root {
      * information about actual name of RootLogger.
      */
     private boolean isRootCategory = false;
+	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(PropertiesParser.class);
 
     public void addAppenderRef(String appenderName) {
         appenderRefs.add(appenderName);
@@ -103,7 +105,12 @@ public class Root {
     }
 
     public void generateProperties(Properties p) {
-        // TODO Auto-generated method stub
+		String value = level.getValues().toString();
+		for (String appenderRef : appenderRefs) {
+			value += ", " + appenderRef;
+		}
+        p.setProperty(PropertiesParser.ROOT_LOGGER_PREFIX, value);
+		if (logger.isTraceEnabled()) { logger.trace(PropertiesParser.ROOT_LOGGER_PREFIX+"="+p.getProperty(PropertiesParser.ROOT_LOGGER_PREFIX)); }
     }
 
     public void printXML(Document doc, Element config) {

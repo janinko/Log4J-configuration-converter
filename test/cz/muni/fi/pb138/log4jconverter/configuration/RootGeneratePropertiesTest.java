@@ -25,7 +25,7 @@ public class RootGeneratePropertiesTest {
 
 	@Test
 	public void rootTest1() {
-		l.setValue(Levels.ERROR);
+		l.setValues(Levels.ERROR);
 		r.setLevel(l);
 		r.addAppenderRef("A1");
 		r.addAppenderRef("A2");
@@ -36,7 +36,7 @@ public class RootGeneratePropertiesTest {
 	
 	@Test
 	public void rootTest2() {
-		l.setValue(Levels.ALL);
+		l.setValues(Levels.ALL);
 		r.setLevel(l);
 		r.addAppenderRef("A1");
 		r.addAppenderRef("A2");
@@ -47,7 +47,7 @@ public class RootGeneratePropertiesTest {
 
 	@Test
 	public void rootTest3() {
-		l.setValue(Levels.DEBUG);
+		l.setValues(Levels.DEBUG);
 		r.setLevel(l);
 		r.addAppenderRef("A1");
 		r.generateProperties(p);
@@ -57,7 +57,7 @@ public class RootGeneratePropertiesTest {
 
 	@Test
 	public void rootTest4() {
-		l.setValue(Levels.FATAL);
+		l.setValues(Levels.FATAL);
 		r.setLevel(l);
 		r.addAppenderRef("A9");
 		r.generateProperties(p);
@@ -69,7 +69,7 @@ public class RootGeneratePropertiesTest {
 
 	@Test
 	public void rootTest5() {
-		l.setValue(Levels.INFO);
+		l.setValues(Levels.INFO);
 		r.setLevel(l);
 		r.generateProperties(p);
 		r.addAppenderRef("A1");

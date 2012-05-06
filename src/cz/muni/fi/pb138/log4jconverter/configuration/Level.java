@@ -50,11 +50,11 @@ public class Level {
         this.params = params;
     }
 
-    public Levels getValue() {
+    public Levels getValues() {
         return value;
     }
 
-    public void setValue(Levels value) {
+    public void setValues(Levels value) {
         this.value = value;
     }
     

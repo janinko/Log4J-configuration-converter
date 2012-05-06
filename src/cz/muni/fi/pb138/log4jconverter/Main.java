@@ -49,7 +49,7 @@ public class Main {
        
         PropertiesParser pp = new PropertiesParser(properties);
         c = pp.parse();     
-        System.out.println(c);
+        c.generateProperties();
         
        
        
