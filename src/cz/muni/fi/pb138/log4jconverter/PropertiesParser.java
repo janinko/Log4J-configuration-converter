@@ -122,16 +122,20 @@ public class PropertiesParser implements Parser {
 	}
 
 
-	private void parseRootLogger(String[] key, String value) {
+	private void parseRootLogger(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing root logger: '" + value + "'"); }
         
         Root rootLogger = new Root();
 
         // ziskej jednotlive appendery
         String[] rootLoggerValue = value.split(",");
-		Level l = new Level();
-		l.setValues(Level.Levels.valueOf(rootLoggerValue[0]));
-		rootLogger.setLevel(l);
+		try{
+			Level level = new Level();
+			level.setValues(Level.Levels.valueOf(rootLoggerValue[0].trim().toUpperCase()));
+			rootLogger.setLevel(level);
+		}catch (IllegalArgumentException ex){
+			throw new ParseException(ex);
+		}
         for (int i = 1; i < rootLoggerValue.length; i++) {
         	// pridej novy appender
         	rootLogger.addAppenderRef(rootLoggerValue[i].trim());
@@ -154,15 +158,16 @@ public class PropertiesParser implements Parser {
 		String[] values = value.split(",");
 		if(values.length >= 1){
 			try{
-				l.setLevel(Level.getLevel(values[0]));
+				Level level = new Level();
+				level.setValues(Level.Levels.valueOf(values[0].trim().toUpperCase()));
+				l.setLevel(level);
 			}catch (IllegalArgumentException ex){
 				throw new ParseException(ex);
 			}
 			for(int i=1; i < values.length; i++){
-				l.addAppenderRef(values[i]);
+				l.addAppenderRef(values[i].trim());
 			}
 		}
-		
 		
 		configuration.addLogger(l);
 	}
