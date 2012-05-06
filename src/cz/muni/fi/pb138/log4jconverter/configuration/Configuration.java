@@ -6,6 +6,8 @@ import java.io.Writer;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Properties;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,6 +20,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
+
 
 public class Configuration{
     
@@ -26,7 +30,6 @@ public class Configuration{
     }
     
     
-    private Document doc = null;
     private Tresholds treshold = null;
     private Boolean debug = null;
     private boolean reset = false;
@@ -39,15 +42,13 @@ public class Configuration{
     private HashMap<String, Plugin> plugins;
     private LoggerFactory logFactory;
     
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Configuration.class);
+    
 
-    public Configuration() throws ParserConfigurationException {
+    public Configuration() {
         renderers = new HashSet<Renderer>();
         appenders = new HashMap<String, Appender>();
         loggers = new HashSet<Logger>();
-        
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        this.doc = builder.newDocument();
     }
 
     /* returns Appender by its name, if it does'n exists,
@@ -159,7 +160,16 @@ public class Configuration{
         appenders.put(a.getAppenderName(), a);
     }
 
-    public void printXML(Writer w) {
+    public Document printXML() {
+    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			logger.error("Couldn't make DocumentBuilder",e);
+			return null;
+		}
+        Document doc = builder.newDocument();
         
         Element config = doc.createElement("log4j:configuration");
         config.setAttribute("xmlns:log4j","http://jakarta.apache.org/log4j/");
@@ -217,34 +227,17 @@ public class Configuration{
         
         doc.appendChild(config);    
         
-        }
+        return doc;
+    }
 
-    public void printProperties(Writer w) {
+    public Properties printProperties() {
         // TODO Auto-generated method stub
+		return null;
     }
 
     @Override
     public String toString() {
         return root.toString();
-    }
-    // nvm ci sa to hodi do tejto classy
-     private  void serializetoXML(URI output)
-            throws IOException, TransformerConfigurationException, TransformerException {
-        // Vytvorime instanci tovarni tridy
-        TransformerFactory factory = TransformerFactory.newInstance();
-        // Pomoci tovarni tridy ziskame instanci tzv. kopirovaciho transformeru
-        Transformer transformer = factory.newTransformer();
-        // Vstupem transformace bude dokument v pameti
-        DOMSource source = new DOMSource(doc);
-        // Vystupem transformace bude vystupni soubor
-        StreamResult result = new StreamResult(output.toString());
-        // Provedeme transformaci
-        transformer.transform(source, result);
-    }
-
-    private void serializetoXML(File output) throws IOException,
-            TransformerException {
-        serializetoXML(output.toURI());
     }
 
 }
