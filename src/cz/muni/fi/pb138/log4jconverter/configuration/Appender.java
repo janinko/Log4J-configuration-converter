@@ -106,14 +106,21 @@ public class Appender {
         this.appenderName = appenderName;
     }
 
+	public Filter getFilter(String filterName) {
+		for(Filter filter : filters){
+			if(filterName.equals(filter.getName())){
+				return filter;
+			}
+		}
+		Filter filter = new Filter();
+		filter.setName(filterName);
+		filters.add(filter);
+		return filter;
+	}
+
     // Add copy of filter to filters
     public void addFilter(Filter f) {
-        filters.add(new Filter(f));
-
-        // if filter have name, we must order filters by name
-        if (f.getName() != null) {
-            Collections.sort(filters);
-        }
+        filters.add(f);
     }
 
     public ArrayList<Filter> getFilters() {
@@ -249,6 +256,17 @@ public class Appender {
             layout.printXML(doc, appender);
         }
         
+        // if filter have name, we must order filters by name
+        boolean sort = false;
+        for(Filter filter : filters){
+        	if(filter.getName() != null){
+        		sort = true;
+        		break;
+        	}
+        }
+        if(sort){
+            Collections.sort(filters);
+        }
         for (Filter filter : filters) {
             filter.printXML(doc, appender);
         }
