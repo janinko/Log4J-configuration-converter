@@ -19,7 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
-public class Configuration implements AbstractModel {
+public class Configuration{
     
     public enum Tresholds{
         all,trace,debug,info,warn,error,fatal,off,
@@ -169,7 +169,6 @@ public class Configuration implements AbstractModel {
         appenders.put(a.getAppenderName(), a);
     }
 
-    @Override
     public void printXML(Writer w) {
         
         Element config = doc.createElement("log4j:configuration");
@@ -230,7 +229,6 @@ public class Configuration implements AbstractModel {
         
         }
 
-    @Override
     public void printProperties(Writer w) {
         // TODO Auto-generated method stub
     }
