@@ -1,9 +1,9 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Properties;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,21 +36,23 @@ import org.w3c.dom.Element;
  * logger. The named appender is defined using the appender syntax defined
  * above.
  */
-public class Root{
+public class Root {
     //optional
-    private HashMap<String,String> params = new HashMap<String,String>();
+
+    private HashMap<String, String> params = new HashMap<String, String>();
     private Level level;
     private HashSet<String> appenderRefs = new HashSet<String>();
 
-    /* RootCategory is deprecated synonym of RootLogger, this boolean keeps
+    /*
+     * RootCategory is deprecated synonym of RootLogger, this boolean keeps
      * information about actual name of RootLogger.
      */
     private boolean isRootCategory = false;
-    
-    public void addAppenderRef(String appenderName){
-    	appenderRefs.add(appenderName);
+
+    public void addAppenderRef(String appenderName) {
+        appenderRefs.add(appenderName);
     }
-    
+
     public HashSet<String> getAppenderRefs() {
         return appenderRefs;
     }
@@ -63,9 +65,9 @@ public class Root{
         return isRootCategory;
     }
 
-	public void addParam(String key, String value) {
-		params.put(key, value);
-	}
+    public void addParam(String key, String value) {
+        params.put(key, value);
+    }
 
     public HashMap<String, String> getParams() {
         return params;
@@ -79,8 +81,8 @@ public class Root{
         this.isRootCategory = isRootCategory;
     }
 
-    public void isRootCategory(boolean b){
-    	isRootCategory = b;
+    public void isRootCategory(boolean b) {
+        isRootCategory = b;
     }
 
     public Level getLevel() {
@@ -100,19 +102,40 @@ public class Root{
         return result;
     }
 
-	public void generateProperties(Properties p) {
-		// TODO Auto-generated method stub
-		
-	}
-
-   
-    public void printXML(Document doc, Element config) {
-        
+    public void generateProperties(Properties p) {
+        // TODO Auto-generated method stub
     }
 
-   
+    public void printXML(Document doc, Element config) {
+        Element root = doc.createElement("root");
+
+        if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name", it1.next().toString());
+                param.setAttribute("value", it2.next().toString());
+                root.appendChild(param);
+
+            }
+
+        }
+
+        if (level != null) {
+            level.printXML(doc, root);
+        }
+
+        for (String ref : appenderRefs) {
+            Element apRef = doc.createElement("appender-ref");
+            apRef.setAttribute("ref", ref);
+            root.appendChild(apRef);
+        }
+
+    }
+
     public void printProperties(Writer w) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
 }
