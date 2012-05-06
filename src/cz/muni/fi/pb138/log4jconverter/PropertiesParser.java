@@ -10,6 +10,8 @@ import java.util.Properties;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import cz.muni.fi.pb138.log4jconverter.configuration.Level;
+import cz.muni.fi.pb138.log4jconverter.configuration.Logger;
 import cz.muni.fi.pb138.log4jconverter.configuration.Root;
 
 /**
@@ -137,10 +139,17 @@ public class PropertiesParser implements Parser {
 	}
 
 
-	private void parseLogger(String[] key, String value) {
+	private void parseLogger(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing logger: " +concateKeyParts(key, 0)+"=" + value); }
-		// TODO Auto-generated method stub
 		
+		String loggerName = concateKeyParts(key, 2);
+		Logger l = new Logger(loggerName);
+		try{
+			l.setLevel(Level.getLevel(value));
+		}catch (IllegalArgumentException ex){
+			throw new ParseException(ex);
+		}
+		configuration.addLogger(l);
 	}
 
 
