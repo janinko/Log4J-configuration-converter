@@ -22,27 +22,28 @@ import cz.muni.fi.pb138.log4jconverter.configuration.Root;
  */
 public class PropertiesParser implements Parser {
 	
-    static final String               PREFIX    = "log4j";
-    static final String             APPENDER    = "appender";
-    static final String             CATEGORY    = "category";
-    static final String               LOGGER    = "logger";
-    static final String        ROOT_CATEGORY    = "rootCategory";
-    static final String          ROOT_LOGGER    = "rootLogger";
-    static final String                DEBUG    = "debug";
+    public static final String               PREFIX    = "log4j";
+    public static final String             APPENDER    = "appender";
+    public static final String             CATEGORY    = "category";
+    public static final String               LOGGER    = "logger";
+    public static final String        ROOT_CATEGORY    = "rootCategory";
+    public static final String          ROOT_LOGGER    = "rootLogger";
+    public static final String                DEBUG    = "debug";
     
-    static final String      CATEGORY_PREFIX    = "log4j.category.";
-    static final String        LOGGER_PREFIX    = "log4j.logger.";
-    static final String       FACTORY_PREFIX    = "log4j.factory";
-    static final String    ADDITIVITY_PREFIX    = "log4j.additivity.";
-    static final String ROOT_CATEGORY_PREFIX    = "log4j.rootCategory";
-    static final String   ROOT_LOGGER_PREFIX    = "log4j.rootLogger";
-    static final String      APPENDER_PREFIX    = "log4j.appender.";
-    static final String      RENDERER_PREFIX    = "log4j.renderer.";
-    static final String     THRESHOLD_PREFIX    = "log4j.threshold";
-    private static final String      THROWABLE_RENDERER_PREFIX = "log4j.throwableRenderer";
-    private static final String LOGGER_REF	= "logger-ref";
-    private static final String   ROOT_REF	= "root-ref";
-    private static final String APPENDER_REF_TAG= "appender-ref";  
+    public static final String      CATEGORY_PREFIX    = "log4j.category.";
+    public static final String        LOGGER_PREFIX    = "log4j.logger.";
+    public static final String       FACTORY_PREFIX    = "log4j.factory";
+    public static final String    ADDITIVITY_PREFIX    = "log4j.additivity.";
+    public static final String ROOT_CATEGORY_PREFIX    = "log4j.rootCategory";
+    public static final String   ROOT_LOGGER_PREFIX    = "log4j.rootLogger";
+    public static final String      APPENDER_PREFIX    = "log4j.appender.";
+    public static final String      RENDERER_PREFIX    = "log4j.renderer.";
+    public static final String     THRESHOLD_PREFIX    = "log4j.threshold";
+    
+	public static final String      THROWABLE_RENDERER_PREFIX = "log4j.throwableRenderer";
+    public static final String LOGGER_REF	= "logger-ref";
+    public static final String   ROOT_REF	= "root-ref";
+    public static final String APPENDER_REF_TAG= "appender-ref";  
 
     /** Key for specifying the {@link org.apache.log4j.spi.LoggerFactory
         LoggerFactory}.  Currently set to "<code>log4j.loggerFactory</code>".  */
@@ -51,9 +52,9 @@ public class PropertiesParser implements Parser {
     /**
         * If property set to true, then hierarchy will be reset before configuration.
         */
-    private static final String RESET_KEY = "log4j.reset";
+    public static final String RESET_KEY = "log4j.reset";
 
-    static final private String INTERNAL_ROOT_NAME = "root";
+    public static final String INTERNAL_ROOT_NAME = "root";
     
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(PropertiesParser.class);
     
