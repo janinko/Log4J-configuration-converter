@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -49,18 +50,18 @@ public class Level {
         this.params = params;
     }
 
-    public Levels getValues() {
+    public Levels getValue() {
         return value;
     }
 
-    public void setValues(Levels value) {
+    public void setValue(Levels value) {
         this.value = value;
     }
     
     public void isPriority(boolean b){
     	isPriority = b;
     }
-    
+	   
     public void printXML(Document doc, Element elem) {
         
         Element level;
