@@ -1,6 +1,7 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -41,7 +42,28 @@ public class Layout {
     // layout moze byt iba jeden cize equals a hashcode si myslim ze su zbytocne
 
     void printXML(Document doc, Element appender) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        Element layout = doc.createElement("layout");
+      
+        layout.setAttribute("class", className);
+        
+        
+        if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name",it1.next().toString());
+                param.setAttribute("value",it2.next().toString());
+                layout.appendChild(param);
+                
+            }
+            
+        }
+        
+        
+        appender.appendChild(layout);
     }
+    
 
 }
