@@ -216,6 +216,7 @@ public class Configuration implements AbstractModel {
         {
             logFactory.printXML(doc, config);
         }
+        
         doc.appendChild(config);    
         
         }

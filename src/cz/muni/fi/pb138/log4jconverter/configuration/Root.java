@@ -132,6 +132,9 @@ public class Root {
             apRef.setAttribute("ref", ref);
             root.appendChild(apRef);
         }
+        
+        
+        config.appendChild(root);
 
     }
 

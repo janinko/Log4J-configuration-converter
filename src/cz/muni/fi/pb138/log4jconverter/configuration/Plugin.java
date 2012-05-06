@@ -71,7 +71,7 @@ public class Plugin {
         return hash;
     }
 
-    void printXML(Document doc, Element config) {
+   public void printXML(Document doc, Element config) {
         Element plugin = doc.createElement("plugin");
         plugin.setAttribute("name", name);
         plugin.setAttribute("class", className);
