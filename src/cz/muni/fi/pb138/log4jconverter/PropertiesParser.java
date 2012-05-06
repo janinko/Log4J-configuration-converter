@@ -154,7 +154,7 @@ public class PropertiesParser implements Parser {
 			appender.setClassName(value);
 		}else{ // length > 3
 			if("layout".equals(key[3])){
-				//TODO
+				parseLayout(key,value,appender);
 			}else if("filter".equals(key[3])){
 				//TODO
 			}else if(key.length == 4){ // this should be miscellaneous parameters
@@ -166,6 +166,18 @@ public class PropertiesParser implements Parser {
 		
 	}
 
+	private void parseLayout(String[] key, String value, Appender appender) throws ParseException {
+		if (logger.isTraceEnabled()) { logger.trace("parsing appender layout: " +concateKeyParts(key, 0)+"=" + value); }
+		if(key.length < 4) throw new ParseException("Appender layout key must have at least 4 parts");
+		
+		if(key.length == 4){
+			appender.getLayout().setClassName(value);
+		}else if(key.length == 5){ // parameter
+			appender.getLayout().addParam(key[4], value);
+		}else{
+			throw new ParseException("Unknown layout key");
+		}
+	}
 
 	@Override
 	public Configuration parse() {
