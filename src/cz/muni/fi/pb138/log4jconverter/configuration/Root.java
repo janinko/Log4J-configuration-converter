@@ -109,7 +109,7 @@ public class Root {
 
     public void generateProperties(Properties p) {
     	StringBuilder value = new StringBuilder();
-		value.append(level.getValues());
+		if (level != null) value.append(level.getValues());
 		for (String appenderRef : appenderRefs) {
 			value.append(", ");
 			value.append(appenderRef);
