@@ -5,6 +5,7 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Properties;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -42,7 +43,7 @@ public class Root {
 
     private HashMap<String, String> params = new HashMap<String, String>();
     private Level level;
-    private HashSet<String> appenderRefs = new HashSet<String>();
+    private HashSet<String> appenderRefs = new LinkedHashSet<String>();
 
     /*
      * RootCategory is deprecated synonym of RootLogger, this boolean keeps
