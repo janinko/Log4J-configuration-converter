@@ -53,7 +53,7 @@ public class LoggerFactory {
 	
 	
 	public void generateProperties(Properties p) {
-		if (className != null) p.setProperty(PropertiesParser.LOGGER_FACTORY, className);
+		if (className != null) p.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.LOGGER_FACTORY, className);
 	}
 
     public void printXML(Document doc, Element config) {
