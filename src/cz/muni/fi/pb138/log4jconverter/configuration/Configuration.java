@@ -19,7 +19,7 @@ import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 public class Configuration{
     
     public enum Tresholds{
-        all,trace,debug,info,warn,error,fatal,off,
+        ALL,TRACE,DEBUG,INFO,WARN,ERROR,FATAL,OFF,
     }
     
     
@@ -241,7 +241,7 @@ public class Configuration{
 		if (root != null) root.generateProperties(props);
 			
 		// log4j.appender
-		if (!appenders.isEmpty()) {
+		if (appenders != null) {
 			Iterator i = appenders.entrySet().iterator(); 
 			while(i.hasNext()) { 
 				Map.Entry pairs = (Map.Entry)i.next();
@@ -264,7 +264,7 @@ public class Configuration{
 		if (logFactory != null) logFactory.generateProperties(props);
 		
 		// log4j.debug
-		if (debug) props.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.DEBUG, "true");
+		if ((debug != null) && debug) props.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.DEBUG, "true");
 		
 		return props;
     }
