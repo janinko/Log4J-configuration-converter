@@ -3,6 +3,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Properties;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -159,4 +161,9 @@ public class Logger {
         config.appendChild(logger);
 
     }
+
+	public void generateProperties(Properties p) {
+		// TODO Auto-generated method stub
+		
+	}
 }
