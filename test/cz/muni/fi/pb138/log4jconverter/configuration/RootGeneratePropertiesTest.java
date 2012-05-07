@@ -61,8 +61,8 @@ public class RootGeneratePropertiesTest {
 		l.setValues(Levels.FATAL);
 		r.setLevel(l);
 		r.addAppenderRef("A9");
-		r.generateProperties(p);
 		r.isRootCategory(true);
+		r.generateProperties(p);
 		
 		expectedKey = PropertiesParser.PREFIX + "." + PropertiesParser.ROOT_CATEGORY;
 		testExpected("FATAL, A9");
