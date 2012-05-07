@@ -1,5 +1,8 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
  *
  * @author Steve
@@ -49,6 +52,13 @@ public class Renderer {
         hash = 67 * hash + (this.renderedClass != null ? this.renderedClass.hashCode() : 0);
         hash = 67 * hash + (this.renderingClass != null ? this.renderingClass.hashCode() : 0);
         return hash;
+    }
+
+    public void printXML(Document doc, Element config) {
+        Element renderer = doc.createElement("renderer");
+        renderer.setAttribute("renderedClass", renderedClass);
+        renderer.setAttribute("renderingClass", renderingClass);
+        config.appendChild(renderer);
     }
     
 }

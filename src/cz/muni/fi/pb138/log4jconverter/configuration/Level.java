@@ -1,12 +1,18 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
+import java.util.Iterator;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
  * @author Admin
  */
 public class Level {
+
+    
     
     public enum Levels {
         OFF, FATAL,
@@ -54,6 +60,44 @@ public class Level {
     
     public void isPriority(boolean b){
     	isPriority = b;
+    }
+	   
+    public void printXML(Document doc, Element elem) {
+        
+        Element level;
+        
+        if(!isPriority)
+        {
+         level = doc.createElement("level");
+        }
+        else{
+            level = doc.createElement("priority");
+        }
+        level.setAttribute("value", value.toString());
+        if(className!= null)
+        {
+        level.setAttribute("class", className);   
+        }
+        
+          if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name", it1.next().toString());
+                param.setAttribute("value", it2.next().toString());
+                level.appendChild(param);
+
+            }
+
+        }
+        
+          
+        
+        elem.appendChild(level);
+                
+        
     }
     
 }

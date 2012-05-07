@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import java.util.Enumeration;
 
 
 public class Main {
@@ -75,19 +76,24 @@ public class Main {
        
 	   switch(targetType){
 	   case PROPERTIES:
-		   Properties p = c.generateProperties();
-		   p.store(os, null);
+		   Properties props = c.generateProperties();
+		   props.store(os, null);
 		   break;
 	   case XML:
 		   Document doc = c.generateXML();
 		   serializetoXML(os,doc);
 		   break;
 	   }
-       
+
        
        
                
     }
+	
+	private static void writeDifferentItems(Properties fromFileInput, Properties fromConfigurationInput) {
+		if (fromFileInput.equals(fromConfigurationInput)) System.out.println("Properties are equals");
+		
+	}
     
     // nvm ci sa to hodi do tejto classy
     private static void serializetoXML(URI output, Document doc)

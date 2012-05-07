@@ -1,7 +1,10 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import java.util.HashMap;
-import java.util.HashSet;
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
+import java.util.*;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -9,6 +12,7 @@ import java.util.HashSet;
  */
 public class Logger {
     //required
+
     private String loggerName;
     //implies
     private String className;
@@ -18,20 +22,20 @@ public class Logger {
     private HashMap<String, String> params;
     private HashSet<String> appenderRefs;
     private Level level;
-    
-    /* Category is deprecated synonym of Logger, this boolean keeps
-     * information about actual name of Logger.
+    /*
+     * Category is deprecated synonym of Logger, this boolean keeps information
+     * about actual name of Logger.
      */
     private boolean isCategory = false;
 
     public Logger(String name) {
-    	loggerName = name;
+        loggerName = name;
         this.params = new HashMap<String, String>();
-        this.appenderRefs = new HashSet<String>();
+        this.appenderRefs = new LinkedHashSet<String>();
     }
 
-    public void isCategory(boolean b){
-    	isCategory = b;
+    public void isCategory(boolean b) {
+        isCategory = b;
     }
 
     public boolean isAdditivity() {
@@ -41,6 +45,10 @@ public class Logger {
     public void setAdditivity(boolean additivity) {
         this.additivity = additivity;
     }
+
+	public void addAppenderRef(String appenderName) {
+		appenderRefs.add(appenderName);
+	}
 
     public HashSet<String> getAppenderRefs() {
         return appenderRefs;
@@ -103,4 +111,73 @@ public class Logger {
         hash = 97 * hash + (this.loggerName != null ? this.loggerName.hashCode() : 0);
         return hash;
     }
+	
+	
+	public void generateProperties(Properties p) {
+		// log4j.logger.logger_name
+		String prefixKey = ( isCategory ? PropertiesParser.CATEGORY_PREFIX : PropertiesParser.LOGGER_PREFIX ) + loggerName;
+		
+		StringBuilder value = new StringBuilder();
+		
+		// level, appdenderRefs
+		if (level != null) value.append(level.getValues());
+		for (String appenderRef : appenderRefs) {
+			value.append(", ");
+			value.append(appenderRef);
+		}
+		p.setProperty(prefixKey, value.toString());
+		
+		// additivity
+		if (!additivity) p.setProperty(PropertiesParser.ADDITIVITY_PREFIX + loggerName, "false");
+	}
+	
+
+    public void printXML(Document doc, Element config) {
+
+        Element logger;
+        if (!isCategory) {
+            logger = doc.createElement("logger");
+        } else {
+            logger = doc.createElement("category");
+        }
+        logger.setAttribute("loggerName", loggerName);
+        if (className != null) {
+            logger.setAttribute("class", className);
+        }
+        if (additivity) {
+            logger.setAttribute("additivity", "true");
+        } else {
+            logger.setAttribute("additivity", "false");
+        }
+
+
+        if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name", it1.next().toString());
+                param.setAttribute("value", it2.next().toString());
+                logger.appendChild(param);
+
+            }
+
+        }
+
+        if (level != null) {
+            level.printXML(doc, logger);
+        }
+
+        for (String ref : appenderRefs) {
+            Element apRef = doc.createElement("appender-ref");
+            apRef.setAttribute("ref", ref);
+            logger.appendChild(apRef);
+        }
+
+
+        config.appendChild(logger);
+
+    }
+
 }

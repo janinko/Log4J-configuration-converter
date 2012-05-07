@@ -1,14 +1,27 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Properties;
 
-public class Configuration implements AbstractModel {
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
+
+
+public class Configuration{
     
     public enum Tresholds{
-        all,trace,debug,info,warn,error,fatal,off,
+        ALL,TRACE,DEBUG,INFO,WARN,ERROR,FATAL,OFF,
     }
+    
     
     private Tresholds treshold = null;
     private Boolean debug = null;
@@ -18,15 +31,17 @@ public class Configuration implements AbstractModel {
     private HashSet<Renderer> renderers;
     private ThrowableRender throwableRenderer;
     private HashMap<String, Appender> appenders;
-    private HashMap<String, Logger> loggers;
+    private HashSet<Logger> loggers;
     private HashMap<String, Plugin> plugins;
     private LoggerFactory logFactory;
+    
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Configuration.class);
     
 
     public Configuration() {
         renderers = new HashSet<Renderer>();
         appenders = new HashMap<String, Appender>();
-        loggers = new HashMap<String, Logger>();
+        loggers = new HashSet<Logger>();
     }
 
     /* returns Appender by its name, if it does'n exists,
@@ -37,16 +52,6 @@ public class Configuration implements AbstractModel {
             appenders.put(name, new Appender(name));
         }
         return appenders.get(name);
-    }
-
-    /* returns Logger by its name, if it does'n exists,
-	 * creates new one.
-     */
-    public Logger getLogger(String name) { 
-        if (!loggers.containsKey(name)) {
-        	loggers.put(name, new Logger(name));
-        }
-        return loggers.get(name);
     }
     
     /*
@@ -83,12 +88,23 @@ public class Configuration implements AbstractModel {
     public void setLogFactory(LoggerFactory logFactory) {
         this.logFactory = logFactory;
     }
+    
+    public Logger getLogger(String name){
+    	for(Logger l : loggers){
+    		if(l.getLoggerName().equals(name)){
+    			return l;
+    		}
+    	}
+    	Logger l = new Logger(name);
+    	loggers.add(l);
+    	return l;
+    }
 
-    public HashMap<String, Logger> getLoggers() {
+    public HashSet<Logger> getLoggers() {
         return loggers;
     }
 
-    public void setLoggers(HashMap<String, Logger> loggers) {
+    public void setLoggers(HashSet<Logger> loggers) {
         this.loggers = loggers;
     }
 
@@ -148,14 +164,109 @@ public class Configuration implements AbstractModel {
         appenders.put(a.getAppenderName(), a);
     }
 
-    @Override
-    public void printXML(Writer w) {
-        // TODO Auto-generated method stub
+    public Document printXML() {
+    	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			logger.error("Couldn't make DocumentBuilder",e);
+			return null;
+		}
+        Document doc = builder.newDocument();
+        
+        Element config = doc.createElement("log4j:configuration");
+        config.setAttribute("xmlns:log4j","http://jakarta.apache.org/log4j/");
+        if(treshold !=null){
+            config.setAttribute("treshold",treshold.toString());
+        }
+        if(debug!=null)
+        {
+            config.setAttribute("debug",debug.toString());
+        }
+        if(reset){
+        config.setAttribute("reset","true");    
+        }
+        else{
+        config.setAttribute("reset","false");        
+        }
+        
+        
+        
+      
+        for(Renderer renderer : renderers)
+        {
+            renderer.printXML(doc, config);
+        }
+        
+        if(throwableRenderer!= null){
+            throwableRenderer.printXML(doc, config);
+        }
+        
+        for(Appender appender : appenders.values())
+        {
+            appender.printXML(doc, config);
+        }
+        
+       
+        
+        for (Plugin plugin : plugins.values())
+        {
+            plugin.printXML(doc, config);
+        }
+         for(Logger logger : loggers)
+        {
+           logger.printXML(doc, config);
+        }
+         
+          if(root!= null)
+        {
+           root.printXML(doc, config);
+        }
+        
+        if(logFactory!= null)
+        {
+            logFactory.printXML(doc, config);
+        }
+        
+        doc.appendChild(config);    
+        
+        return doc;
     }
 
-    @Override
-    public void printProperties(Writer w) {
-        // TODO Auto-generated method stub
+    public Properties generateProperties() {
+    	Properties props = new Properties();
+    	
+		// log4j.rootLogger
+		if (root != null) root.generateProperties(props);
+			
+		// log4j.appender
+		if (appenders != null) {
+			Iterator i = appenders.entrySet().iterator(); 
+			while(i.hasNext()) { 
+				Map.Entry pairs = (Map.Entry)i.next();
+				Appender a = (Appender) pairs.getValue();
+				a.generateProperties(props);
+			} 
+		}
+		
+		// log4j.logger
+		if (logger != null) {
+			for (Logger logger : loggers) {
+				logger.generateProperties(props);
+			}
+		}
+		
+		// log4j.threshold=[level]
+		if (treshold != null) props.setProperty(PropertiesParser.THRESHOLD_PREFIX, treshold.toString());
+		
+		// log4.loggerFactory
+		if (logFactory != null) logFactory.generateProperties(props);
+		
+		// log4j.debug
+		if ((debug != null) && debug) props.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.DEBUG, "true");
+		
+		return props;
     }
 
     @Override

@@ -2,6 +2,9 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  *
@@ -60,6 +63,48 @@ public class ErrorHandler {
 
     public void setRootRef(boolean rootRef) {
         this.rootRef = rootRef;
+    }
+
+ public  void printXML(Document doc, Element appender) {
+        Element error = doc.createElement("errorHandler");
+        error.setAttribute("class", className);
+        
+        if (!params.isEmpty()) {
+            Iterator it1 = params.keySet().iterator();
+            Iterator it2 = params.values().iterator();
+            while (it1.hasNext()) {
+                Element param = doc.createElement("param");
+
+                param.setAttribute("name",it1.next().toString());
+                param.setAttribute("value",it2.next().toString());
+                error.appendChild(param);
+                
+            }
+            
+        }
+        // neviem ci to spravi jeden alebo 2 tagy
+        if(rootRef){
+          Element ref = doc.createElement("root-ref");  
+          error.appendChild(ref);
+        }
+        
+        for(String logRef : loggerRefs)
+        {
+            Element ref = doc.createElement("logger-ref"); 
+            ref.setAttribute("ref",logRef);
+            error.appendChild(ref);
+            
+        }
+        
+        if(appenderRef!= null)
+        {
+             Element ref = doc.createElement("appender-ref"); 
+             ref.setAttribute("ref",appenderRef);
+             error.appendChild(ref);
+        }
+        
+        
+        appender.appendChild(error);
     }
 
 }
