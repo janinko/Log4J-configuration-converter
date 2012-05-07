@@ -1,14 +1,16 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Properties;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 
 /**
  *

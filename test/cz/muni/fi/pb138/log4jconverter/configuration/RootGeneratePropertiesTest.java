@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.junit.Before;
 import org.junit.Test;
 
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import cz.muni.fi.pb138.log4jconverter.configuration.Level.Levels;
 
 public class RootGeneratePropertiesTest {
@@ -20,7 +21,7 @@ public class RootGeneratePropertiesTest {
     	r = new Root();
     	l = new Level();
     	p = new Properties();
-    	expectedKey = "log4j.rootLogger";
+    	expectedKey = PropertiesParser.PREFIX + "." + PropertiesParser.ROOT_LOGGER;
     }
 
 	@Test
@@ -63,7 +64,7 @@ public class RootGeneratePropertiesTest {
 		r.generateProperties(p);
 		r.isRootCategory(true);
 		
-		expectedKey = "log4j.rootCategory";
+		expectedKey = PropertiesParser.PREFIX + "." + PropertiesParser.ROOT_CATEGORY;
 		testExpected("FATAL, A9");
 	}
 
@@ -75,6 +76,16 @@ public class RootGeneratePropertiesTest {
 		r.generateProperties(p);
 		
 		testExpected("INFO, A1");
+	}
+
+	@Test
+	public void testAppendersOnly() {
+		r.addAppenderRef("A1");
+		r.addAppenderRef("A2");
+		r.addAppenderRef("A3");
+		r.generateProperties(p);
+		
+		testExpected(", A1, A2, A3");
 	}
 	
 	private void testExpected(String value){
