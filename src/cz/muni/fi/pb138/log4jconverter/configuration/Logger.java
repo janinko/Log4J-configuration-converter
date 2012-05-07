@@ -1,9 +1,7 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Properties;
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
+import java.util.*;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,7 +31,7 @@ public class Logger {
     public Logger(String name) {
         loggerName = name;
         this.params = new HashMap<String, String>();
-        this.appenderRefs = new HashSet<String>();
+        this.appenderRefs = new LinkedHashSet<String>();
     }
 
     public void isCategory(boolean b) {
@@ -113,6 +111,21 @@ public class Logger {
         hash = 97 * hash + (this.loggerName != null ? this.loggerName.hashCode() : 0);
         return hash;
     }
+	
+	
+	public void generateProperties(Properties p) {
+		// log4j.logger.logger_name
+		String prefixKey = ( isCategory ? PropertiesParser.CATEGORY_PREFIX : PropertiesParser.LOGGER_PREFIX ) + loggerName;
+		
+		StringBuilder value = new StringBuilder();
+		if (level != null) value.append(level.getValues());
+		for (String appenderRef : appenderRefs) {
+			value.append(", ");
+			value.append(appenderRef);
+		}
+		p.setProperty(prefixKey, value.toString());
+	}
+	
 
     public void printXML(Document doc, Element config) {
 
@@ -162,8 +175,4 @@ public class Logger {
 
     }
 
-	public void generateProperties(Properties p) {
-		// TODO Auto-generated method stub
-		
-	}
 }
