@@ -124,6 +124,7 @@ public class Logger {
 			value.append(appenderRef);
 		}
 		p.setProperty(prefixKey, value.toString());
+		if (!additivity) p.setProperty(PropertiesParser.ADDITIVITY_PREFIX + loggerName, "false");
 	}
 	
 
