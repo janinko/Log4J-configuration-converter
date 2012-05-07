@@ -118,12 +118,17 @@ public class Logger {
 		String prefixKey = ( isCategory ? PropertiesParser.CATEGORY_PREFIX : PropertiesParser.LOGGER_PREFIX ) + loggerName;
 		
 		StringBuilder value = new StringBuilder();
+		
+		// level, appdenderRefs
 		if (level != null) value.append(level.getValues());
 		for (String appenderRef : appenderRefs) {
 			value.append(", ");
 			value.append(appenderRef);
 		}
 		p.setProperty(prefixKey, value.toString());
+		
+		// additivity
+		if (!additivity) p.setProperty(PropertiesParser.ADDITIVITY_PREFIX + loggerName, "false");
 	}
 	
 
