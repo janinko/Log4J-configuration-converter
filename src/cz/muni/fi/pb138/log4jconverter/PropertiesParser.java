@@ -182,6 +182,9 @@ public class PropertiesParser implements Parser {
 		
 		String loggerName = concateKeyParts(key, 2);
 		Logger l = configuration.getLogger(loggerName);
+		if(CATEGORY.equals(key[1])){
+			l.isCategory(true);
+		}
 		
 		String[] values = value.split(",");
 		if(values.length >= 1){

@@ -82,6 +82,23 @@ public class LoggerGeneratePropertiesTest {
 		
 		testExpected("FATAL, A1, A2, A3", PropertiesParser.CATEGORY);
 	}
+
+	@Test
+	public void testAditivity() {
+		loggerName = "com.corda.dashboard.access";
+		logger = new Logger(loggerName);
+		level.setValues(Level.Levels.WARN);
+		logger.setLevel(level);
+		logger.addAppenderRef("A1");
+		logger.addAppenderRef("A2");
+		logger.isCategory(true);
+		logger.setAdditivity(false);
+
+		testExpected("WARN, A1, A2", PropertiesParser.CATEGORY);
+		testExpected("false", PropertiesParser.ADDITIVITY);
+	}
+	
+	
 	
 
 	private void testExpected(String value){
