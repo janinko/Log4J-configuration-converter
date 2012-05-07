@@ -148,6 +148,10 @@ public class PropertiesParser implements Parser {
 
 	private void parseRootLogger(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing root logger: '" + value + "'"); }
+		if(ROOT_CATEGORY.equals(key[1]) && configuration.getRoot() != null ){
+			logger.info("Trying to parse "+ ROOT_CATEGORY+" when root is allready set. Skipping.");
+			return;
+		}
         
         Root rootLogger = new Root();
 
