@@ -4,8 +4,11 @@ import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Properties;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 
 /**
  *

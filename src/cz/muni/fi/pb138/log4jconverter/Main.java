@@ -51,7 +51,7 @@ public class Main {
         PropertiesParser pp = new PropertiesParser(properties);
         c = pp.parse();     
         c.generateProperties().list(System.out);
-			
+		writeDifferentItems(properties, c.generateProperties());
 		
         
        
@@ -69,5 +69,10 @@ public class Main {
         */
                
     }
+	
+	private static void writeDifferentItems(Properties fromFileInput, Properties fromConfigurationInput) {
+		if (fromFileInput.equals(fromConfigurationInput)) System.out.println("Properties are equals");
+		
+	}
     
 }

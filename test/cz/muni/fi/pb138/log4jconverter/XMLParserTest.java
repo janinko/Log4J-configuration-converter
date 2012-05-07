@@ -4,12 +4,10 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
-import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
-import org.junit.AfterClass;
+import static org.junit.Assert.fail;
+
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 
 /**
  *
