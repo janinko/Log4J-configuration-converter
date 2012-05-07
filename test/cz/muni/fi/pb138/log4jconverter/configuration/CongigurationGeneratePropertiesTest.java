@@ -30,10 +30,10 @@ public class CongigurationGeneratePropertiesTest {
 
 	@Test
 	public void testTreshold() {
-		c.setTreshold(Configuration.Tresholds.debug);
+		c.setTreshold(Configuration.Tresholds.DEBUG);
 		Properties p = c.generateProperties();
 		assertTrue(p.containsKey(PREFIX + PropertiesParser.THRESHOLD));
-		assertEquals("debug",p.getProperty((PREFIX + PropertiesParser.THRESHOLD)));
+		assertEquals( "DEBUG",p.getProperty(PREFIX + PropertiesParser.THRESHOLD) );
 	}
 
 	@Test
