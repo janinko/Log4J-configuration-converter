@@ -1,12 +1,16 @@
 package cz.muni.fi.pb138.log4jconverter;
 
-import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import org.junit.*;
-import static org.junit.Assert.*;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
 
 /**
  *

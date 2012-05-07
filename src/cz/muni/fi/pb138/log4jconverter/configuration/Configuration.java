@@ -1,27 +1,19 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
-import java.util.*;
 
 
 public class Configuration{

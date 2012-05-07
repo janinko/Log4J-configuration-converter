@@ -1,13 +1,13 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import org.junit.*;
-import org.omg.CORBA.ExceptionList;
 
-import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
-import static org.junit.Assert.*;
+import org.junit.Test;
 
 /**
  *
