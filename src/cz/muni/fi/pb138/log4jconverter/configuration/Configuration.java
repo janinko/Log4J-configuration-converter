@@ -258,6 +258,15 @@ public class Configuration{
 			} 
 		}
 		
+		// log4j.logger
+		for (Logger logger : loggers) {
+			logger.generateProperties(props);
+		}
+		
+		// log4j.threshold=[level]
+		if (treshold != null) props.setProperty(PropertiesParser.THRESHOLD_PREFIX, treshold.toString());
+		
+		
 		return props;
     }
 
