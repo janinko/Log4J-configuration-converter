@@ -109,15 +109,17 @@ public class Root {
 
     public void generateProperties(Properties p) {
     	StringBuilder value = new StringBuilder();
-		value.append(level.getValues());
+		if (level != null) value.append(level.getValues());
 		for (String appenderRef : appenderRefs) {
 			value.append(", ");
 			value.append(appenderRef);
 		}
-        p.setProperty(PropertiesParser.ROOT_LOGGER_PREFIX, value.toString());
+        p.setProperty( ( isRootCategory ? PropertiesParser.ROOT_CATEGORY_PREFIX : PropertiesParser.ROOT_LOGGER_PREFIX ), value.toString());
 		if (logger.isTraceEnabled()) { logger.trace(PropertiesParser.ROOT_LOGGER_PREFIX+"="+p.getProperty(PropertiesParser.ROOT_LOGGER_PREFIX)); }
     }
 
+	
+	// TODO check isRootCategory and create category
     public void printXML(Document doc, Element config) {
         Element root = doc.createElement("root");
 

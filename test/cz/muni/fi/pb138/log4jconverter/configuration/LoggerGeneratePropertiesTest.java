@@ -55,7 +55,7 @@ public class LoggerGeneratePropertiesTest {
 		logger.addAppenderRef("A4");
 		logger.addAppenderRef("A5");
 		
-		testExpected("ERROR, A1, A2, A3, A4, A5");
+		testExpected("FATAL, A1, A2, A3, A4, A5");
 	}
 
 	@Test
