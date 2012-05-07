@@ -259,8 +259,10 @@ public class Configuration{
 		}
 		
 		// log4j.logger
-		for (Logger logger : loggers) {
-			logger.generateProperties(props);
+		if (logger != null) {
+			for (Logger logger : loggers) {
+				logger.generateProperties(props);
+			}
 		}
 		
 		// log4j.threshold=[level]
