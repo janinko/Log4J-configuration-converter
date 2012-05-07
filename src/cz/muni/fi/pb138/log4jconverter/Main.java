@@ -1,8 +1,11 @@
 package cz.muni.fi.pb138.log4jconverter;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URI;
+import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
@@ -17,21 +20,77 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
+import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 
 
 public class Main {
 	public static Type confOut = Type.OTHER;
+    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Main.class);
+
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
        PropertyConfigurator.configure("log4j.properties"); 
 
        Config config = new Config(args);
        
+
+       InputLoader il;
+       if(config.inputFile != null){
+    	   il = new InputLoader(config.inputFile);
+       }else{
+    	   il = new InputLoader(System.in);
+       }
+       
+       Parser p = null;
+	   switch(il.getType()){
+	   case PROPERTIES:
+		   p = new PropertiesParser(il.getProperties()); break;
+	   case XML:
+		   p = new XMLParser(il.getDOM()); break;
+	   case OTHER:
+		   logger.error("Unrecognized type of input file");
+		   System.exit(1);
+		   return;
+	   }
+       
+       Configuration c = p.parse();
+       
+       InputLoader.Type targetType = config.outputType;
+       if(targetType == null){
+    	   switch(il.getType()){
+    	   case PROPERTIES:
+    		   targetType = InputLoader.Type.XML; break;
+    	   case XML:
+    		   targetType = InputLoader.Type.PROPERTIES; break;
+    	   }
+       }
+       
+       OutputStream os;
+       if(config.outputFile != null){
+    	   os = new FileOutputStream(new File(config.outputFile)); 
+       }else{
+    	   os = System.out;
+       }
+       
+       
+	   switch(targetType){
+	   case PROPERTIES:
+		   Properties p = c.generateProperties();
+		   p.store(os, null);
+		   break;
+	   case XML:
+		   Document doc = c.generateXML();
+		   serializetoXML(os,doc);
+		   break;
+	   }
+       
+       
+       
                
     }
     
     // nvm ci sa to hodi do tejto classy
-    private  void serializetoXML(URI output, Document doc)
+    private static void serializetoXML(URI output, Document doc)
            throws IOException, TransformerConfigurationException, TransformerException {
        // Vytvorime instanci tovarni tridy
        TransformerFactory factory = TransformerFactory.newInstance();
@@ -45,7 +104,7 @@ public class Main {
        transformer.transform(source, result);
    }
 
-   private void serializetoXML(File output, Document doc) throws IOException,
+   private static void serializetoXML(OutputStream output, Document doc) throws IOException,
            TransformerException {
        serializetoXML(output.toURI(), doc);
    }
