@@ -216,8 +216,8 @@ public class Appender {
 
     public void generateProperties(Properties p) {
 		String prefixKey = PropertiesParser.APPENDER_PREFIX + appenderName;
-        if (!appenderName.isEmpty()) p.setProperty(prefixKey, className);
-		
+		if (className != null) p.setProperty(prefixKey, className);
+
 		// prefixKey.PARAM=VALUE
 		if (!params.isEmpty()) {
 			Iterator i = params.entrySet().iterator(); 
