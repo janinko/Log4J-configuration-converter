@@ -215,10 +215,13 @@ public class Appender {
     }
 
     public void generateProperties(Properties p) {
+		// log4j.appender.appenderName
 		String prefixKey = PropertiesParser.APPENDER_PREFIX + appenderName;
+		
+		// log4j.appender.appenderName=fully.qualified.name.of.appender.class
 		if (className != null) p.setProperty(prefixKey, className);
 
-		// prefixKey.PARAM=VALUE
+		// log4j.appender.appenderName.option1=value1
 		if (!params.isEmpty()) {
 			Iterator i = params.entrySet().iterator(); 
 			while(i.hasNext()) { 
@@ -228,8 +231,21 @@ public class Appender {
 				p.setProperty(prefixKey + "." + paramKey, paramValue);
 			} 
 		}
+		
+		// log4j.appender.appenderName.layout=fully.qualified.name.of.layout.class
+		// log4j.appender.appenderName.layout.option1=value1
 		if (layout != null) {
 			layout.generateProperties(p, prefixKey + ".layout");
+		}
+		
+		// log4j.appender.appenderName.filter.ID=fully.qualified.name.of.filter.class
+		// log4j.appender.appenderName.filter.ID.option1=value1
+		if (filters != null) {
+			for (Filter filter : filters) {
+				filter.generateProperties(p, prefixKey + ".filter" + 
+						// ".ID" if exists
+						( (filter.getName() != null) ? ("." + filter.getName()) : "") );
+			}
 		}
     }
 

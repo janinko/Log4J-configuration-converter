@@ -44,11 +44,10 @@ public class Layout {
 	
 	
 	public void generateProperties(Properties p, String prefixKey) {
-		if (!className.isEmpty()) p.setProperty(prefixKey, className);
+		if (className != null) p.setProperty(prefixKey, className);
 
 		// prefixKey.PARAM=VALUE
 		if (!params.isEmpty()) {
-			
 			Iterator i = params.entrySet().iterator(); 
 			while(i.hasNext()) { 
 				Map.Entry pairs = (Map.Entry)i.next();
