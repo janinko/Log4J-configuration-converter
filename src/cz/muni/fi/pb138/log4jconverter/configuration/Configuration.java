@@ -97,8 +97,15 @@ public class Configuration{
         this.logFactory = logFactory;
     }
     
-    public void addLogger(Logger l){
+    public Logger getLogger(String name){
+    	for(Logger l : loggers){
+    		if(l.getLoggerName().equals(name)){
+    			return l;
+    		}
+    	}
+    	Logger l = new Logger(name);
     	loggers.add(l);
+    	return l;
     }
 
     public HashSet<Logger> getLoggers() {
