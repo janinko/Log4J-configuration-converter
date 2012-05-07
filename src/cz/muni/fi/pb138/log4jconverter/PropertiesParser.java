@@ -12,6 +12,7 @@ import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 import cz.muni.fi.pb138.log4jconverter.configuration.Level;
 import cz.muni.fi.pb138.log4jconverter.configuration.Logger;
+import cz.muni.fi.pb138.log4jconverter.configuration.LoggerFactory;
 import cz.muni.fi.pb138.log4jconverter.configuration.Root;
 
 /**
@@ -31,6 +32,10 @@ public class PropertiesParser implements Parser {
     public static final String        ROOT_CATEGORY    = "rootCategory";
     public static final String          ROOT_LOGGER    = "rootLogger";
     public static final String                DEBUG    = "debug";
+    public static final String            THRESHOLD    = "threshold";
+    public static final String       LOGGER_FACTORY    = "loggerFactory";
+    public static final String           ADDITIVITY    = "additivity";
+    
     
     public static final String      CATEGORY_PREFIX    = "log4j.category.";
     public static final String        LOGGER_PREFIX    = "log4j.logger.";
@@ -71,7 +76,7 @@ public class PropertiesParser implements Parser {
     
     
     public void writeAllProperties() {
-        Enumeration e = properties.propertyNames();
+        Enumeration<?> e = properties.propertyNames();
 
         while (e.hasMoreElements()) {
             String key = (String) e.nextElement();
@@ -115,6 +120,25 @@ public class PropertiesParser implements Parser {
     		}else{
     			throw new ParseException("Unknown value for " + PREFIX + "." + DEBUG);
     		}
+    	}else if(LOGGER_FACTORY.equals(specifier)){
+    		LoggerFactory lf = new LoggerFactory();
+    		lf.setClassName(value);
+    		configuration.setLogFactory(lf);
+    	}else if(THRESHOLD.equals(specifier)){
+    		try{
+    			configuration.setTreshold(Configuration.Tresholds.valueOf(value.toLowerCase()));
+    		}catch (IllegalArgumentException ex){
+    			throw new ParseException(ex);
+    		}
+    	}else if(ADDITIVITY.equals(specifier)){
+    		Logger l = configuration.getLogger(concateKeyParts(key, 2));
+    		if(value.equals("true")){
+    			l.setAdditivity(true);
+    		}else if(value.equals("false")){
+    			l.setAdditivity(false);
+    		}else{
+    			throw new ParseException("Unknown value for " + PREFIX + "." + ADDITIVITY);
+    		}
     	}else{
     		throw new ParseException("Unknown key");
     	}
@@ -153,7 +177,7 @@ public class PropertiesParser implements Parser {
 		if (logger.isTraceEnabled()) { logger.trace("parsing logger: " +concateKeyParts(key, 0)+"=" + value); }
 		
 		String loggerName = concateKeyParts(key, 2);
-		Logger l = new Logger(loggerName);
+		Logger l = configuration.getLogger(loggerName);
 		
 		String[] values = value.split(",");
 		if(values.length >= 1){
@@ -168,8 +192,6 @@ public class PropertiesParser implements Parser {
 				l.addAppenderRef(values[i].trim());
 			}
 		}
-		
-		configuration.addLogger(l);
 	}
 
 
