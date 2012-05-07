@@ -268,6 +268,8 @@ public class Configuration{
 		// log4j.threshold=[level]
 		if (treshold != null) props.setProperty(PropertiesParser.THRESHOLD_PREFIX, treshold.toString());
 		
+		// log4.loggerFactory
+		if (logFactory != null) logFactory.generateProperties(props);
 		
 		return props;
     }

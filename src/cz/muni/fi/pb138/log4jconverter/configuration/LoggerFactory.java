@@ -1,7 +1,10 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
+import com.sun.corba.se.spi.orb.PropertyParser;
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -45,6 +48,11 @@ public class LoggerFactory {
     public void isCategoryFactory(boolean b) {
         isCategoryFactory = b;
     }
+	
+	
+	public void generateProperties(Properties p) {
+		if (className != null) p.setProperty(PropertiesParser.LOGGER_FACTORY, className);
+	}
 
     public void printXML(Document doc, Element config) {
         Element factory;
