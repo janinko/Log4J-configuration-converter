@@ -264,7 +264,7 @@ public class Configuration{
 		if (logFactory != null) logFactory.generateProperties(props);
 		
 		// log4j.debug
-		if (debug) props.setProperty(PropertiesParser.DEBUG, "true");
+		if (debug) props.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.DEBUG, "true");
 		
 		return props;
     }
