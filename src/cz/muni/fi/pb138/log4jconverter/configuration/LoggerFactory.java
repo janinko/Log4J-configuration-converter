@@ -1,6 +1,5 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import com.sun.corba.se.spi.orb.PropertyParser;
 import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import java.util.HashMap;
 import java.util.Iterator;
