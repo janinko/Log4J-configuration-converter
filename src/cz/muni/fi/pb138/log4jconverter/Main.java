@@ -96,7 +96,7 @@ public class Main {
 	}
     
     // nvm ci sa to hodi do tejto classy
-    private static void serializetoXML(URI output, Document doc)
+    private static void serializetoXML(OutputStream output, Document doc)
            throws IOException, TransformerConfigurationException, TransformerException {
        // Vytvorime instanci tovarni tridy
        TransformerFactory factory = TransformerFactory.newInstance();
@@ -105,17 +105,9 @@ public class Main {
        // Vstupem transformace bude dokument v pameti
        DOMSource source = new DOMSource(doc);
        // Vystupem transformace bude vystupni soubor
-       StreamResult result = new StreamResult(output.toString());
+       StreamResult result = new StreamResult(output);
        // Provedeme transformaci
        transformer.transform(source, result);
    }
-
-   private static void serializetoXML(OutputStream output, Document doc) throws IOException,
-           TransformerException {
-       serializetoXML(output.toURI(), doc);
-   }
-    
-
-   
     
 }
