@@ -1,8 +1,10 @@
 package cz.muni.fi.pb138.log4jconverter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -50,7 +52,7 @@ public class InputLoaderTest {
     }
     
     @Test
-    public void constructTest() {
+    public void constructTest() throws FileNotFoundException {
         String fileStringNull = null;
         String fileStringEmpty = "";
         
@@ -58,18 +60,21 @@ public class InputLoaderTest {
         
         try {
             InputLoader stringNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNull);
+            fail();
         } catch (IllegalArgumentException ex) {
             // OK
         }
         
         try {
             InputLoader stringEmpty = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringEmpty);
+            fail();
         } catch (IllegalArgumentException ex) {
             // OK
         }
         
         try {
             InputLoader streamNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStreamNull);
+            fail();
         } catch (IllegalArgumentException ex) {
             // OK
         }
@@ -88,7 +93,7 @@ public class InputLoaderTest {
     }
     
     @Test
-    public void fileTypeTest() {
+    public void fileTypeTest() throws IOException {
         InputLoader inputLoaderXML = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringXML);
         InputLoader inputLoaderProperties = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringProperties);
         InputLoader inputLoaderNoSuffix = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNoSuffix);

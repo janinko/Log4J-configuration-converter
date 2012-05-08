@@ -38,6 +38,9 @@ public class InputLoader {
     
     
     public InputLoader(InputStream is) {
+        if (is == null) {
+            throw new IllegalArgumentException("No input stream");
+        }
     	this.is = is;
         this.in = new BufferedReader(new InputStreamReader(is));
     }
@@ -66,21 +69,25 @@ public class InputLoader {
 	        } else if (extension.equals("properties")) {
 	            return Type.PROPERTIES;
 	        }
-	        return Type.OTHER;
-        }else{
-        	return getInputStreamType();
         }
+    	return getInputStreamType();
     }
     
     private Type getInputStreamType() throws IOException{
     	Type t = Type.OTHER;
 		in.mark(1000);
     	String line = in.readLine();
+    	
+    	if(line == null) return Type.OTHER;
+    
     	if(line.startsWith("<?xml ")){
     		t = Type.XML;
     	}else{
+    		while(line.matches("\\s*")){
+    			line = in.readLine();
+    		}
     		//                            '\\'    '\ '  '\='  '\:'
-    		if(line.matches("\\s*([#!]|(\\\\\\\\|\\\\ |\\\\=|\\\\:|[^ =:])*\\s*[=:]?\\s*.*")){
+    		if(line.matches("\\s*([#!]|(\\\\\\\\|\\\\ |\\\\=|\\\\:|[^ =:])+(\\s+|\\s*[=:]?\\s*).+)")){
         		t = Type.PROPERTIES;
     		}
     	}
