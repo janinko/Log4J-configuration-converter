@@ -22,6 +22,7 @@ import org.xml.sax.SAXException;
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 import java.util.Enumeration;
+import java.util.Map.Entry;
 
 
 public class Main {
@@ -91,7 +92,28 @@ public class Main {
     }
 	
 	private static void writeDifferentItems(Properties fromFileInput, Properties fromConfigurationInput) {
-		if (fromFileInput.equals(fromConfigurationInput)) System.out.println("Properties are equals");
+		if (fromFileInput.equals(fromConfigurationInput)){
+			System.out.println("Properties are equals");
+			return;
+		}
+
+		for(Entry<Object, Object> e : fromFileInput.entrySet()){
+			String key = (String) e.getKey();
+			String value = (String) e.getValue();
+			if(!fromConfigurationInput.containsKey(key)){
+				System.out.println("-" + key + "=" + value);
+			}else if(!fromConfigurationInput.getProperty(key).equals(value)){
+				System.out.println("-" + key + "=" + value);
+				System.out.println("+" + key + "=" + fromConfigurationInput.getProperty(key));
+			}
+		}
+		for(Entry<Object, Object> e : fromConfigurationInput.entrySet()){
+			String key = (String) e.getKey();
+			String value = (String) e.getValue();
+			if(!fromFileInput.containsKey(key)){
+				System.out.println("+" + key + "=" + value);
+			}
+		}
 		
 	}
     
