@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
+import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 
 /**
  *
@@ -28,6 +29,8 @@ public class InputLoaderTest {
     private static final File fileProperties = new File(fileStringProperties);
     private static final File fileNoSuffix = new File(fileStringNoSuffix);
     private static final File fileInvalidSuffix = new File(fileStringInvalidSuffix);
+	
+	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Configuration.class);
         
     @BeforeClass
     public static void setUp() {        
