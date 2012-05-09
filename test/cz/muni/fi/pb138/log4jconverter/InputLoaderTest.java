@@ -14,6 +14,9 @@ import org.junit.Test;
 
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.junit.Ignore;
 
 /**
  *
@@ -55,56 +58,64 @@ public class InputLoaderTest {
     }
     
     @Test
-    public void constructTest() throws FileNotFoundException {
-        String fileStringNull = null;
-        String fileStringEmpty = "";
-        
-        InputStream fileStreamNull = null;
-        
-        try {
-            InputLoader stringNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNull);
-            fail();
-        } catch (IllegalArgumentException ex) {
-            // OK
-        }
-        
-        try {
-            InputLoader stringEmpty = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringEmpty);
-            fail();
-        } catch (IllegalArgumentException ex) {
-            // OK
-        }
-        
-        try {
-            InputLoader streamNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStreamNull);
-            fail();
-        } catch (IllegalArgumentException ex) {
-            // OK
-        }
-        
-        /*try {
-            InputLoader stringInvalid = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringInvalid);
-        } catch (FileNotFoundException ex) {
-            // OK
-        }*/
-        
-        InputLoader inputLoaderXML = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringXML);
-        InputLoader inputLoaderProperties = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringProperties);
-        
-        assertEquals(fileStringXML, inputLoaderXML.getNameOfFile());
-        assertEquals(fileStringProperties, inputLoaderProperties.getNameOfFile());
+    public void constructTest() {
+		try {
+			String fileStringNull = null;
+			String fileStringEmpty = "";
+			
+			InputStream fileStreamNull = null;
+			
+			try {
+				InputLoader stringNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNull);
+				fail();
+			} catch (IllegalArgumentException ex) {
+				// OK
+			}
+			
+			try {
+				InputLoader stringEmpty = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringEmpty);
+				fail();
+			} catch (IllegalArgumentException ex) {
+				// OK
+			}
+			
+			try {
+				InputLoader streamNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStreamNull);
+				fail();
+			} catch (IllegalArgumentException ex) {
+				// OK
+			}
+			
+			/*try {
+				InputLoader stringInvalid = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringInvalid);
+			} catch (FileNotFoundException ex) {
+				// OK
+			}*/
+			
+			InputLoader inputLoaderXML = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringXML);
+			InputLoader inputLoaderProperties = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringProperties);
+			
+			assertEquals(fileStringXML, inputLoaderXML.getNameOfFile());
+			assertEquals(fileStringProperties, inputLoaderProperties.getNameOfFile());
+		} catch (FileNotFoundException ex) {
+			// ok
+		}
     }
     
     @Test
-    public void fileTypeTest() throws IOException {
-        InputLoader inputLoaderXML = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringXML);
-        InputLoader inputLoaderProperties = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringProperties);
-        InputLoader inputLoaderNoSuffix = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNoSuffix);
-        InputLoader inputLoaderInvalidSuffix = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringInvalidSuffix);
-        
-        assertEquals(inputLoaderXML.getType(), Type.XML);
-        assertEquals(inputLoaderProperties.getType(), Type.PROPERTIES);
-        assertEquals(inputLoaderNoSuffix.getType(), Type.OTHER);
-        assertEquals(inputLoaderInvalidSuffix.getType(), Type.OTHER);
+    public void fileTypeTest() {
+		try {
+			InputLoader inputLoaderXML = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringXML);
+			InputLoader inputLoaderProperties = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringProperties);
+			InputLoader inputLoaderNoSuffix = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNoSuffix);
+			InputLoader inputLoaderInvalidSuffix = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringInvalidSuffix);
+			
+			assertEquals(inputLoaderXML.getType(), Type.XML);
+			assertEquals(inputLoaderProperties.getType(), Type.PROPERTIES);
+			assertEquals(inputLoaderNoSuffix.getType(), Type.OTHER);
+			assertEquals(inputLoaderInvalidSuffix.getType(), Type.OTHER);
+		} catch (IOException ex) {
+			// ok
+		}
     }
 }
