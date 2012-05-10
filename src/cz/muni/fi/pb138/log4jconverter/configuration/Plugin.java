@@ -48,6 +48,10 @@ public class Plugin {
     public void setParams(HashMap<String, String> params) {
         this.params = params;
     }
+    
+    public void addParam(String key, String value) {
+        params.put(key, value);
+    }
 
     @Override
     public boolean equals(Object obj) {

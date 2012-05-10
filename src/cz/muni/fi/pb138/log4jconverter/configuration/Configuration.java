@@ -115,6 +115,10 @@ public class Configuration{
     public void setPlugins(HashMap<String, Plugin> plugins) {
         this.plugins = plugins;
     }
+    
+    public void addPlugin(Plugin plugin) {
+        plugins.put(plugin.getName(), plugin);
+    }
 
     public boolean isReset() {
         return reset;

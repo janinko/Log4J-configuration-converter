@@ -46,6 +46,7 @@ public class XMLParser implements Parser {
                 // setReset(false) is default value
             }
             
+            // Child elements
             NodeList childNodes = rootElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
@@ -61,6 +62,10 @@ public class XMLParser implements Parser {
                 // appender
                 else if (childElement.getTagName().equals("appender")) {
                     configuration.addAppender(parseAppender(childElement));
+                }
+                // plugin
+                else if (childElement.getTagName().equals("plugin")) {
+                    configuration.addPlugin(parsePlugin(childElement));
                 }
             }
         }
@@ -97,7 +102,6 @@ public class XMLParser implements Parser {
             Appender appender = new Appender();
             int i;
             
-            // Required attributes
             appender.setAppenderName(appenderElement.getAttribute("name"));
             appender.setClassName(appenderElement.getAttribute("class"));
             
@@ -143,6 +147,33 @@ public class XMLParser implements Parser {
             return appender;
         }
         
+        private Plugin parsePlugin(Element pluginElement) {
+            Plugin plugin = new Plugin();
+            int i;
+            
+            plugin.setName(pluginElement.getAttribute("name"));
+            plugin.setClassName(pluginElement.getAttribute("class"));
+            
+            // Child elements
+            NodeList childNodes = pluginElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                // param
+                if (childElement.getTagName().equals("param")) {
+                    plugin.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+                // connectionSource
+                else if (childElement.getTagName().equals("connectionSource")) {
+                    plugin.setConnSource(parseConnectionSource(childElement));
+                }
+            }
+            
+            return plugin;
+        }
+        
+        
+        
         private ErrorHandler parseErrorHandler(Element errorHandlerElement) {
             ErrorHandler errorHandler = new ErrorHandler();
             int i;
@@ -154,7 +185,6 @@ public class XMLParser implements Parser {
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
                 childElement = (Element) childNodes.item(i);
-                
                 // param
                 if (childElement.getTagName().equals("param")) {
                     errorHandler.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
