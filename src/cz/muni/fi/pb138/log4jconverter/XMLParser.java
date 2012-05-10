@@ -118,7 +118,6 @@ public class XMLParser implements Parser {
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
                 childElement = (Element) childNodes.item(i);
-                
                 // param
                 if (childElement.getTagName().equals("param")) {
                     appender.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
@@ -160,37 +159,30 @@ public class XMLParser implements Parser {
             ErrorHandler errorHandler = new ErrorHandler();
             int i;
             
-            // Required attribute
             errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
-
-            // param
+            
+            // Child elements
             NodeList childNodes = errorHandlerElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
                 childElement = (Element) childNodes.item(i);
+                
+                // param
                 if (childElement.getTagName().equals("param")) {
                     errorHandler.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
                 }
-            }
-            
-            // root-ref
-            NodeList rootRefList = errorHandlerElement.getElementsByTagName("root-ref");
-            if (rootRefList.getLength() == 1) {
-                errorHandler.setRootRef(true);
-            }
-
-            // logger-ref
-            NodeList loggerRefList = errorHandlerElement.getElementsByTagName("logger-ref");
-            for (i = 0; i < loggerRefList.getLength(); i++) {
-                Element loggerRefElement = (Element) loggerRefList.item(i);
-                errorHandler.addLoggerRef(loggerRefElement.getAttribute("ref"));
-            }
-
-            // appender-ref
-            NodeList appenderRefList = errorHandlerElement.getElementsByTagName("appender-ref");
-            if (appenderRefList.getLength() == 1) {
-                Element appenderRefElement = (Element) appenderRefList.item(0);
-                errorHandler.setAppenderRef(appenderRefElement.getAttribute("ref"));
+                // root-ref
+                else if (childElement.getTagName().equals("root-ref")) {
+                    errorHandler.setRootRef(true);
+                }
+                // logger-ref
+                else if (childElement.getTagName().equals("logger-ref")) {
+                    errorHandler.addLoggerRef(childElement.getAttribute("ref"));
+                }
+                // appender-ref
+                else if (childElement.getTagName().equals("appender-ref")) {
+                    errorHandler.setAppenderRef(childElement.getAttribute("ref"));
+                }
             }
             
             return errorHandler;
@@ -229,14 +221,16 @@ public class XMLParser implements Parser {
                 triggeringPolicy.setName(triggeringPolicyElement.getAttribute("name"));
             }
             
-            // param or filter
             NodeList childNodes = triggeringPolicyElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
                 childElement = (Element) childNodes.item(i);
+                // param
                 if (childElement.getTagName().equals("param")) {
                     triggeringPolicy.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
-                } else if (childElement.getTagName().equals("filter")) {
+                }
+                // filter
+                else if (childElement.getTagName().equals("filter")) {
                     triggeringPolicy.addFilter(parseFilter(childElement));
                 }
             }
@@ -250,20 +244,17 @@ public class XMLParser implements Parser {
             
             connectionSource.setClassName(connectionSourceElement.getAttribute("class"));
             
-            // dataSource
-            NodeList dataSourceList = connectionSourceElement.getElementsByTagName("dataSource");
-            if (dataSourceList.getLength() == 1) {
-                Element dataSourceElement = (Element) dataSourceList.item(0);
-                connectionSource.setDataSource(parseDataSource(dataSourceElement));
-            }
-            
-            // param
             NodeList childNodes = connectionSourceElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
                 childElement = (Element) childNodes.item(i);
+                // param
                 if (childElement.getTagName().equals("param")) {
                     connectionSource.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+                // dataSource
+                else if (childElement.getTagName().equals("dataSource")) {
+                    connectionSource.setDataSource(parseDataSource(childElement));
                 }
             }
             
