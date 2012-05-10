@@ -1,8 +1,8 @@
 package cz.muni.fi.pb138.log4jconverter;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration.Threshold;
-import cz.muni.fi.pb138.log4jconverter.configuration.*;
 import cz.muni.fi.pb138.log4jconverter.configuration.Level.Levels;
+import cz.muni.fi.pb138.log4jconverter.configuration.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -81,6 +81,11 @@ public class XMLParser implements Parser {
                 else if (childElement.getTagName().equals("logger")
                         || childElement.getTagName().equals("category")) {
                     configuration.addLogger(parseLogger(childElement));
+                }
+                // loggerFactory (or deprecated categoryFactory)
+                else if (childElement.getTagName().equals("loggerFactory")
+                        || childElement.getTagName().equals("categoryFactory")) {
+                    configuration.setLogFactory(parseLoggerFactory(childElement));
                 }
             }
         }
@@ -185,6 +190,60 @@ public class XMLParser implements Parser {
             }
             
             return plugin;
+        }
+        
+        private Logger parseLogger(Element loggerElement) {
+            Logger logger = new Logger();
+            int i;
+            
+            logger.setName(loggerElement.getAttribute("name"));
+            
+            if (loggerElement.hasAttribute("name")) {
+                logger.setName(loggerElement.getAttribute("name"));
+            }
+            
+            logger.setClassName(loggerElement.getAttribute("class"));
+            
+            // Child elements
+            NodeList childNodes = loggerElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                // param
+                if (childElement.getTagName().equals("param")) {
+                    logger.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+                // appender-ref
+                else if (childElement.getTagName().equals("appender-ref")) {
+                    logger.addAppenderRef(childElement.getAttribute("ref"));
+                }
+                // level (or deprecated priority)
+                else if (childElement.getTagName().equals("level")
+                        || childElement.getTagName().equals("priority")) {
+                    logger.setLevel(parseLevel(childElement));
+                }
+            }
+            
+            return logger;
+        }
+        
+        private LoggerFactory parseLoggerFactory(Element loggerFactoryElement) {
+            LoggerFactory loggerFactory = new LoggerFactory();
+            int i;
+            
+            loggerFactory.setClassName(loggerFactoryElement.getAttribute("class"));
+            
+            // param
+            NodeList childNodes = loggerFactoryElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    loggerFactory.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            return loggerFactory;
         }
         
         
@@ -349,41 +408,6 @@ public class XMLParser implements Parser {
             }
             
             return layout;
-        }
-        
-        private Logger parseLogger(Element loggerElement) {
-            Logger logger = new Logger();
-            int i;
-            
-            logger.setName(loggerElement.getAttribute("name"));
-            
-            if (loggerElement.hasAttribute("name")) {
-                logger.setName(loggerElement.getAttribute("name"));
-            }
-            
-            logger.setClassName(loggerElement.getAttribute("class"));
-            
-            // Child elements
-            NodeList childNodes = loggerElement.getChildNodes();
-            Element childElement;
-            for (i = 0; i < childNodes.getLength(); i++) {
-                childElement = (Element) childNodes.item(i);
-                // param
-                if (childElement.getTagName().equals("param")) {
-                    logger.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
-                }
-                // appender-ref
-                else if (childElement.getTagName().equals("appender-ref")) {
-                    logger.addAppenderRef(childElement.getAttribute("ref"));
-                }
-                // level (or deprecated priority)
-                else if (childElement.getTagName().equals("level")
-                        || childElement.getTagName().equals("priority")) {
-                    logger.setLevel(parseLevel(childElement));
-                }
-            }
-            
-            return logger;
         }
         
         private Level parseLevel(Element levelElement) {
