@@ -87,6 +87,10 @@ public class XMLParser implements Parser {
                         || childElement.getTagName().equals("categoryFactory")) {
                     configuration.setLogFactory(parseLoggerFactory(childElement));
                 }
+                // root
+                else if (childElement.getTagName().equals("root")) {
+                    configuration.setRoot(parseRoot(childElement));
+                }
             }
         }
         
@@ -244,6 +248,33 @@ public class XMLParser implements Parser {
             }
             
             return loggerFactory;
+        }
+        
+        private Root parseRoot(Element rootElement) {
+            Root root = new Root();
+            int i;
+            
+            // Child elements
+            NodeList childNodes = rootElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                // param
+                if (childElement.getTagName().equals("param")) {
+                    root.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+                // appender-ref
+                else if (childElement.getTagName().equals("appender-ref")) {
+                    root.addAppenderRef(childElement.getAttribute("ref"));
+                }
+                // level (or deprecated priority)
+                else if (childElement.getTagName().equals("level")
+                        || childElement.getTagName().equals("priority")) {
+                    root.setLevel(parseLevel(childElement));
+                }
+            }
+            
+            return root;
         }
         
         
