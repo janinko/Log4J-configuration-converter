@@ -1,15 +1,7 @@
 package cz.muni.fi.pb138.log4jconverter;
 
-import cz.muni.fi.pb138.log4jconverter.configuration.*;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration.Threshold;
-import java.io.File;
-import java.net.URI;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import cz.muni.fi.pb138.log4jconverter.configuration.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -152,6 +144,13 @@ public class XMLParser implements Parser {
                 appender.setTriggeringPolicy(triggeringPolicy);
             }
             
+            // connectionSource
+            NodeList connectionSourceList = appenderElement.getElementsByTagName("connectionSource");
+            if (connectionSourceList.getLength() == 1) {
+                ConnectionSource connectionSource = parseConnectionSource((Element) connectionSourceList.item(0));
+                appender.setConnectionSource(connectionSource);
+            }
+            
             // TODO: Load additional attributes
             
             return appender;
@@ -230,7 +229,7 @@ public class XMLParser implements Parser {
                 triggeringPolicy.setName(triggeringPolicyElement.getAttribute("name"));
             }
             
-            // param
+            // param or filter
             NodeList childNodes = triggeringPolicyElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
@@ -243,6 +242,32 @@ public class XMLParser implements Parser {
             }
             
             return triggeringPolicy;
+        }
+        
+        private ConnectionSource parseConnectionSource(Element connectionSourceElement) {
+            ConnectionSource connectionSource = new ConnectionSource();
+            int i;
+            
+            connectionSource.setClassName(connectionSourceElement.getAttribute("class"));
+            
+            // dataSource
+            NodeList dataSourceList = connectionSourceElement.getElementsByTagName("dataSource");
+            if (dataSourceList.getLength() == 1) {
+                Element dataSourceElement = (Element) dataSourceList.item(0);
+                connectionSource.setDataSource(parseDataSource(dataSourceElement));
+            }
+            
+            // param
+            NodeList childNodes = connectionSourceElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    connectionSource.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            return connectionSource;
         }
         
         private Filter parseFilter(Element filterElement) {
@@ -263,7 +288,26 @@ public class XMLParser implements Parser {
             
             return filter;
         }
-
+        
+        private DataSource parseDataSource(Element dataSourceElement) {
+            DataSource dataSource = new DataSource();
+            int i;
+            
+            dataSource.setClassName(dataSourceElement.getAttribute("class"));
+            
+            // param
+            NodeList childNodes = dataSourceElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    dataSource.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            return dataSource;
+        }
+        
 	@Override
 	public Configuration parse() {
             if (configuration == null) {
