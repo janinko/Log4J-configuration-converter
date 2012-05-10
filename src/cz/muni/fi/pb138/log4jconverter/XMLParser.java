@@ -1,6 +1,7 @@
 package cz.muni.fi.pb138.log4jconverter;
 
 import cz.muni.fi.pb138.log4jconverter.configuration.*;
+import cz.muni.fi.pb138.log4jconverter.configuration.Configuration.Threshold;
 import java.io.File;
 import java.net.URI;
 import javax.xml.transform.Transformer;
@@ -32,6 +33,17 @@ public class XMLParser implements Parser {
         
         public void parseXML() {            
             int i;
+            
+            // Log4J configuration tag
+            Element rootElement;
+            Threshold threshold;
+            NodeList rootElementList = doc.getElementsByTagName("log4j:configuration");
+            if (rootElementList.getLength() == 1) {
+                rootElement = (Element) rootElementList.item(0);
+                if (rootElement.hasAttribute("threshold")) {
+                    //configuration.setTreshold(rootElement.getAttribute("threshold"));
+                }
+            }
             
             // Renderers
             Renderer renderer;

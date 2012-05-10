@@ -126,7 +126,7 @@ public class PropertiesParser implements Parser {
     		configuration.setLogFactory(lf);
     	}else if(THRESHOLD.equals(specifier)){
     		try{
-    			configuration.setTreshold(Configuration.Tresholds.valueOf(value.toLowerCase()));
+    			configuration.setThreshold(Configuration.Threshold.valueOf(value.toLowerCase()));
     		}catch (IllegalArgumentException ex){
     			throw new ParseException(ex);
     		}

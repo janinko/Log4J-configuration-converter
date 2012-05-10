@@ -18,12 +18,12 @@ import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 
 public class Configuration{
     
-    public enum Tresholds{
+    public enum Threshold {
         ALL,TRACE,DEBUG,INFO,WARN,ERROR,FATAL,OFF,
     }
     
     
-    private Tresholds treshold = null;
+    private Threshold threshold = null;
     private Boolean debug = null;
     private boolean reset = false;
     
@@ -124,12 +124,12 @@ public class Configuration{
         this.reset = reset;
     }
 
-    public Tresholds getTreshold() {
-        return treshold;
+    public Threshold getThreshold() {
+        return threshold;
     }
 
-    public void setTreshold(Tresholds treshold) {
-        this.treshold = treshold;
+    public void setThreshold(Threshold threshold) {
+        this.threshold = threshold;
     }
 
     public HashSet<Renderer> getRenderers() {
@@ -177,8 +177,8 @@ public class Configuration{
         
         Element config = doc.createElement("log4j:configuration");
         config.setAttribute("xmlns:log4j","http://jakarta.apache.org/log4j/");
-        if(treshold !=null){
-            config.setAttribute("treshold",treshold.toString());
+        if(threshold !=null){
+            config.setAttribute("treshold",threshold.toString());
         }
         if(debug!=null)
         {
@@ -258,7 +258,7 @@ public class Configuration{
 		}
 		
 		// log4j.threshold=[level]
-		if (treshold != null) props.setProperty(PropertiesParser.THRESHOLD_PREFIX, treshold.toString());
+		if (threshold != null) props.setProperty(PropertiesParser.THRESHOLD_PREFIX, threshold.toString());
 		
 		// log4.loggerFactory
 		if (logFactory != null) logFactory.generateProperties(props);
