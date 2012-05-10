@@ -112,7 +112,7 @@ public class XMLParser implements Parser {
             NodeList errorHandlerList = appenderElement.getElementsByTagName("errorHandler");
             if (errorHandlerList.getLength() == 1) {
                 ErrorHandler errorHandler = parseErrorHandler((Element) errorHandlerList.item(0));
-                appender.setErrorhandler(errorHandler);
+                appender.setErrorHandler(errorHandler);
             }
             
             // param
