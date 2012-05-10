@@ -25,7 +25,8 @@ public class LoggerGeneratePropertiesTest {
 	@Test
 	public void testOnlyLevel() {
 		loggerName = "org.juint.Assert";
-		logger = new Logger(loggerName);
+		logger = new Logger();
+                logger.setName(loggerName);
 		level.setValues(Level.Levels.DEBUG);
 		logger.setLevel(level);
 		
@@ -35,7 +36,8 @@ public class LoggerGeneratePropertiesTest {
 	@Test
 	public void testLevelOneAppender() {
 		loggerName = "org.juint.Assert";
-		logger = new Logger(loggerName);
+		logger = new Logger();
+                logger.setName(loggerName);
 		level.setValues(Level.Levels.ERROR);
 		logger.setLevel(level);
 		logger.addAppenderRef("A1");
@@ -46,7 +48,8 @@ public class LoggerGeneratePropertiesTest {
 	@Test
 	public void testLevelMoreAppenders() {
 		loggerName = "org.juint.Assert";
-		logger = new Logger(loggerName);
+		logger = new Logger();
+                logger.setName(loggerName);
 		level.setValues(Level.Levels.FATAL);
 		logger.setLevel(level);
 		logger.addAppenderRef("A1");
@@ -61,7 +64,8 @@ public class LoggerGeneratePropertiesTest {
 	@Test
 	public void testAppendersOnly() {
 		loggerName = "org.juint.Assert";
-		logger = new Logger(loggerName);
+		logger = new Logger();
+                logger.setName(loggerName);
 		logger.addAppenderRef("A1");
 		logger.addAppenderRef("A2");
 		logger.addAppenderRef("A3");
@@ -72,7 +76,8 @@ public class LoggerGeneratePropertiesTest {
 	@Test
 	public void testCategory() {
 		loggerName = "org.juint.Assert";
-		logger = new Logger(loggerName);
+		logger = new Logger();
+                logger.setName(loggerName);
 		level.setValues(Level.Levels.FATAL);
 		logger.setLevel(level);
 		logger.addAppenderRef("A1");
@@ -86,7 +91,8 @@ public class LoggerGeneratePropertiesTest {
 	@Test
 	public void testAditivity() {
 		loggerName = "com.corda.dashboard.access";
-		logger = new Logger(loggerName);
+		logger = new Logger();
+                logger.setName(loggerName);
 		level.setValues(Level.Levels.WARN);
 		logger.setLevel(level);
 		logger.addAppenderRef("A1");

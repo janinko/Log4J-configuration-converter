@@ -13,7 +13,7 @@ import org.w3c.dom.Element;
 public class Logger {
     //required
 
-    private String loggerName;
+    private String name;
     //implies
     private String className;
     //podle dtd je deafulat hodnota true
@@ -28,8 +28,7 @@ public class Logger {
      */
     private boolean isCategory = false;
 
-    public Logger(String name) {
-        loggerName = name;
+    public Logger() {
         this.params = new HashMap<String, String>();
         this.appenderRefs = new LinkedHashSet<String>();
     }
@@ -73,6 +72,10 @@ public class Logger {
     public void setParams(HashMap<String, String> params) {
         this.params = params;
     }
+    
+    public void addParam(String key, String value) {
+        params.put(key, value);
+    }
 
     public Level getLevel() {
         return level;
@@ -82,12 +85,12 @@ public class Logger {
         this.level = level;
     }
 
-    public String getLoggerName() {
-        return loggerName;
+    public String getName() {
+        return name;
     }
 
-    public void setLoggerName(String loggerName) {
-        this.loggerName = loggerName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -99,7 +102,7 @@ public class Logger {
             return false;
         }
         final Logger other = (Logger) obj;
-        if ((this.loggerName == null) ? (other.loggerName != null) : !this.loggerName.equals(other.loggerName)) {
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
             return false;
         }
         return true;
@@ -108,14 +111,14 @@ public class Logger {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 97 * hash + (this.loggerName != null ? this.loggerName.hashCode() : 0);
+        hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
         return hash;
     }
 	
 	
 	public void generateProperties(Properties p) {
 		// log4j.logger.logger_name
-		String prefixKey = ( isCategory ? PropertiesParser.CATEGORY_PREFIX : PropertiesParser.LOGGER_PREFIX ) + loggerName;
+		String prefixKey = ( isCategory ? PropertiesParser.CATEGORY_PREFIX : PropertiesParser.LOGGER_PREFIX ) + name;
 		
 		StringBuilder value = new StringBuilder();
 		
@@ -128,7 +131,7 @@ public class Logger {
 		p.setProperty(prefixKey, value.toString());
 		
 		// additivity
-		if (!additivity) p.setProperty(PropertiesParser.ADDITIVITY_PREFIX + loggerName, "false");
+		if (!additivity) p.setProperty(PropertiesParser.ADDITIVITY_PREFIX + name, "false");
 	}
 	
 
@@ -140,7 +143,7 @@ public class Logger {
         } else {
             logger = doc.createElement("category");
         }
-        logger.setAttribute("loggerName", loggerName);
+        logger.setAttribute("loggerName", name);
         if (className != null) {
             logger.setAttribute("class", className);
         }

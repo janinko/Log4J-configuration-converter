@@ -91,11 +91,12 @@ public class Configuration{
     
     public Logger getLogger(String name){
     	for(Logger l : loggers){
-    		if(l.getLoggerName().equals(name)){
+    		if(l.getName().equals(name)){
     			return l;
     		}
     	}
-    	Logger l = new Logger(name);
+    	Logger l = new Logger();
+        l.setName(name);
     	loggers.add(l);
     	return l;
     }
@@ -106,6 +107,10 @@ public class Configuration{
 
     public void setLoggers(HashSet<Logger> loggers) {
         this.loggers = loggers;
+    }
+    
+    public void addLogger(Logger logger) {
+        loggers.add(logger);
     }
 
     public HashMap<String, Plugin> getPlugins() {
