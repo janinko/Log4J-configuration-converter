@@ -27,54 +27,42 @@ public class XMLParser implements Parser {
             int i;
             
             // Log4J configuration tag
-            Element rootElement;
-            NodeList rootElementList = doc.getElementsByTagName("log4j:configuration");
-            if (rootElementList.getLength() == 1) {
-                rootElement = (Element) rootElementList.item(0);
-                if (rootElement.hasAttribute("threshold")) {
-                    configuration.setThreshold(Threshold.valueOf(rootElement.getAttribute("threshold").toUpperCase()));
+            Element rootElement = doc.getDocumentElement();
+            if (rootElement.hasAttribute("threshold")) {
+                configuration.setThreshold(Threshold.valueOf(rootElement.getAttribute("threshold").toUpperCase()));
+            }
+            if (rootElement.hasAttribute("debug")) {
+                if (rootElement.getAttribute("debug").equals("true")) {
+                    configuration.setDebug(true);
+                } else if (rootElement.getAttribute("debug").equals("false")) {
+                    configuration.setDebug(false);
                 }
-                if (rootElement.hasAttribute("debug")) {
-                    if (rootElement.getAttribute("debug").equals("true")) {
-                        configuration.setDebug(true);
-                    } else if (rootElement.getAttribute("debug").equals("false")) {
-                        configuration.setDebug(false);
-                    }
-                    // setDebug(null) is default value
+                // setDebug(null) is default value
+            }
+            if (rootElement.hasAttribute("reset")) {
+                if (rootElement.getAttribute("reset").equals("true")) {
+                    configuration.setReset(true);
                 }
-                if (rootElement.hasAttribute("reset")) {
-                    if (rootElement.getAttribute("reset").equals("true")) {
-                        configuration.setReset(true);
-                    }
-                    // setReset(false) is default value
+                // setReset(false) is default value
+            }
+            
+            NodeList childNodes = rootElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                // renderer
+                if (childElement.getTagName().equals("renderer")) {
+                    configuration.addRenderer(parseRenderer(childElement));
+                }
+                // throwableRenderer
+                else if (childElement.getTagName().equals("throwableRenderer")) {
+                    configuration.setThrowableRenderer(parseThrowableRenderer(childElement));
+                }
+                // appender
+                else if (childElement.getTagName().equals("appender")) {
+                    configuration.addAppender(parseAppender(childElement));
                 }
             }
-            
-            // Renderers
-            Renderer renderer;
-            NodeList rendererList = doc.getElementsByTagName("renderer");
-            for (i = 0; i < rendererList.getLength(); i++) {
-                renderer = parseRenderer((Element) rendererList.item(i));
-                configuration.addRenderer(renderer);
-            }
-            
-            // ThrowableRenderers
-            ThrowableRenderer throwableRenderer;
-            NodeList throwableRendererList = doc.getElementsByTagName("throwableRenderer");
-            if (throwableRendererList.getLength() == 1) {
-                throwableRenderer = parseThrowableRenderer((Element) throwableRendererList.item(0));
-                configuration.setThrowableRenderer(throwableRenderer);
-            }
-            
-            // Appenders
-            Appender appender;
-            NodeList appenderList = doc.getElementsByTagName("appender");
-            for (i = 0; i < appenderList.getLength(); i++) {
-                appender = parseAppender((Element) appenderList.item(i));
-                configuration.addAppender(appender);
-            }
-            
-            // TODO: Load additional attributes
         }
         
         private Renderer parseRenderer(Element rendererElement) {
