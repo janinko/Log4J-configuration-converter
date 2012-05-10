@@ -3,6 +3,7 @@ package cz.muni.fi.pb138.log4jconverter;
 import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 import cz.muni.fi.pb138.log4jconverter.configuration.ErrorHandler;
+import cz.muni.fi.pb138.log4jconverter.configuration.Renderer;
 import java.io.File;
 import java.net.URI;
 import javax.xml.transform.Transformer;
@@ -32,20 +33,18 @@ public class XMLParser implements Parser {
             this.configuration = null;
 	}
         
-        public boolean validateXML() {
-            // TODO
-            return false;
-        }
-        
-        public void parseXML() {
-            if (!validateXML()) {
-                // XML not valid, throw exception, write error message etc. and quit
-                return;
-            }
-            
+        public void parseXML() {            
             int i;
             
-            // Load appenders
+            // Renderers
+            Renderer renderer;
+            NodeList rendererList = doc.getElementsByTagName("renderer");
+            for (i = 0; i < rendererList.getLength(); i++) {
+                renderer = parseRenderer((Element) rendererList.item(i));
+                configuration.addRenderer(renderer);
+            }
+            
+            // Appenders
             Appender appender;
             NodeList appenderList = doc.getElementsByTagName("appender");
             for (i = 0; i < appenderList.getLength(); i++) {
@@ -56,7 +55,16 @@ public class XMLParser implements Parser {
             // TODO: Load additional attributes
         }
         
-        public Appender parseAppender(Element appenderElement) {
+        private Renderer parseRenderer(Element rendererElement) {
+            Renderer renderer = new Renderer();
+            
+            renderer.setRenderedClass(rendererElement.getAttribute("renderedClass"));
+            renderer.setRenderingClass(rendererElement.getAttribute("renderingClass"));
+            
+            return renderer;
+        }
+        
+        private Appender parseAppender(Element appenderElement) {
             Appender appender = new Appender();
             int i;
             
@@ -83,7 +91,7 @@ public class XMLParser implements Parser {
             return appender;
         }
         
-        public ErrorHandler parseErrorHandler(Element errorHandlerElement) {
+        private ErrorHandler parseErrorHandler(Element errorHandlerElement) {
             ErrorHandler errorHandler = new ErrorHandler();
             int i;
             
