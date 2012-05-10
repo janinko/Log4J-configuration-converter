@@ -1,0 +1,90 @@
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="null"? debug="null"? reset="false"?>
+	<renderer* renderedClass="" renderingClass=""/>
+	
+	<throwableRenderer? class="">
+		<param* name="" value=""/>
+	</throwableRenderer>
+	
+	<appender* name="" class="">
+		<errorHandler? class="">
+			<param* name="" value=""/>
+			<root-ref?/>
+			<logger-ref* ref=""/>
+			<appender-ref? ref=""/>
+		</errorHandler>
+		<param* name="" value=""/>
+		<rollingPolicy? name=""? class="">
+			<param* name="" value=""/>
+		</rollingPolicy>
+		<triggeringPolicy? name=""? class="">
+			<!-- param or filter, not required -->
+			<param* name="" value=""/>
+			<filter* class="">
+				<param* name="" value=""/>
+			</filter>
+		</triggeringPolicy>
+		<connectionSource? class="">
+			<dataSource? class="">
+				<param* name="" value=""/>
+			</dataSource>
+			<param* name="" value=""/>
+		</connectionSource>
+		<layout? class="">
+			<param* name="" value=""/>
+		</layout>
+		<filter* class="">
+			<param* name="" value=""/>
+		</filter>
+		<appender-ref* ref=""/>
+	</appender>
+	
+	<plugin* name="" class="">
+		<param* name="" value=""/>
+		<connectionSource? class="">
+			<dataSource? class="">
+				<param* name="" value=""/>
+			</dataSource>
+			<param* name="" value=""/>
+		</connectionSource>
+	</plugin>
+	
+	<!-- category or logger, not required -->
+	<category? class=""? name="" additivity="true">
+		<param* name="" value=""/>
+		<!-- priority or level, not required -->
+		<priority? class=""? value="">
+			<param* name="" value=""/>
+		</priority>
+		<level? class=""? value="">
+			<param* name="" value=""/>
+		</level>
+		<appender-ref* ref=""/>
+	</category>
+	<logger* class=""? name="" additivity="true">
+		<param* name="" value=""/>
+		<level? class=""? value="">
+			<param* name="" value=""/>
+		</level>
+		<appender-ref* ref=""/>
+	</logger>
+	
+	<!-- categoryFactory or loggerFactory, not required -->
+	<categoryFactory? class="">
+		<param* name="" value=""/>
+	</categoryFactory>
+	<loggerFactory? class="">
+		<param* name="" value=""/>
+	</loggerFactory>
+	
+	<root?>
+		<param* name="" value=""/>
+		<!-- priority or level, not required -->
+		<priority? class=""? value="">
+			<param* name="" value=""/>
+		</priority>
+		<level? class=""? value="">
+			<param* name="" value=""/>
+		</level>
+		<appender-ref* ref=""/>
+	</root>
+</log4j:configuration>
