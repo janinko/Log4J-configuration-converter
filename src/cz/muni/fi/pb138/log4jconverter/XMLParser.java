@@ -1,8 +1,6 @@
 package cz.muni.fi.pb138.log4jconverter;
 
-import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
-import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
-import cz.muni.fi.pb138.log4jconverter.configuration.ErrorHandler;
+import cz.muni.fi.pb138.log4jconverter.configuration.*;
 import java.io.File;
 import java.net.URI;
 import javax.xml.transform.Transformer;
@@ -32,20 +30,26 @@ public class XMLParser implements Parser {
             this.configuration = null;
 	}
         
-        public boolean validateXML() {
-            // TODO
-            return false;
-        }
-        
-        public void parseXML() {
-            if (!validateXML()) {
-                // XML not valid, throw exception, write error message etc. and quit
-                return;
-            }
-            
+        public void parseXML() {            
             int i;
             
-            // Load appenders
+            // Renderers
+            Renderer renderer;
+            NodeList rendererList = doc.getElementsByTagName("renderer");
+            for (i = 0; i < rendererList.getLength(); i++) {
+                renderer = parseRenderer((Element) rendererList.item(i));
+                configuration.addRenderer(renderer);
+            }
+            
+            // ThrowableRenderers
+            ThrowableRenderer throwableRenderer;
+            NodeList throwableRendererList = doc.getElementsByTagName("throwableRenderer");
+            if (throwableRendererList.getLength() == 1) {
+                throwableRenderer = parseThrowableRenderer((Element) throwableRendererList.item(0));
+                configuration.setThrowableRenderer(throwableRenderer);
+            }
+            
+            // Appenders
             Appender appender;
             NodeList appenderList = doc.getElementsByTagName("appender");
             for (i = 0; i < appenderList.getLength(); i++) {
@@ -56,7 +60,35 @@ public class XMLParser implements Parser {
             // TODO: Load additional attributes
         }
         
-        public Appender parseAppender(Element appenderElement) {
+        private Renderer parseRenderer(Element rendererElement) {
+            Renderer renderer = new Renderer();
+            
+            renderer.setRenderedClass(rendererElement.getAttribute("renderedClass"));
+            renderer.setRenderingClass(rendererElement.getAttribute("renderingClass"));
+            
+            return renderer;
+        }
+        
+        private ThrowableRenderer parseThrowableRenderer(Element throwableRendererElement) {
+            ThrowableRenderer throwableRenderer = new ThrowableRenderer();
+            int i;
+            
+            throwableRenderer.setClassName(throwableRendererElement.getAttribute("class"));
+            
+            // param
+            NodeList childNodes = throwableRendererElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    throwableRenderer.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            return throwableRenderer;
+        }
+        
+        private Appender parseAppender(Element appenderElement) {
             Appender appender = new Appender();
             int i;
             
@@ -72,10 +104,20 @@ public class XMLParser implements Parser {
             }
             
             // param
-            NodeList paramList = appenderElement.getElementsByTagName("param");
-            for (i = 0; i < paramList.getLength(); i++) {
-                Element paramElement = (Element) paramList.item(i);
-                appender.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
+            NodeList childNodes = appenderElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    appender.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            // rollingPolicy
+            NodeList rollingPolicyList = appenderElement.getElementsByTagName("rollingPolicy");
+            if (rollingPolicyList.getLength() == 1) {
+                RollingPolicy rollingPolicy = parseRollingPolicy((Element) rollingPolicyList.item(0));
+                appender.setRollingPolicy(rollingPolicy);
             }
             
             // TODO: Load additional attributes
@@ -83,7 +125,7 @@ public class XMLParser implements Parser {
             return appender;
         }
         
-        public ErrorHandler parseErrorHandler(Element errorHandlerElement) {
+        private ErrorHandler parseErrorHandler(Element errorHandlerElement) {
             ErrorHandler errorHandler = new ErrorHandler();
             int i;
             
@@ -91,10 +133,13 @@ public class XMLParser implements Parser {
             errorHandler.setClassName(errorHandlerElement.getAttribute("class"));
 
             // param
-            NodeList paramList = errorHandlerElement.getElementsByTagName("param");
-            for (i = 0; i < paramList.getLength(); i++) {
-                Element paramElement = (Element) paramList.item(i);
-                errorHandler.addParam(paramElement.getAttribute("name"), paramElement.getAttribute("value"));
+            NodeList childNodes = errorHandlerElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    errorHandler.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
             }
             
             // root-ref
@@ -118,6 +163,29 @@ public class XMLParser implements Parser {
             }
             
             return errorHandler;
+        }
+        
+        private RollingPolicy parseRollingPolicy(Element rollingPolicyElement) {
+            RollingPolicy rollingPolicy = new RollingPolicy();
+            int i;
+            
+            rollingPolicy.setClassName(rollingPolicyElement.getAttribute("class"));
+            
+            if (rollingPolicyElement.hasAttribute("name")) {
+                rollingPolicy.setName(rollingPolicyElement.getAttribute("name"));
+            }
+            
+            // param
+            NodeList childNodes = rollingPolicyElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    rollingPolicy.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            return rollingPolicy;
         }
         
         /*
