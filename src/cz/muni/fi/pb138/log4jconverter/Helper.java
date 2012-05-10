@@ -4,6 +4,10 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
@@ -31,4 +35,20 @@ public class Helper {
 			printAllXml(nl.item(i).getChildNodes(), t + 1);
 		}
 	}
+	
+	
+	public static Element createBasicSkeleton(Document doc) {
+		Element config = doc.createElement("log4j:configuration");
+		config.setAttribute("xmlns:log4j","http://jakarta.apache.org/log4j/");
+		doc.appendChild(config);
+		return config;
+	}
+	
+	public static Document createDocument() throws ParserConfigurationException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document doc = builder.newDocument();
+		return doc;
+	}
+	
 }
