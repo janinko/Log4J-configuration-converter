@@ -112,53 +112,44 @@ public class XMLParser implements Parser {
             // Required attributes
             appender.setAppenderName(appenderElement.getAttribute("name"));
             appender.setClassName(appenderElement.getAttribute("class"));
-
-            // errorHandler
-            NodeList errorHandlerList = appenderElement.getElementsByTagName("errorHandler");
-            if (errorHandlerList.getLength() == 1) {
-                ErrorHandler errorHandler = parseErrorHandler((Element) errorHandlerList.item(0));
-                appender.setErrorHandler(errorHandler);
-            }
             
-            // rollingPolicy
-            NodeList rollingPolicyList = appenderElement.getElementsByTagName("rollingPolicy");
-            if (rollingPolicyList.getLength() == 1) {
-                RollingPolicy rollingPolicy = parseRollingPolicy((Element) rollingPolicyList.item(0));
-                appender.setRollingPolicy(rollingPolicy);
-            }
-            
-            // triggeringPolicy
-            NodeList triggeringPolicyList = appenderElement.getElementsByTagName("triggeringPolicy");
-            if (triggeringPolicyList.getLength() == 1) {
-                TriggeringPolicy triggeringPolicy = parseTriggeringPolicy((Element) triggeringPolicyList.item(0));
-                appender.setTriggeringPolicy(triggeringPolicy);
-            }
-            
-            // connectionSource
-            NodeList connectionSourceList = appenderElement.getElementsByTagName("connectionSource");
-            if (connectionSourceList.getLength() == 1) {
-                ConnectionSource connectionSource = parseConnectionSource((Element) connectionSourceList.item(0));
-                appender.setConnectionSource(connectionSource);
-            }
-            
-            // layout
-            NodeList layoutList = appenderElement.getElementsByTagName("layout");
-            if (layoutList.getLength() == 1) {
-                Layout layout = parseLayout((Element) layoutList.item(0));
-                appender.setLayout(layout);
-            }
-            
-            // param, filter, appender-ref
+            // Child elements
             NodeList childNodes = appenderElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
                 childElement = (Element) childNodes.item(i);
+                
+                // param
                 if (childElement.getTagName().equals("param")) {
                     appender.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
-                } else if (childElement.getTagName().equals("filter")) {
+                }
+                // filter
+                else if (childElement.getTagName().equals("filter")) {
                     appender.addFilter(parseFilter(childElement));
-                } else if (childElement.getTagName().equals("appender-ref")) {
+                }
+                // appender-ref
+                else if (childElement.getTagName().equals("appender-ref")) {
                     appender.addAppenderRef(childElement.getAttribute("ref"));
+                }
+                // errorHandler
+                else if (childElement.getTagName().equals("errorHandler")) {
+                    appender.setErrorHandler(parseErrorHandler(childElement));
+                }
+                // rollingPolicy
+                else if (childElement.getTagName().equals("rollingPolicy")) {
+                    appender.setRollingPolicy(parseRollingPolicy(childElement));
+                }
+                // triggeringPolicy
+                else if (childElement.getTagName().equals("triggeringPolicy")) {
+                    appender.setTriggeringPolicy(parseTriggeringPolicy(childElement));
+                }
+                // connectionSource
+                else if (childElement.getTagName().equals("connectionSource")) {
+                    appender.setConnectionSource(parseConnectionSource(childElement));
+                }
+                // layout
+                else if (childElement.getTagName().equals("layout")) {
+                    appender.setLayout(parseLayout(childElement));
                 }
             }            
             
