@@ -151,6 +151,13 @@ public class XMLParser implements Parser {
                 appender.setConnectionSource(connectionSource);
             }
             
+            // layout
+            NodeList layoutList = appenderElement.getElementsByTagName("layout");
+            if (layoutList.getLength() == 1) {
+                Layout layout = parseLayout((Element) layoutList.item(0));
+                appender.setLayout(layout);
+            }
+            
             // TODO: Load additional attributes
             
             return appender;
@@ -306,6 +313,25 @@ public class XMLParser implements Parser {
             }
             
             return dataSource;
+        }
+        
+        private Layout parseLayout(Element layoutElement) {
+            Layout layout = new Layout();
+            int i;
+            
+            layout.setClassName(layoutElement.getAttribute("class"));
+            
+            // param
+            NodeList childNodes = layoutElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    layout.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            return layout;
         }
         
 	@Override
