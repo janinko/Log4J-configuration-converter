@@ -71,8 +71,19 @@ public class XMLParser implements Parser {
         
         private ThrowableRenderer parseThrowableRenderer(Element throwableRendererElement) {
             ThrowableRenderer throwableRenderer = new ThrowableRenderer();
+            Element childElement;
+            int i;
             
-            // parse params
+            throwableRenderer.setClassName(throwableRendererElement.getAttribute("class"));
+            
+            // Params
+            NodeList childNodes = throwableRendererElement.getChildNodes();
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    throwableRenderer.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
             
             return throwableRenderer;
         }
