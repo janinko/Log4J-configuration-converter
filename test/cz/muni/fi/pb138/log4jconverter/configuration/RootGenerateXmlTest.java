@@ -24,6 +24,7 @@ public class RootGenerateXmlTest {
 	Document doc1;
 	Element config1;
 	Element e;
+	Element root;
 	
 	private Root r;
 	private Level l;
@@ -35,7 +36,7 @@ public class RootGenerateXmlTest {
 		config1 = Helper.createBasicSkeleton(doc1);
 		config2 = Helper.createBasicSkeleton(doc2);
 		
-		config1 = (Element) config1.appendChild(doc1.createElement("root"));
+		root = (Element) config1.appendChild(doc1.createElement("root"));
 		
 		r = new Root();
     	l = new Level();
@@ -46,10 +47,10 @@ public class RootGenerateXmlTest {
 		// xml tree
 		e = doc1.createElement("level");
 		e.setAttribute("value", "DEBUG");
-		config1.appendChild(e);
+		root.appendChild(e);
 		e = doc1.createElement("appender-ref");
 		e.setAttribute("ref", "console");
-		config1.appendChild(e);
+		root.appendChild(e);
 		
 		// abstract
 		l.setValues(Levels.DEBUG);
