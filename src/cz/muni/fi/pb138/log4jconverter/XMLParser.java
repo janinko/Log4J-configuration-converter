@@ -1,9 +1,6 @@
 package cz.muni.fi.pb138.log4jconverter;
 
-import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
-import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
-import cz.muni.fi.pb138.log4jconverter.configuration.ErrorHandler;
-import cz.muni.fi.pb138.log4jconverter.configuration.Renderer;
+import cz.muni.fi.pb138.log4jconverter.configuration.*;
 import java.io.File;
 import java.net.URI;
 import javax.xml.transform.Transformer;
@@ -44,6 +41,14 @@ public class XMLParser implements Parser {
                 configuration.addRenderer(renderer);
             }
             
+            // ThrowableRenderers
+            ThrowableRenderer throwableRenderer;
+            NodeList throwableRendererList = doc.getElementsByTagName("throwableRenderer");
+            if (throwableRendererList.getLength() == 1) {
+                throwableRenderer = parseThrowableRenderer((Element) throwableRendererList.item(0));
+                configuration.setThrowableRenderer(throwableRenderer);
+            }
+            
             // Appenders
             Appender appender;
             NodeList appenderList = doc.getElementsByTagName("appender");
@@ -62,6 +67,14 @@ public class XMLParser implements Parser {
             renderer.setRenderingClass(rendererElement.getAttribute("renderingClass"));
             
             return renderer;
+        }
+        
+        private ThrowableRenderer parseThrowableRenderer(Element throwableRendererElement) {
+            ThrowableRenderer throwableRenderer = new ThrowableRenderer();
+            
+            // parse params
+            
+            return throwableRenderer;
         }
         
         private Appender parseAppender(Element appenderElement) {

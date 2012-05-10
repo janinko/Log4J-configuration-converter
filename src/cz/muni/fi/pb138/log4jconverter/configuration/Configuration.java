@@ -29,7 +29,7 @@ public class Configuration{
     
     private Root root;
     private HashSet<Renderer> renderers;
-    private ThrowableRender throwableRenderer;
+    private ThrowableRenderer throwableRenderer;
     private HashMap<String, Appender> appenders;
     private HashSet<Logger> loggers;
     private HashMap<String, Plugin> plugins;
@@ -148,11 +148,11 @@ public class Configuration{
         this.root = root;
     }
 
-    public ThrowableRender getThrowableRenderer() {
+    public ThrowableRenderer getThrowableRenderer() {
         return throwableRenderer;
     }
 
-    public void setThrowableRenderer(ThrowableRender throwableRenderer) {
+    public void setThrowableRenderer(ThrowableRenderer throwableRenderer) {
         this.throwableRenderer = throwableRenderer;
     }
     
