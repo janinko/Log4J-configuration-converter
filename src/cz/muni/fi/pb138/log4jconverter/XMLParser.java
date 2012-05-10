@@ -120,16 +120,6 @@ public class XMLParser implements Parser {
                 appender.setErrorHandler(errorHandler);
             }
             
-            // param
-            NodeList childNodes = appenderElement.getChildNodes();
-            Element childElement;
-            for (i = 0; i < childNodes.getLength(); i++) {
-                childElement = (Element) childNodes.item(i);
-                if (childElement.getTagName().equals("param")) {
-                    appender.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
-                }
-            }
-            
             // rollingPolicy
             NodeList rollingPolicyList = appenderElement.getElementsByTagName("rollingPolicy");
             if (rollingPolicyList.getLength() == 1) {
@@ -158,7 +148,19 @@ public class XMLParser implements Parser {
                 appender.setLayout(layout);
             }
             
-            // TODO: Load additional attributes
+            // param, filter, appender-ref
+            NodeList childNodes = appenderElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    appender.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                } else if (childElement.getTagName().equals("filter")) {
+                    appender.addFilter(parseFilter(childElement));
+                } else if (childElement.getTagName().equals("appender-ref")) {
+                    appender.addAppenderRef(childElement.getAttribute("ref"));
+                }
+            }            
             
             return appender;
         }

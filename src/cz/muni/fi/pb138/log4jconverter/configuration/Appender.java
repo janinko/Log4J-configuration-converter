@@ -150,6 +150,10 @@ public class Appender {
     public void setAppenderRefs(HashSet<String> appenderRefs) {
         this.appenderRefs = appenderRefs;
     }
+    
+    public void addAppenderRef(String appenderRef) {
+        appenderRefs.add(appenderRef);
+    }
 
     public ConnectionSource getConnectionSource() {
         return connectionSource;
