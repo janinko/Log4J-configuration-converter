@@ -62,6 +62,10 @@ public class TriggeringPolicy {
         this.filters = filters;
     }
 
+    public void addFilter(Filter filter) {
+        filters.add(filter);
+    }
+
     public void printXML(Document doc, Element appender) {
         Element triggPolicy = doc.createElement("triggeringPolicy");
         triggPolicy.setAttribute("name", name);

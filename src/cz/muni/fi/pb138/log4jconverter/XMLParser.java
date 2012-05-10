@@ -145,6 +145,13 @@ public class XMLParser implements Parser {
                 appender.setRollingPolicy(rollingPolicy);
             }
             
+            // triggeringPolicy
+            NodeList triggeringPolicyList = appenderElement.getElementsByTagName("triggeringPolicy");
+            if (triggeringPolicyList.getLength() == 1) {
+                TriggeringPolicy triggeringPolicy = parseTriggeringPolicy((Element) triggeringPolicyList.item(0));
+                appender.setTriggeringPolicy(triggeringPolicy);
+            }
+            
             // TODO: Load additional attributes
             
             return appender;
@@ -213,19 +220,48 @@ public class XMLParser implements Parser {
             return rollingPolicy;
         }
         
-        /*
-         * This method just prints the document, not the configuration (for testing purposes only)
-         */
-        public void writeAllXML(URI output) throws TransformerConfigurationException, TransformerException {
-            TransformerFactory factory = TransformerFactory.newInstance();
-            Transformer transformer = factory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(output.toString());
-            transformer.transform(source, result);
+        private TriggeringPolicy parseTriggeringPolicy(Element triggeringPolicyElement) {
+            TriggeringPolicy triggeringPolicy = new TriggeringPolicy();
+            int i;
+            
+            triggeringPolicy.setClassName(triggeringPolicyElement.getAttribute("class"));
+            
+            if (triggeringPolicyElement.hasAttribute("name")) {
+                triggeringPolicy.setName(triggeringPolicyElement.getAttribute("name"));
+            }
+            
+            // param
+            NodeList childNodes = triggeringPolicyElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    triggeringPolicy.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                } else if (childElement.getTagName().equals("filter")) {
+                    triggeringPolicy.addFilter(parseFilter(childElement));
+                }
+            }
+            
+            return triggeringPolicy;
         }
         
-        public void writeAllXML(File output) throws TransformerConfigurationException, TransformerException {
-            writeAllXML(output.toURI());
+        private Filter parseFilter(Element filterElement) {
+            Filter filter = new Filter();
+            int i;
+            
+            filter.setClassName(filterElement.getAttribute("class"));
+            
+            // param
+            NodeList childNodes = filterElement.getChildNodes();
+            Element childElement;
+            for (i = 0; i < childNodes.getLength(); i++) {
+                childElement = (Element) childNodes.item(i);
+                if (childElement.getTagName().equals("param")) {
+                    filter.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
+                }
+            }
+            
+            return filter;
         }
 
 	@Override
