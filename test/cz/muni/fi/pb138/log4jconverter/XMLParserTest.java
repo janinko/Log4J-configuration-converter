@@ -176,6 +176,32 @@ public class XMLParserTest {
                
            }
        }
+       
+       
+       @Test
+       public void testParsePlugin()
+       {
+           for(Plugin p : config.getPlugins().values())
+           {
+               assertNotNull(p);
+               assertEquals(p.getName(), "PluginName");
+               assertEquals(p.getClassName(), "PluginClass");
+               
+               testParams(p.getParams());
+               
+               ConnectionSource conSource = p.getConnSource();
+               assertNotNull(conSource);
+               assertEquals(conSource.getClassName(),"connectionSourceClass");
+               
+               DataSource dataSource = conSource.getDataSource();
+               assertNotNull(dataSource);
+               assertEquals(dataSource.getClassName(),"dataSourceClass");
+               testParams(dataSource.getParams());
+               
+               testParams(conSource.getParams());
+           }
+           
+       }
      
     
        private static void testParams(HashMap<String,String> params)
