@@ -16,20 +16,20 @@
 		<rollingPolicy name="rollingPolicyName" class="rollingPolicyName">
 			<param name="ParamName" value="ParamValue"/>
 		</rollingPolicy>
-		<triggeringPolicy name="" class="">
+		<triggeringPolicy name="triggeringPolicyName" class="triggeringPolicyClass">
 			<!-- param or filter, not required -->
 			<param name="ParamName" value="ParamValue"/>
 			<filter class="FilterClass">
 				<param name="ParamName" value="ParamValue"/>
 			</filter>
 		</triggeringPolicy>
-		<connectionSource class="connectionSourceName">
-			<dataSource class="dataSourceName">
+		<connectionSource class="connectionSourceClass">
+			<dataSource class="dataSourceClass">
 				<param name="ParamName" value="ParamValue"/>
 			</dataSource>
 			<param name="ParamName" value="ParamValue"/>
 		</connectionSource>
-		<layout class="layoutName">
+		<layout class="layoutClass">
 			<param name="ParamName" value="ParamValue"/>
 		</layout>
 		<filter class="FilterClass">
