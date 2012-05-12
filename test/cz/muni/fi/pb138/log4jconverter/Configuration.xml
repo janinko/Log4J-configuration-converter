@@ -1,4 +1,4 @@
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="DEBUG"? debug="false"? reset="false"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="DEBUG" debug="false" reset="false">
 	<renderer renderedClass="RenderedClass" renderingClass="RenderingClass"/>
 
 	<throwableRenderer class="throwableRenderer.cs">
@@ -49,18 +49,18 @@
 	</plugin>
 
 	<!-- category or logger, not required -->
-	<category class="categoryClass" name="categoryName" additivity="true">
+	<category class="LoggerClass" name="LoggerName" additivity="true">
 		<param name="ParamName" value="ParamValue"/>
 		<!-- priority or level, not required -->
-		<priority class="PriorityName" value="PriorityValue">
+		<level class="LevelClass" value="DEBUG">
 			<param name="ParamName" value="ParamValue"/>
-		</priority>
+		</level>
 		
 		<appender-ref ref="AppenderRef"/>
 	</category>
 	<logger class="LoggerClass" name="LoggerName" additivity="true">
 		<param name="ParamName" value="ParamValue"/>
-		<level class="LevelClass" value="LevelValue">
+		<level class="LevelClass" value="DEBUG">
 			<param name="ParamName" value="ParamValue"/>
 		</level>
 		<appender-ref ref="AppendRef"/>
