@@ -38,7 +38,7 @@ public class XMLParser implements Parser {
             
             // Log4J configuration tag
             Element rootElement = doc.getDocumentElement();
-            if (rootElement.hasAttribute("threshold")) {
+            if (rootElement.hasAttribute("threshold") && ! "null".equals(rootElement.getAttribute("threshold"))) {
                 configuration.setThreshold(Threshold.valueOf(rootElement.getAttribute("threshold").toUpperCase()));
             }
             if (rootElement.hasAttribute("debug")) {
@@ -60,6 +60,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = rootElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // renderer
                 if (childElement.getTagName().equals("renderer")) {
@@ -113,6 +114,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = throwableRendererElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 if (childElement.getTagName().equals("param")) {
                     throwableRenderer.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
@@ -133,6 +135,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = appenderElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // param
                 if (childElement.getTagName().equals("param")) {
@@ -182,6 +185,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = pluginElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // param
                 if (childElement.getTagName().equals("param")) {
@@ -212,6 +216,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = loggerElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // param
                 if (childElement.getTagName().equals("param")) {
@@ -241,6 +246,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = loggerFactoryElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 if (childElement.getTagName().equals("param")) {
                     loggerFactory.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
@@ -258,6 +264,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = rootElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // param
                 if (childElement.getTagName().equals("param")) {
@@ -289,6 +296,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = errorHandlerElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // param
                 if (childElement.getTagName().equals("param")) {
@@ -325,6 +333,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = rollingPolicyElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 if (childElement.getTagName().equals("param")) {
                     rollingPolicy.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
@@ -347,6 +356,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = triggeringPolicyElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // param
                 if (childElement.getTagName().equals("param")) {
@@ -370,6 +380,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = connectionSourceElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 // param
                 if (childElement.getTagName().equals("param")) {
@@ -394,6 +405,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = filterElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 if (childElement.getTagName().equals("param")) {
                     filter.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
@@ -413,6 +425,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = dataSourceElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 if (childElement.getTagName().equals("param")) {
                     dataSource.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
@@ -432,6 +445,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = layoutElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 if (childElement.getTagName().equals("param")) {
                     layout.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
@@ -455,6 +469,7 @@ public class XMLParser implements Parser {
             NodeList childNodes = levelElement.getChildNodes();
             Element childElement;
             for (i = 0; i < childNodes.getLength(); i++) {
+            	if(!(childNodes.item(i) instanceof Element)) continue;
                 childElement = (Element) childNodes.item(i);
                 if (childElement.getTagName().equals("param")) {
                     level.addParam(childElement.getAttribute("name"), childElement.getAttribute("value"));
