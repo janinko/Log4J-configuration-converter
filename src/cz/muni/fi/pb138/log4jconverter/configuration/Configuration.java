@@ -18,18 +18,18 @@ import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 
 public class Configuration{
     
-    public enum Tresholds{
+    public enum Threshold {
         ALL,TRACE,DEBUG,INFO,WARN,ERROR,FATAL,OFF,
     }
     
     
-    private Tresholds treshold = null;
+    private Threshold threshold = null;
     private Boolean debug = null;
     private boolean reset = false;
     
     private Root root;
     private HashSet<Renderer> renderers;
-    private ThrowableRender throwableRenderer;
+    private ThrowableRenderer throwableRenderer;
     private HashMap<String, Appender> appenders;
     private HashSet<Logger> loggers;
     private HashMap<String, Plugin> plugins;
@@ -91,11 +91,12 @@ public class Configuration{
     
     public Logger getLogger(String name){
     	for(Logger l : loggers){
-    		if(l.getLoggerName().equals(name)){
+    		if(l.getName().equals(name)){
     			return l;
     		}
     	}
-    	Logger l = new Logger(name);
+    	Logger l = new Logger();
+        l.setName(name);
     	loggers.add(l);
     	return l;
     }
@@ -107,6 +108,10 @@ public class Configuration{
     public void setLoggers(HashSet<Logger> loggers) {
         this.loggers = loggers;
     }
+    
+    public void addLogger(Logger logger) {
+        loggers.add(logger);
+    }
 
     public HashMap<String, Plugin> getPlugins() {
         return plugins;
@@ -114,6 +119,10 @@ public class Configuration{
 
     public void setPlugins(HashMap<String, Plugin> plugins) {
         this.plugins = plugins;
+    }
+    
+    public void addPlugin(Plugin plugin) {
+        plugins.put(plugin.getName(), plugin);
     }
 
     public boolean isReset() {
@@ -124,12 +133,12 @@ public class Configuration{
         this.reset = reset;
     }
 
-    public Tresholds getTreshold() {
-        return treshold;
+    public Threshold getThreshold() {
+        return threshold;
     }
 
-    public void setTreshold(Tresholds treshold) {
-        this.treshold = treshold;
+    public void setThreshold(Threshold threshold) {
+        this.threshold = threshold;
     }
 
     public HashSet<Renderer> getRenderers() {
@@ -148,11 +157,11 @@ public class Configuration{
         this.root = root;
     }
 
-    public ThrowableRender getThrowableRenderer() {
+    public ThrowableRenderer getThrowableRenderer() {
         return throwableRenderer;
     }
 
-    public void setThrowableRenderer(ThrowableRender throwableRenderer) {
+    public void setThrowableRenderer(ThrowableRenderer throwableRenderer) {
         this.throwableRenderer = throwableRenderer;
     }
     
@@ -177,8 +186,8 @@ public class Configuration{
         
         Element config = doc.createElement("log4j:configuration");
         config.setAttribute("xmlns:log4j","http://jakarta.apache.org/log4j/");
-        if(treshold !=null){
-            config.setAttribute("treshold",treshold.toString());
+        if(threshold !=null){
+            config.setAttribute("treshold",threshold.toString());
         }
         if(debug!=null)
         {
@@ -258,7 +267,7 @@ public class Configuration{
 		}
 		
 		// log4j.threshold=[level]
-		if (treshold != null) props.setProperty(PropertiesParser.THRESHOLD_PREFIX, treshold.toString());
+		if (threshold != null) props.setProperty(PropertiesParser.THRESHOLD_PREFIX, threshold.toString());
 		
 		// log4.loggerFactory
 		if (logFactory != null) logFactory.generateProperties(props);

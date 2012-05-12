@@ -63,7 +63,7 @@ public class Appender {
     //optional
     private Layout layout;
     private ArrayList<Filter> filters; // filters are ordered
-    private ErrorHandler errorhandler;
+    private ErrorHandler errorHandler;
     private RollingPolicy rollingPolicy;
     private TriggeringPolicy triggeringPolicy;
     private ConnectionSource connectionSource;
@@ -91,12 +91,12 @@ public class Appender {
         this.className = className;
     }
 
-    public ErrorHandler getErrorhandler() {
-        return errorhandler;
+    public ErrorHandler getErrorHandler() {
+        return errorHandler;
     }
 
-    public void setErrorhandler(ErrorHandler errorhandler) {
-        this.errorhandler = errorhandler;
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
     }
 
     public String getAppenderName() {
@@ -149,6 +149,10 @@ public class Appender {
 
     public void setAppenderRefs(HashSet<String> appenderRefs) {
         this.appenderRefs = appenderRefs;
+    }
+    
+    public void addAppenderRef(String appenderRef) {
+        appenderRefs.add(appenderRef);
     }
 
     public ConnectionSource getConnectionSource() {
@@ -255,8 +259,8 @@ public class Appender {
         appender.setAttribute("class", className);
 
 
-        if (errorhandler != null) {
-            errorhandler.printXML(doc, appender);
+        if (errorHandler != null) {
+            errorHandler.printXML(doc, appender);
         }
         if (!params.isEmpty()) {
             Iterator it1 = params.keySet().iterator();

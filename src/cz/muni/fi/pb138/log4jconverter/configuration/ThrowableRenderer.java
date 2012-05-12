@@ -9,13 +9,13 @@ import org.w3c.dom.Element;
  *
  * @author Steve
  */
-public class ThrowableRender {
+public class ThrowableRenderer {
     //required
     private String className;
     //optional
     private HashMap<String,String> params;
 
-    public ThrowableRender() {
+    public ThrowableRenderer() {
         this.params = new HashMap<String, String>() ;
     }
 
