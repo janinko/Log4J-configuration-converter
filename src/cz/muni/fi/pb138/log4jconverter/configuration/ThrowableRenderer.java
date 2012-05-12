@@ -39,7 +39,7 @@ public class ThrowableRenderer {
         this.params = params;
     }
 
-    public void printXML(Document doc, Element config) {
+    public void generateXML(Document doc, Element config) {
         Element throwRenderer = doc.createElement("throwableRenderer");
         throwRenderer.setAttribute("class", className);
         

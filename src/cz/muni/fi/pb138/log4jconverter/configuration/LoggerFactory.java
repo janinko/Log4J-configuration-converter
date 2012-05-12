@@ -56,7 +56,7 @@ public class LoggerFactory {
 		if (className != null) p.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.LOGGER_FACTORY, className);
 	}
 
-    public void printXML(Document doc, Element config) {
+    public void generateXML(Document doc, Element config) {
         Element factory;
         if (!isCategoryFactory) {
             factory = doc.createElement("loggerFactory");

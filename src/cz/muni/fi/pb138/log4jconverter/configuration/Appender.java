@@ -253,14 +253,14 @@ public class Appender {
 		}
     }
 
-    public void printXML(Document doc, Element config) {
+    public void generateXML(Document doc, Element config) {
         Element appender = doc.createElement("appender");
         appender.setAttribute("name", appenderName);
         appender.setAttribute("class", className);
 
 
         if (errorHandler != null) {
-            errorHandler.printXML(doc, appender);
+            errorHandler.generateXML(doc, appender);
         }
         if (!params.isEmpty()) {
             Iterator it1 = params.keySet().iterator();
@@ -278,21 +278,21 @@ public class Appender {
         
         if(rollingPolicy!=null)
         {
-            rollingPolicy.printXML(doc,appender);
+            rollingPolicy.generateXML(doc,appender);
         }
         
         if(triggeringPolicy!=null)
         {
-            triggeringPolicy.printXML(doc,appender);
+            triggeringPolicy.generateXML(doc,appender);
         }
         
         if(connectionSource!=null)
         {
-            connectionSource.printXML(doc,appender);
+            connectionSource.generateXML(doc,appender);
         }
         
         if (layout != null) {
-            layout.printXML(doc, appender);
+            layout.generateXML(doc, appender);
         }
         
         // if filter have name, we must order filters by name
@@ -307,7 +307,7 @@ public class Appender {
             Collections.sort(filters);
         }
         for (Filter filter : filters) {
-            filter.printXML(doc, appender);
+            filter.generateXML(doc, appender);
         }
         for(String ref : appenderRefs)
         {

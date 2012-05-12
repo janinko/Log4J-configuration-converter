@@ -65,7 +65,7 @@ public class ErrorHandler {
         this.rootRef = rootRef;
     }
 
- public  void printXML(Document doc, Element appender) {
+ public  void generateXML(Document doc, Element appender) {
         Element error = doc.createElement("errorHandler");
         error.setAttribute("class", className);
         

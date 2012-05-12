@@ -54,7 +54,7 @@ public class Renderer {
         return hash;
     }
 
-    public void printXML(Document doc, Element config) {
+    public void generateXML(Document doc, Element config) {
         Element renderer = doc.createElement("renderer");
         renderer.setAttribute("renderedClass", renderedClass);
         renderer.setAttribute("renderingClass", renderingClass);
