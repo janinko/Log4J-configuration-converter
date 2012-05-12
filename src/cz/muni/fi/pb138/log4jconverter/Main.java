@@ -44,7 +44,11 @@ public class Main {
        }
        
        Parser p = null;
-	   switch(il.getType()){
+       Type itype = config.inputType;
+       if( itype == null){
+    	   itype = il.getType();
+       }
+	   switch(itype){
 	   case PROPERTIES:
 		   p = new PropertiesParser(il.getProperties()); break;
 	   case XML:

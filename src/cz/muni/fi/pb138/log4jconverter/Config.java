@@ -5,6 +5,7 @@ public class Config {
 	String inputFile = null;
 	String outputFile = null;
 	InputLoader.Type outputType = null;
+	InputLoader.Type inputType = null;
 	
 	public Config(String args[]){
 		int i=0;
@@ -18,8 +19,10 @@ public class Config {
 					inputFile = args[i++];
 				}else if(args.equals("output") && i < args.length){
 					outputFile = args[i++];
-				}else if(args.equals("type") && i < args.length){
+				}else if(args.equals("output-type") && i < args.length){
 					outputType = parseType(args[i++]);
+				}else if(args.equals("input-type") && i < args.length){
+					inputType = parseType(args[i++]);
 				}
 			}else if(arg.startsWith("-")){	//SHORT
 				arg = arg.substring(1);
@@ -30,6 +33,8 @@ public class Config {
 					outputFile = args[i++];
 				}else if(args.equals("t") && i < args.length){
 					outputType = parseType(args[i++]);
+				}else if(args.equals("T") && i < args.length){
+					inputType = parseType(args[i++]);
 				}
 			}
 		}
