@@ -173,7 +173,7 @@ public class Configuration{
         appenders.put(a.getAppenderName(), a);
     }
 
-    public Document printXML() {
+    public Document generateXML() {
     	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
 		try {
@@ -205,37 +205,37 @@ public class Configuration{
       
         for(Renderer renderer : renderers)
         {
-            renderer.printXML(doc, config);
+            renderer.generateXML(doc, config);
         }
         
         if(throwableRenderer!= null){
-            throwableRenderer.printXML(doc, config);
+            throwableRenderer.generateXML(doc, config);
         }
         
         for(Appender appender : appenders.values())
         {
-            appender.printXML(doc, config);
+            appender.generateXML(doc, config);
         }
         
        
         
         for (Plugin plugin : plugins.values())
         {
-            plugin.printXML(doc, config);
+            plugin.generateXML(doc, config);
         }
          for(Logger logger : loggers)
         {
-           logger.printXML(doc, config);
+           logger.generateXML(doc, config);
         }
          
           if(root!= null)
         {
-           root.printXML(doc, config);
+           root.generateXML(doc, config);
         }
         
         if(logFactory!= null)
         {
-            logFactory.printXML(doc, config);
+            logFactory.generateXML(doc, config);
         }
         
         doc.appendChild(config);    

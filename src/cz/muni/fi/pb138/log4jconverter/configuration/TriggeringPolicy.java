@@ -66,7 +66,7 @@ public class TriggeringPolicy {
         filters.add(filter);
     }
 
-    public void printXML(Document doc, Element appender) {
+    public void generateXML(Document doc, Element appender) {
         Element triggPolicy = doc.createElement("triggeringPolicy");
         triggPolicy.setAttribute("name", name);
         triggPolicy.setAttribute("class", className);
@@ -85,7 +85,7 @@ public class TriggeringPolicy {
 
         } else {
             for (Filter filter : filters) {
-                filter.printXML(doc, triggPolicy);
+                filter.generateXML(doc, triggPolicy);
             }
         }
 

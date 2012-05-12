@@ -48,14 +48,14 @@ public class ConnectionSource {
         this.dataSource = dataSource;
     }
 
-  public  void printXML(Document doc, Element elem) {
+  public  void generateXML(Document doc, Element elem) {
         Element conSource = doc.createElement("connectionSource");
       
         conSource.setAttribute("class", className);
         
         if(dataSource!=null)
         {
-            dataSource.printXML(doc,conSource);
+            dataSource.generateXML(doc,conSource);
         }
         
         if (!params.isEmpty()) {

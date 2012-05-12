@@ -75,7 +75,7 @@ public class Plugin {
         return hash;
     }
 
-   public void printXML(Document doc, Element config) {
+   public void generateXML(Document doc, Element config) {
         Element plugin = doc.createElement("plugin");
         plugin.setAttribute("name", name);
         plugin.setAttribute("class", className);
@@ -96,7 +96,7 @@ public class Plugin {
         }
          if(connSource!=null)
          {
-             connSource.printXML(doc, plugin);
+             connSource.generateXML(doc, plugin);
          }
          
          config.appendChild(plugin);

@@ -130,7 +130,7 @@ public class Filter implements Comparable<Filter> {
 	}
 	
 
-    public void printXML(Document doc, Element elem) {
+    public void generateXML(Document doc, Element elem) {
         Element filter = doc.createElement("filter");
 
         filter.setAttribute("class", className);

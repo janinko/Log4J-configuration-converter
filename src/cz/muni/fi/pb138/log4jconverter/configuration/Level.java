@@ -62,7 +62,7 @@ public class Level {
     	isPriority = b;
     }
 	   
-    public void printXML(Document doc, Element elem) {
+    public void generateXML(Document doc, Element elem) {
         
         Element level;
         
