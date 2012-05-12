@@ -144,7 +144,7 @@ public class Logger {
         } else {
             logger = doc.createElement("category");
         }
-        logger.setAttribute("loggerName", name);
+        logger.setAttribute("name", name);
         if (className != null) {
             logger.setAttribute("class", className);
         }
