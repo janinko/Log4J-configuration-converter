@@ -42,6 +42,7 @@ public class Configuration{
         renderers = new HashSet<Renderer>();
         appenders = new HashMap<String, Appender>();
         loggers = new HashSet<Logger>();
+        plugins = new HashMap<String, Plugin>();
     }
 
     /* returns Appender by its name, if it does'n exists,
