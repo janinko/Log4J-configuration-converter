@@ -1,0 +1,84 @@
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" threshold="DEBUG"? debug="false"? reset="false"?>
+	<renderer renderedClass="" renderingClass=""/>
+
+	<throwableRenderer class="throwableRenderer.cs">
+		<param name="ParamName" value="ParamValue"/>
+	</throwableRenderer>
+
+	<appender name="AppendName" class="AppendClass">
+		<errorHandler class="ErrorClass">
+			<param name="ParamName" value="ParamValue"/>
+			<root-ref/>
+			<logger-ref ref="LoggerRef"/>
+			<appender-ref ref="AppendRef"/>
+		</errorHandler>
+		<param name="ParamName" value="ParamValue"/>
+		<rollingPolicy name="rollingPolicyName" class="rollingPolicyName">
+			<param name="ParamName" value="ParamValue"/>
+		</rollingPolicy>
+		<triggeringPolicy name="" class="">
+			<!-- param or filter, not required -->
+			<param name="ParamName" value="ParamValue"/>
+			<filter class="FilterClass">
+				<param name="ParamName" value="ParamValue"/>
+			</filter>
+		</triggeringPolicy>
+		<connectionSource class="connectionSourceName">
+			<dataSource class="dataSourceName">
+				<param name="ParamName" value="ParamValue"/>
+			</dataSource>
+			<param name="ParamName" value="ParamValue"/>
+		</connectionSource>
+		<layout class="layoutName">
+			<param name="ParamName" value="ParamValue"/>
+		</layout>
+		<filter class="FilterClass">
+			<param name="ParamName" value="ParamValue"/>
+		</filter>
+		<appender-ref ref="AppendRef"/>
+	</appender>
+
+	<plugin name="PluginName" class="PluginClass">
+		<param name="ParamName" value="ParamValue"/>
+		<connectionSource class="connectionSourceName">
+			<dataSource class="dataSourceName">
+				<param name="ParamName" value="ParamValue"/>
+			</dataSource>
+			<param name="ParamName" value="ParamValue"/>
+		</connectionSource>
+	</plugin>
+
+	<!-- category or logger, not required -->
+	<category class="categoryClass" name="categoryName" additivity="true">
+		<param name="ParamName" value="ParamValue"/>
+		<!-- priority or level, not required -->
+		<priority class="PriorityName" value="PriorityValue">
+			<param name="ParamName" value="ParamValue"/>
+		</priority>
+		
+		<appender-ref ref="AppenderRef"/>
+	</category>
+	<logger class="LoggerClass" name="LoggerName" additivity="true">
+		<param name="ParamName" value="ParamValue"/>
+		<level class="LevelClass" value="LevelValue">
+			<param name="ParamName" value="ParamValue"/>
+		</level>
+		<appender-ref ref="AppendRef"/>
+	</logger>
+
+	<!-- categoryFactory or loggerFactory, not required -->
+	
+	<loggerFactory class="loggerFactoryClass">
+		<param name="ParamName" value="ParamValue"/>
+	</loggerFactory>
+
+	<root>
+		<param name="ParamName" value="ParamValue"/>
+		<!-- priority or level, not required -->
+		
+		<level class="LevelClass" value="LevelValue">
+			<param name="ParamName" value="ParamValue"/>
+		</level>
+		<appender-ref ref="AppendRef"/>
+	</root>
+</log4j:configuration>
