@@ -198,19 +198,43 @@ public class XMLParserTest {
             assertEquals(log.getClassName(), "LoggerClass");
             testParams(log.getParams());
 
-            Level lev = log.getLevel();
-            assertNotNull(lev);
-            assertEquals(lev.getClassName(), "LevelClass");
-            assertEquals(lev.getValues(), "DEBUG");
-            testParams(lev.getParams());
+            testLevel(log.getLevel()); 
+            
 
             for (String s : log.getAppenderRefs()) {
                 assertEquals(s, "AppendRef");
             }
         }
 
-
+    
     }
+    
+     @Test
+     public void testParseLoggerFactory()
+    {
+        LoggerFactory logFac = config.getLogFactory();
+        assertNotNull(logFac);
+        assertEquals(logFac.getClassName(),"loggerFactoryClass");
+        testParams(logFac.getParams());
+        
+        
+        
+    }
+    
+     @Test
+     public void testParseRoot()
+     {
+         Root root = config.getRoot();
+         assertNotNull(root);
+         testParams(root.getParams());
+         testLevel(root.getLevel()); 
+         for (String s : root.getAppenderRefs()) {
+                assertEquals(s, "AppendRef");
+            }
+         
+         
+     
+     }
 
     private static void testParams(HashMap<String, String> params) {
         HashSet<String> keys = (HashSet<String>) params.keySet();
@@ -221,5 +245,16 @@ public class XMLParserTest {
         for (String s : values) {
             assertEquals(s, "ParamValue");
         }
+    }
+    
+    private static void testLevel(Level lev)
+    {
+         assertNotNull(lev);
+            assertEquals(lev.getClassName(), "LevelClass");
+            assertEquals(lev.getValues(), "DEBUG");
+            testParams(lev.getParams());
+
+           
+        
     }
 }
