@@ -23,6 +23,8 @@ public class Config {
 					outputType = parseType(args[i++]);
 				}else if(args.equals("input-type") && i < args.length){
 					inputType = parseType(args[i++]);
+				}else if(args.equals("help") && i < args.length){
+					printHelp();
 				}
 			}else if(arg.startsWith("-")){	//SHORT
 				arg = arg.substring(1);
@@ -31,13 +33,33 @@ public class Config {
 					inputFile = args[i++];
 				}else if(args.equals("o") && i < args.length){
 					outputFile = args[i++];
-				}else if(args.equals("t") && i < args.length){
-					outputType = parseType(args[i++]);
 				}else if(args.equals("T") && i < args.length){
+					outputType = parseType(args[i++]);
+				}else if(args.equals("t") && i < args.length){
 					inputType = parseType(args[i++]);
+				}else if(args.equals("h") && i < args.length){
+					printHelp();
 				}
 			}
 		}
+	}
+
+	private void printHelp() {
+		System.out.println("log4j configuration converter");
+		System.out.println("Convert log4j configuration from Properties file to XML or vice versa");
+		System.out.println();
+		System.out.println("Arguments:");
+		System.out.println("  -o FILE --output FILE       Generated configutation will be written to file FILE.");
+		System.out.println("                              If not set, configuration will be written to standart output.");
+		System.out.println("  -i FILE --input FILE        Configuration will be read from file FILE.");
+		System.out.println("                              If not set, configuration will be read from standart input.");
+		System.out.println("  -t TYPE --input-type TYPE   Specify the input file type. If not set,");
+		System.out.println("                              converter will try to determine file type automaticaly.");
+		System.out.println("  -T TYPE --output-type TYPE  Specify the output file type. If not set,");
+		System.out.println("                              converter will output the other one.");
+		System.out.println();
+		System.out.println("TYPE can be XML or Properties.");
+		System.exit(0);		
 	}
 
 	private InputLoader.Type parseType(String type) {

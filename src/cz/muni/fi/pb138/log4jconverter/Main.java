@@ -60,7 +60,7 @@ public class Main {
        
        InputLoader.Type targetType = config.outputType;
        if(targetType == null){
-    	   switch(il.getType()){
+    	   switch(itype){
     	   case PROPERTIES:
     		   targetType = InputLoader.Type.XML; break;
     	   case XML:
