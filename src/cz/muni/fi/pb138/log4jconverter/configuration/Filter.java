@@ -2,8 +2,9 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -119,11 +120,11 @@ public class Filter implements Comparable<Filter> {
 		
 		// prefixKey.PARAM=VALUE
 		if (!params.isEmpty()) {
-			Iterator i = params.entrySet().iterator(); 
+			Iterator<Entry<String, String>> i = params.entrySet().iterator(); 
 			while(i.hasNext()) { 
-				Map.Entry pairs = (Map.Entry)i.next();
-				String paramKey = (String) pairs.getKey();
-				String paramValue = (String) pairs.getValue();	
+				Entry<String, String> pairs = i.next();
+				String paramKey = pairs.getKey();
+				String paramValue = pairs.getValue();	
 				p.setProperty(prefixKey + "." + paramKey, paramValue);
 			} 
 		}
@@ -137,13 +138,13 @@ public class Filter implements Comparable<Filter> {
 
 
         if (!params.isEmpty()) {
-            Iterator it1 = params.keySet().iterator();
-            Iterator it2 = params.values().iterator();
-            while (it1.hasNext()) {
+            Iterator<Entry<String, String>> it = params.entrySet().iterator();
+            while (it.hasNext()) {
+            	Entry<String, String> e = it.next();
                 Element param = doc.createElement("param");
 
-                param.setAttribute("name", it1.next().toString());
-                param.setAttribute("value", it2.next().toString());
+                param.setAttribute("name", e.getKey());
+                param.setAttribute("value", e.getValue());
                 filter.appendChild(param);
 
             }
