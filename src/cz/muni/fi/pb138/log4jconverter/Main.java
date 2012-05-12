@@ -4,12 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.URI;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -21,8 +20,6 @@ import org.xml.sax.SAXException;
 
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
-import java.util.Enumeration;
-import java.util.Map.Entry;
 
 
 public class Main {
@@ -86,7 +83,11 @@ public class Main {
 		   break;
 	   case XML:
 		   Document doc = c.generateXML();
-		   serializetoXML(os,doc);
+		   try {
+			serializetoXML(os,doc);
+		} catch (TransformerException e) {
+			logger.error("Failed to serialize XML.",e);
+		}
 		   break;
 	   }
 
@@ -122,8 +123,7 @@ public class Main {
 	}
     
     // nvm ci sa to hodi do tejto classy
-    private static void serializetoXML(OutputStream output, Document doc)
-           throws IOException, TransformerConfigurationException, TransformerException {
+    private static void serializetoXML(OutputStream output, Document doc) throws TransformerException {
        // Vytvorime instanci tovarni tridy
        TransformerFactory factory = TransformerFactory.newInstance();
        // Pomoci tovarni tridy ziskame instanci tzv. kopirovaciho transformeru
