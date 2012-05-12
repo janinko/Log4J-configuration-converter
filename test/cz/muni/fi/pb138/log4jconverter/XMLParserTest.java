@@ -62,7 +62,7 @@ public class XMLParserTest {
     @Test
     public void testParseConfigurationAttributes() {
         assertNotNull(config);
-        assertEquals(config.getThreshold().toString(), "DEBUG");
+        assertEquals(config.getThreshold().toString(), "debug");
         assertEquals(config.getDebug().toString(), "false");
         assertEquals(config.isReset(), false);
 
