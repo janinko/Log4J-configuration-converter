@@ -19,7 +19,7 @@ import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 public class Configuration{
     
     public enum Threshold {
-        ALL,TRACE,DEBUG,INFO,WARN,ERROR,FATAL,OFF,
+        all,trace,debug,info,warn,error,fatal,off,
     }
     
     
