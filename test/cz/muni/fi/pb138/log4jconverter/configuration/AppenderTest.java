@@ -23,19 +23,19 @@ public class AppenderTest {
         // Name test
         appender1.setAppenderName("Appender1");
         appender2.setAppenderName("Appender2");
-        assertEquals(appender1.getAppenderName(), "Appender1");
-        assertEquals(appender2.getAppenderName(), "Appender2");
+        assertEquals("Appender1", appender1.getAppenderName());
+        assertEquals("Appender2", appender2.getAppenderName());
         
         appender1.setAppenderName("");
         appender2.setAppenderName(null);
-        assertEquals(appender1.getAppenderName(), "");
+        assertEquals("", appender1.getAppenderName());
         assertNull(appender2.getAppenderName());
         
         // File size
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("MaxFileSize", "20KB");
         appender1.setParams(params);
-        assertEquals(appender1.getParams(), params);
+        assertEquals(params,appender1.getParams());
         //appender2.setMaxFileSize("30KB");
         //assertEquals(appender1.getMaxFileSize(), "30KB");
         

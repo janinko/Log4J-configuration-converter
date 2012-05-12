@@ -39,7 +39,7 @@ public class XMLParser implements Parser {
             // Log4J configuration tag
             Element rootElement = doc.getDocumentElement();
             if (rootElement.hasAttribute("threshold") && ! "null".equals(rootElement.getAttribute("threshold"))) {
-                configuration.setThreshold(Threshold.valueOf(rootElement.getAttribute("threshold").toUpperCase()));
+                configuration.setThreshold(Threshold.valueOf(rootElement.getAttribute("threshold").toLowerCase()));
             }
             if (rootElement.hasAttribute("debug")) {
                 if (rootElement.getAttribute("debug").equals("true")) {

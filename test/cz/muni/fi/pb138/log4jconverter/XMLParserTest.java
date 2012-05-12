@@ -10,8 +10,9 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -77,17 +78,9 @@ public class XMLParserTest {
     @Test
     public void testParseConfigurationAttributes() {
         assertNotNull(config);
-        assertEquals(config.getThreshold().toString(), "debug");
-        assertEquals(config.getDebug().toString(), "false");
-        assertEquals(config.isReset(), false);
-
-
-
-
-
-
-
-
+        assertEquals("debug", config.getThreshold().toString());
+        assertEquals("false", config.getDebug().toString());
+        assertEquals(false, config.isReset());
 
     }
 
@@ -95,8 +88,8 @@ public class XMLParserTest {
     public void testParseRenderer() {
         for (Renderer r : config.getRenderers()) {
             assertNotNull(r);
-            assertEquals(r.getRenderedClass(), "RenderedClass");
-            assertEquals(r.getRenderingClass(), "RenderingClass");
+            assertEquals("RenderedClass", r.getRenderedClass());
+            assertEquals("RenderingClass", r.getRenderingClass());
         }
 
     }
@@ -106,7 +99,7 @@ public class XMLParserTest {
 
         ThrowableRenderer throwRen = config.getThrowableRenderer();
         assertNotNull(throwRen);
-        assertEquals(throwRen.getClassName(), "throwableRenderer.cs");
+        assertEquals("throwableRenderer.cs", throwRen.getClassName());
         testParams(throwRen.getParams());
 
     }
@@ -115,49 +108,49 @@ public class XMLParserTest {
     public void testParseAppenders() {
         for (Appender ap : config.getAppenders().values()) {
             assertNotNull(ap);
-            assertEquals(ap.getAppenderName(), "AppendName");
-            assertEquals(ap.getClassName(), "AppendClass");
+            assertEquals("AppendName", ap.getAppenderName());
+            assertEquals("AppendClass", ap.getClassName());
 
             //testing ErrorHandler
             ErrorHandler error = ap.getErrorHandler();
             assertNotNull(error);
-            assertEquals(error.getClassName(), "ErrorClass");
+            assertEquals("ErrorClass", error.getClassName());
 
             testParams(error.getParams());
 
             assertEquals(error.isRootRef(), true);
 
             for (String s : error.getLoggerRefs()) {
-                assertEquals(s, "LoggerRef");
+                assertEquals("LoggerRef",s);
             }
-            assertEquals(error.getAppenderRef(), "AppendRef");
+            assertEquals("AppendRef",error.getAppenderRef());
             //testing rolling policy
             testParams(ap.getParams());
             RollingPolicy rollPolicy = ap.getRollingPolicy();
             assertNotNull(rollPolicy);
-            assertEquals(rollPolicy.getName(), "rollingPolicyName");
-            assertEquals(rollPolicy.getClass(), "rollingPolicyClass");
+            assertEquals("rollingPolicyName", rollPolicy.getName());
+            assertEquals("rollingPolicyClass", rollPolicy.getClassName());
             testParams(rollPolicy.getParams());
 
             //testing triggering policy
             TriggeringPolicy trigPolicy = ap.getTriggeringPolicy();
             assertNotNull(trigPolicy);
-            assertEquals(trigPolicy.getName(), "triggeringPolicyName");
-            assertEquals(trigPolicy.getClass(), "triggeringPolicyClass");
+            assertEquals("triggeringPolicyName", trigPolicy.getName());
+            assertEquals("triggeringPolicyClass", trigPolicy.getClassName());
             testParams(trigPolicy.getParams());
             for (Filter f : trigPolicy.getFilters()) {
-                assertEquals(f.getClassName(), "FilterClass");
+                assertEquals("FilterClass", f.getClassName());
                 testParams(f.getParams());
             }
 
             // testing connection source
             ConnectionSource conSource = ap.getConnectionSource();
             assertNotNull(conSource);
-            assertEquals(conSource.getClassName(), "connectionSourceClass");
+            assertEquals("connectionSourceClass", conSource.getClassName());
 
             DataSource dataSource = conSource.getDataSource();
             assertNotNull(dataSource);
-            assertEquals(dataSource.getClassName(), "dataSourceClass");
+            assertEquals("dataSourceClass", dataSource.getClassName());
             testParams(dataSource.getParams());
 
             testParams(conSource.getParams());
@@ -165,12 +158,12 @@ public class XMLParserTest {
             //testing Layout
             Layout layout = ap.getLayout();
             assertNotNull(layout);
-            assertEquals(layout.getClassName(), "layoutClass");
+            assertEquals("layoutClass", layout.getClassName());
             testParams(layout.getParams());
             // testing filters
 
             for (Filter f : ap.getFilters()) {
-                assertEquals(f.getClassName(), "FilterClass");
+                assertEquals("FilterClass", f.getClassName());
                 testParams(f.getParams());
             }
             //testing appender-Refs
@@ -186,18 +179,18 @@ public class XMLParserTest {
     public void testParsePlugin() {
         for (Plugin p : config.getPlugins().values()) {
             assertNotNull(p);
-            assertEquals(p.getName(), "PluginName");
-            assertEquals(p.getClassName(), "PluginClass");
+            assertEquals("PluginName", p.getName());
+            assertEquals("PluginClass", p.getClassName());
 
             testParams(p.getParams());
 
             ConnectionSource conSource = p.getConnSource();
             assertNotNull(conSource);
-            assertEquals(conSource.getClassName(), "connectionSourceClass");
+            assertEquals("connectionSourceClass", conSource.getClassName());
 
             DataSource dataSource = conSource.getDataSource();
             assertNotNull(dataSource);
-            assertEquals(dataSource.getClassName(), "dataSourceClass");
+            assertEquals("dataSourceClass", dataSource.getClassName());
             testParams(dataSource.getParams());
 
             testParams(conSource.getParams());
@@ -209,15 +202,15 @@ public class XMLParserTest {
     public void testParseLogger() {
         for (Logger log : config.getLoggers()) {
             assertNotNull(log);
-            assertEquals(log.getName(), "LoggerName");
-            assertEquals(log.getClassName(), "LoggerClass");
+            assertEquals("LoggerName", log.getName());
+            assertEquals("LoggerClass", log.getClassName());
             testParams(log.getParams());
 
             testLevel(log.getLevel()); 
             
 
             for (String s : log.getAppenderRefs()) {
-                assertEquals(s, "AppendRef");
+                assertEquals("AppendRef", s);
             }
         }
 
@@ -229,7 +222,7 @@ public class XMLParserTest {
     {
         LoggerFactory logFac = config.getLogFactory();
         assertNotNull(logFac);
-        assertEquals(logFac.getClassName(),"loggerFactoryClass");
+        assertEquals("loggerFactoryClass",logFac.getClassName());
         testParams(logFac.getParams());
         
         
@@ -252,8 +245,8 @@ public class XMLParserTest {
      }
 
     private static void testParams(HashMap<String, String> params) {
-        HashSet<String> keys = (HashSet<String>) params.keySet();
-        HashSet<String> values = (HashSet<String>) params.values();
+        Set<String> keys = params.keySet();
+        Collection<String> values = params.values();
         for (String s : keys) {
             assertEquals(s, "ParamName");
         }
@@ -265,8 +258,8 @@ public class XMLParserTest {
     private static void testLevel(Level lev)
     {
          assertNotNull(lev);
-            assertEquals(lev.getClassName(), "LevelClass");
-            assertEquals(lev.getValues(), "DEBUG");
+            assertEquals("LevelClass", lev.getClassName());
+            assertEquals(Level.Levels.DEBUG, lev.getValues());
             testParams(lev.getParams());
 
            
