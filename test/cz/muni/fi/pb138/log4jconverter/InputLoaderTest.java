@@ -13,7 +13,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
-import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 
 /**
  *
@@ -29,9 +28,7 @@ public class InputLoaderTest {
     private static final File fileProperties = new File(fileStringProperties);
     private static final File fileNoSuffix = new File(fileStringNoSuffix);
     private static final File fileInvalidSuffix = new File(fileStringInvalidSuffix);
-	
-	private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Configuration.class);
-        
+	        
     @BeforeClass
     public static void setUp() {        
         try {
@@ -63,21 +60,21 @@ public class InputLoaderTest {
 			InputStream fileStreamNull = null;
 			
 			try {
-				InputLoader stringNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNull);
+				new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringNull);
 				fail();
 			} catch (IllegalArgumentException ex) {
 				// OK
 			}
 			
 			try {
-				InputLoader stringEmpty = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringEmpty);
+				new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStringEmpty);
 				fail();
 			} catch (IllegalArgumentException ex) {
 				// OK
 			}
 			
 			try {
-				InputLoader streamNull = new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStreamNull);
+				new cz.muni.fi.pb138.log4jconverter.InputLoader(fileStreamNull);
 				fail();
 			} catch (IllegalArgumentException ex) {
 				// OK

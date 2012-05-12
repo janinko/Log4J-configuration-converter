@@ -4,16 +4,15 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
-import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-import cz.muni.fi.pb138.log4jconverter.Helper;
-import cz.muni.fi.pb138.log4jconverter.configuration.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -21,8 +20,24 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import cz.muni.fi.pb138.log4jconverter.configuration.Appender;
+import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
+import cz.muni.fi.pb138.log4jconverter.configuration.ConnectionSource;
+import cz.muni.fi.pb138.log4jconverter.configuration.DataSource;
+import cz.muni.fi.pb138.log4jconverter.configuration.ErrorHandler;
+import cz.muni.fi.pb138.log4jconverter.configuration.Filter;
+import cz.muni.fi.pb138.log4jconverter.configuration.Layout;
+import cz.muni.fi.pb138.log4jconverter.configuration.Level;
+import cz.muni.fi.pb138.log4jconverter.configuration.Logger;
+import cz.muni.fi.pb138.log4jconverter.configuration.LoggerFactory;
+import cz.muni.fi.pb138.log4jconverter.configuration.Plugin;
+import cz.muni.fi.pb138.log4jconverter.configuration.Renderer;
+import cz.muni.fi.pb138.log4jconverter.configuration.RollingPolicy;
+import cz.muni.fi.pb138.log4jconverter.configuration.Root;
+import cz.muni.fi.pb138.log4jconverter.configuration.ThrowableRenderer;
+import cz.muni.fi.pb138.log4jconverter.configuration.TriggeringPolicy;
 
 /**
  *
@@ -51,7 +66,7 @@ public class XMLParserTest {
     @Test
     public void testInit() {
         try {
-            XMLParser xmlp = new XMLParser(null);
+            new XMLParser(null);
             fail();
         } catch (IllegalArgumentException ex) {
         } catch (Exception ex) {
