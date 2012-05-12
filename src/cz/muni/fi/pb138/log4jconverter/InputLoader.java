@@ -4,11 +4,19 @@
  */
 package cz.muni.fi.pb138.log4jconverter;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Properties;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -129,9 +137,9 @@ public class InputLoader {
     
     
     public Properties getProperties() throws IOException {
-        Properties p = new Properties();
-        p.load(this.in);
-        return p;
+        propertiesDoc = new Properties();
+        propertiesDoc.load(this.in);
+        return propertiesDoc;
     }
     
     public String getNameOfFile() {

@@ -3,7 +3,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -252,10 +252,10 @@ public class Configuration{
 			
 		// log4j.appender
 		if (appenders != null) {
-			Iterator i = appenders.entrySet().iterator(); 
+			Iterator<Entry<String, Appender>> i = appenders.entrySet().iterator(); 
 			while(i.hasNext()) { 
-				Map.Entry pairs = (Map.Entry)i.next();
-				Appender a = (Appender) pairs.getValue();
+				Entry<String, Appender> pairs = i.next();
+				Appender a = pairs.getValue();
 				a.generateProperties(props);
 			} 
 		}

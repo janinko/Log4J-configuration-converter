@@ -2,6 +2,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 import java.util.*;
+import java.util.Map.Entry;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -227,11 +229,11 @@ public class Appender {
 
 		// log4j.appender.appenderName.option1=value1
 		if (!params.isEmpty()) {
-			Iterator i = params.entrySet().iterator(); 
+			Iterator<Entry<String, String>> i = params.entrySet().iterator(); 
 			while(i.hasNext()) { 
-				Map.Entry pairs = (Map.Entry)i.next();
-				String paramKey = (String) pairs.getKey();
-				String paramValue = (String) pairs.getValue();	
+				Map.Entry<String, String> pairs = i.next();
+				String paramKey = pairs.getKey();
+				String paramValue = pairs.getValue();	
 				p.setProperty(prefixKey + "." + paramKey, paramValue);
 			} 
 		}
@@ -263,13 +265,13 @@ public class Appender {
             errorHandler.generateXML(doc, appender);
         }
         if (!params.isEmpty()) {
-            Iterator it1 = params.keySet().iterator();
-            Iterator it2 = params.values().iterator();
-            while (it1.hasNext()) {
+            Iterator<Entry<String, String>> it = params.entrySet().iterator();
+            while (it.hasNext()) {
+            	Entry<String, String> e = it.next();
                 Element param = doc.createElement("param");
 
-                param.setAttribute("name",it1.next().toString());
-                param.setAttribute("value",it2.next().toString());
+                param.setAttribute("name",e.getKey());
+                param.setAttribute("value",e.getValue());
                 appender.appendChild(param);
                 
             }

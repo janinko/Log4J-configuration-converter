@@ -96,6 +96,7 @@ public class Main {
                
     }
 	
+	@SuppressWarnings("unused")
 	private static void writeDifferentItems(Properties fromFileInput, Properties fromConfigurationInput) {
 		if (fromFileInput.equals(fromConfigurationInput)){
 			System.out.println("Properties are equals");

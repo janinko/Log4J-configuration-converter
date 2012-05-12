@@ -14,9 +14,6 @@ import org.junit.Test;
 
 import cz.muni.fi.pb138.log4jconverter.InputLoader.Type;
 import cz.muni.fi.pb138.log4jconverter.configuration.Configuration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.junit.Ignore;
 
 /**
  *
