@@ -56,7 +56,7 @@ public class RootGenerateXmlTest {
 		l.setValues(Levels.DEBUG);
 		r.setLevel(l);
 		r.addAppenderRef("console");
-		r.printXML(doc2, config2);
+		r.generateXML(doc2, config2);
 		
 		// asserts
 		XMLAssert.assertXMLEqual(doc1, doc2);
@@ -81,7 +81,7 @@ public class RootGenerateXmlTest {
 		r.setLevel(l);
 		r.addAppenderRef("console");
 		r.addAppenderRef("A1");
-		r.printXML(doc2, config2);
+		r.generateXML(doc2, config2);
 		
 		// asserts
 		XMLAssert.assertXMLEqual(doc1, doc2);
@@ -98,7 +98,7 @@ public class RootGenerateXmlTest {
 		// abstract
 		l.setValues(Levels.FATAL);
 		r.setLevel(l);
-		r.printXML(doc2, config2);
+		r.generateXML(doc2, config2);
 		
 		// asserts
 		XMLAssert.assertXMLEqual(doc1, doc2);
@@ -111,7 +111,7 @@ public class RootGenerateXmlTest {
 
 		// abstract
 		XMLAssert.assertXMLNotEqual(doc1, doc2);
-		r.printXML(doc2, config2);
+		r.generateXML(doc2, config2);
 
 		// asserts
 		XMLAssert.assertXMLEqual(doc1, doc2);
@@ -129,7 +129,7 @@ public class RootGenerateXmlTest {
 		l.setValues(Levels.INFO);
 		l.isPriority(true);
 		r.setLevel(l);
-		r.printXML(doc2, config2);
+		r.generateXML(doc2, config2);
 		
 		// asserts
 		XMLAssert.assertXMLEqual(doc1, doc2);

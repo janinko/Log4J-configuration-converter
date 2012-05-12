@@ -120,7 +120,7 @@ public class Root {
 
 	
 	// TODO check isRootCategory and create category
-    public void printXML(Document doc, Element config) {
+    public void generateXML(Document doc, Element config) {
         Element root = doc.createElement("root");
 
         if (!params.isEmpty()) {
@@ -138,7 +138,7 @@ public class Root {
         }
 
         if (level != null) {
-            level.printXML(doc, root);
+            level.generateXML(doc, root);
         }
 
         for (String ref : appenderRefs) {

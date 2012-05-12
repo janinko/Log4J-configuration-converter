@@ -68,7 +68,7 @@ public class AppenderGenerateXmlTest {
 		layout.setParams(params);
 		a.setClassName("org.apache.log4j.ConsoleAppender");
 		a.setLayout(layout);
-		a.printXML(doc2, config2);
+		a.generateXML(doc2, config2);
 		
 		// asserts
 		XMLAssert.assertXMLEqual(doc1, doc2);
@@ -83,7 +83,7 @@ public class AppenderGenerateXmlTest {
 		
 		// abstract
 		a.setClassName("org.apache.log4j.ConsoleAppender");
-		a.printXML(doc2, config2);
+		a.generateXML(doc2, config2);
 		
 		// asserts
 		XMLAssert.assertXMLEqual(doc1, doc2);

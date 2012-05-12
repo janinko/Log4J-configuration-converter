@@ -135,7 +135,7 @@ public class Logger {
 	}
 	
 
-    public void printXML(Document doc, Element config) {
+    public void generateXML(Document doc, Element config) {
 
         Element logger;
         if (!isCategory) {
@@ -169,7 +169,7 @@ public class Logger {
         }
 
         if (level != null) {
-            level.printXML(doc, logger);
+            level.generateXML(doc, logger);
         }
 
         for (String ref : appenderRefs) {
