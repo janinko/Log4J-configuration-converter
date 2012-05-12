@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.Properties;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -129,6 +130,9 @@ public class Main {
        TransformerFactory factory = TransformerFactory.newInstance();
        // Pomoci tovarni tridy ziskame instanci tzv. kopirovaciho transformeru
        Transformer transformer = factory.newTransformer();
+       // nastaveni odsazovani
+       transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+       transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
        // Vstupem transformace bude dokument v pameti
        DOMSource source = new DOMSource(doc);
        // Vystupem transformace bude vystupni soubor
