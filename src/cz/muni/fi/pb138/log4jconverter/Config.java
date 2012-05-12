@@ -19,7 +19,6 @@ public class Config {
 			
 			if(arg.startsWith("--")){	//LONG
 				arg = arg.substring(2);
-				System.out.println("AAA + " +arg);
 				
 				if(arg.equals("input") && i < args.length){
 					inputFile = args[i++];
@@ -34,7 +33,6 @@ public class Config {
 				}
 			}else if(arg.startsWith("-")){	//SHORT
 				arg = arg.substring(1);
-				System.out.println("BBB + " +arg);
 				
 				if(arg.equals("i") && i < args.length){
 					inputFile = args[i++];
@@ -47,8 +45,6 @@ public class Config {
 				}else if(arg.equals("h")){
 					printHelp();
 				}
-			}else{
-				System.out.println("ccc + " +arg);
 			}
 		}
 	}
