@@ -63,6 +63,8 @@ public class LoggerFactory {
         } else {
             factory = doc.createElement("categoryFactory");
         }
+        
+        factory.setAttribute("class", className);
 
         if (!params.isEmpty()) {
             Iterator<Entry<String, String>> it = params.entrySet().iterator();
