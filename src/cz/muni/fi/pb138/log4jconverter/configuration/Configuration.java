@@ -188,7 +188,7 @@ public class Configuration{
         Element config = doc.createElement("log4j:configuration");
         config.setAttribute("xmlns:log4j","http://jakarta.apache.org/log4j/");
         if(threshold !=null){
-            config.setAttribute("treshold",threshold.toString());
+            config.setAttribute("threshold",threshold.toString());
         }
         if(debug!=null)
         {
