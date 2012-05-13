@@ -81,11 +81,19 @@ public class XMLParser implements Parser {
                 // logger (or deprecated category)
                 else if (childElement.getTagName().equals("logger")
                         || childElement.getTagName().equals("category")) {
-                    configuration.addLogger(parseLogger(childElement));
+                    Logger logger = parseLogger(childElement);
+                    if (childElement.getTagName().equals("category")) {
+                        logger.setCategory(true);
+                    }
+                    configuration.addLogger(logger);
                 }
                 // loggerFactory (or deprecated categoryFactory)
                 else if (childElement.getTagName().equals("loggerFactory")
                         || childElement.getTagName().equals("categoryFactory")) {
+                    LoggerFactory loggerFactory = parseLoggerFactory(childElement);
+                    if (childElement.getTagName().equals("categoryFactory")) {
+                        loggerFactory.setCategoryFactory(true);
+                    }
                     configuration.setLogFactory(parseLoggerFactory(childElement));
                 }
                 // root
@@ -229,7 +237,11 @@ public class XMLParser implements Parser {
                 // level (or deprecated priority)
                 else if (childElement.getTagName().equals("level")
                         || childElement.getTagName().equals("priority")) {
-                    logger.setLevel(parseLevel(childElement));
+                    Level level = parseLevel(childElement);
+                    if (childElement.getTagName().equals("priority")) {
+                        level.setPriority(true);
+                    }
+                    logger.setLevel(level);
                 }
             }
             

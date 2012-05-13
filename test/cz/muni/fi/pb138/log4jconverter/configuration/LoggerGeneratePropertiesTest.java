@@ -83,7 +83,7 @@ public class LoggerGeneratePropertiesTest {
 		logger.addAppenderRef("A1");
 		logger.addAppenderRef("A2");
 		logger.addAppenderRef("A3");
-		logger.isCategory(true);
+		logger.setCategory(true);
 		
 		testExpected("FATAL, A1, A2, A3", PropertiesParser.CATEGORY);
 	}
@@ -97,7 +97,7 @@ public class LoggerGeneratePropertiesTest {
 		logger.setLevel(level);
 		logger.addAppenderRef("A1");
 		logger.addAppenderRef("A2");
-		logger.isCategory(true);
+		logger.setCategory(true);
 		logger.setAdditivity(false);
 
 		testExpected("WARN, A1, A2", PropertiesParser.CATEGORY);

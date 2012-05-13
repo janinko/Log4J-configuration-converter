@@ -59,7 +59,11 @@ public class Level {
         this.value = value;
     }
     
-    public void isPriority(boolean b){
+    public boolean isPriority(){
+    	return isPriority;
+    }
+    
+    public void setPriority(boolean b){
     	isPriority = b;
     }
 	   

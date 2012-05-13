@@ -34,7 +34,11 @@ public class Logger {
         this.appenderRefs = new LinkedHashSet<String>();
     }
 
-    public void isCategory(boolean b) {
+    public boolean isCategory() {
+        return isCategory;
+    }
+    
+    public void setCategory(boolean b) {
         isCategory = b;
     }
 

@@ -46,8 +46,12 @@ public class LoggerFactory {
     public void setParams(HashMap<String, String> params) {
         this.params = params;
     }
+    
+    public boolean isCategoryFactory() {
+        return isCategoryFactory;
+    }
 
-    public void isCategoryFactory(boolean b) {
+    public void setCategoryFactory(boolean b) {
         isCategoryFactory = b;
     }
 	

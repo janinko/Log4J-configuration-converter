@@ -127,7 +127,7 @@ public class RootGenerateXmlTest {
 		
 		// abstract
 		l.setValues(Levels.INFO);
-		l.isPriority(true);
+		l.setPriority(true);
 		r.setLevel(l);
 		r.generateXML(doc2, config2);
 		
