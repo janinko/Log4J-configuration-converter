@@ -56,7 +56,7 @@ public class XMLParserTest {
     public void setUp() throws ParserConfigurationException, IOException, SAXException {
 
 
-        File file = new File("../test/cz/muni/fi/pb138/log4jconverter/Configuration.xml");
+        File file = new File("test/cz/muni/fi/pb138/log4jconverter/Configuration.xml");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         DocumentBuilder db = dbf.newDocumentBuilder();
         this.doc = db.parse(file);
