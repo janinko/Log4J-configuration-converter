@@ -152,8 +152,12 @@ public class PropertiesParser implements Parser {
 			logger.info("Trying to parse "+ ROOT_CATEGORY+" when root is allready set. Skipping.");
 			return;
 		}
-        
+       
         Root rootLogger = new Root();
+        
+        if(ROOT_CATEGORY.equals(key[1])){
+        	rootLogger.isRootCategory(true);
+        }
 
         // ziskej jednotlive appendery
         String[] rootLoggerValue = value.split(",");
