@@ -30,9 +30,10 @@ public class Main {
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
        PropertyConfigurator.configure("log4j.properties"); 
-
+  
        Config config = new Config(args);
        
+       setVerbose(config);
 
        InputLoader il;
        if(config.inputFile != null){
@@ -97,6 +98,27 @@ public class Main {
                
     }
 	
+	private static void setVerbose(Config config) {
+		int verbose = config.verbose;
+		if(verbose > 3)
+			verbose = 3;
+		if(verbose < -2)
+			verbose = -2;
+		
+		switch(verbose){
+		case 1:
+			org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.INFO); break;
+		case 2:
+			org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.DEBUG); break;
+		case 3:
+			org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.TRACE); break;
+		case -1:
+			org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.ERROR); break;
+		case -2:
+			org.apache.log4j.Logger.getRootLogger().setLevel(org.apache.log4j.Level.OFF); break;
+		}
+	}
+
 	@SuppressWarnings("unused")
 	private static void writeDifferentItems(Properties fromFileInput, Properties fromConfigurationInput) {
 		if (fromFileInput.equals(fromConfigurationInput)){

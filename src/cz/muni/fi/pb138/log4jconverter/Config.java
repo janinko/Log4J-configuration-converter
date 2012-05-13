@@ -7,6 +7,7 @@ public class Config {
 	String outputFile = null;
 	InputLoader.Type outputType = null;
 	InputLoader.Type inputType = null;
+	int verbose = 0;
 	
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(Config.class);
 	
@@ -29,6 +30,10 @@ public class Config {
 					inputType = parseType(args[i++]);
 				}else if(arg.equals("help")){
 					printHelp();
+				}else if(arg.equals("verbose")){
+					verbose++;
+				}else if(arg.equals("quiet")){
+					verbose--;
 				}
 			}else if(arg.startsWith("-")){	//SHORT
 				arg = arg.substring(1);
@@ -43,6 +48,10 @@ public class Config {
 					inputType = parseType(args[i++]);
 				}else if(arg.equals("h")){
 					printHelp();
+				}else if(arg.equals("v")){
+					verbose++;
+				}else if(arg.equals("q")){
+					verbose--;
 				}
 			}
 		}
@@ -62,6 +71,8 @@ public class Config {
 		System.out.println("  -T TYPE --output-type TYPE  Specify the output file type. If not set,");
 		System.out.println("                              converter will output the other one.");
 		System.out.println("  -h --help                   Print this help.");
+		System.out.println("  -v --verbose                Print more detailed messages. You can enter multiple times.");
+		System.out.println("  -q --quiet                  Print less detailed messages. You can enter multiple times.");
 		System.out.println();
 		System.out.println("TYPE can be XML or Properties.");
 		System.exit(0);		
