@@ -218,6 +218,10 @@ public class XMLParser implements Parser {
                 logger.setName(loggerElement.getAttribute("name"));
             }
             
+            if("false".equals(loggerElement.getAttribute("additivity"))){
+                logger.setAdditivity(false);
+            }
+            
             logger.setClassName(loggerElement.getAttribute("class"));
             
             // Child elements
