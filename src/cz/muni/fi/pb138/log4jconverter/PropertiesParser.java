@@ -157,12 +157,15 @@ public class PropertiesParser implements Parser {
 
         // ziskej jednotlive appendery
         String[] rootLoggerValue = value.split(",");
-		try{
-			Level level = new Level();
-			level.setValues(Level.Levels.valueOf(rootLoggerValue[0].trim().toUpperCase()));
-			rootLogger.setLevel(level);
-		}catch (IllegalArgumentException ex){
-			throw new ParseException(ex);
+        String levelValue=rootLoggerValue[0].trim();
+        if(!levelValue.isEmpty()){
+			try{
+				Level level = new Level();
+				level.setValues(Level.Levels.valueOf(levelValue.toUpperCase()));
+				rootLogger.setLevel(level);
+			}catch (IllegalArgumentException ex){
+				throw new ParseException(ex);
+			}
 		}
         for (int i = 1; i < rootLoggerValue.length; i++) {
         	// pridej novy appender
@@ -188,13 +191,16 @@ public class PropertiesParser implements Parser {
 		
 		String[] values = value.split(",");
 		if(values.length >= 1){
-			try{
-				Level level = new Level();
-				level.setValues(Level.Levels.valueOf(values[0].trim().toUpperCase()));
-				l.setLevel(level);
-			}catch (IllegalArgumentException ex){
-				throw new ParseException(ex);
-			}
+	        String levelValue=values[0].trim();
+	        if(!levelValue.isEmpty()){
+				try{
+					Level level = new Level();
+					level.setValues(Level.Levels.valueOf(levelValue.toUpperCase()));
+					l.setLevel(level);
+				}catch (IllegalArgumentException ex){
+					throw new ParseException(ex);
+				}
+	        }
 			for(int i=1; i < values.length; i++){
 				l.addAppenderRef(values[i].trim());
 			}
