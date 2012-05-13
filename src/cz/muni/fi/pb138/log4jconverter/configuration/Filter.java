@@ -115,7 +115,7 @@ public class Filter implements Comparable<Filter> {
     }
 	
 	
-	public void generateProperties(Properties p, String prefixKey) {		
+	public void generateProperties(Properties p, String prefixKey) {
 		if (className != null) p.setProperty(prefixKey, className);
 		
 		// prefixKey.PARAM=VALUE

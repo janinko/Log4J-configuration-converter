@@ -247,10 +247,24 @@ public class Appender {
 		// log4j.appender.appenderName.filter.ID=fully.qualified.name.of.filter.class
 		// log4j.appender.appenderName.filter.ID.option1=value1
 		if (filters != null) {
+			HashSet<Integer> filterNamesInt = new HashSet<Integer>();
 			for (Filter filter : filters) {
+				try {
+					filterNamesInt.add(Integer.parseInt(filter.getName()));
+				} catch (NumberFormatException e) {
+					// filterName is String and its ok
+				}
+			}
+			
+			int i = 1;	
+			for (Filter filter : filters) {
+				while (filterNamesInt.contains(i)) {
+					i++;
+				}
 				filter.generateProperties(p, prefixKey + ".filter" + 
 						// ".ID" if exists
-						( (filter.getName() != null) ? ("." + filter.getName()) : "") );
+						( (filter.getName() != null) ? ("." + filter.getName()) : "." + i) );
+						i++;
 			}
 		}
     }

@@ -42,7 +42,7 @@ public class InputLoader {
     private BufferedReader in;
     private InputStream is;
     
-    private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(InputLoader.class);
+    //private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(InputLoader.class);
     
     
     public InputLoader(InputStream is) {
@@ -63,7 +63,7 @@ public class InputLoader {
         this.nameOfFile = nameOfFile;
         this.is = new FileInputStream(new File(nameOfFile));
         this.in = new BufferedReader(new InputStreamReader(is)); 
-        logger.info("File "+ nameOfFile +" is loaded");
+        //logger.info("File "+ nameOfFile +" is loaded");
     }
     
     
@@ -110,7 +110,7 @@ public class InputLoader {
         factory.setValidating(true);
         DocumentBuilder builder = factory.newDocumentBuilder();
         
-        if (logger.isTraceEnabled()) { logger.trace("DocumentBuilder is ok"); }
+        //if (logger.isTraceEnabled()) { logger.trace("DocumentBuilder is ok"); }
         
         builder.setErrorHandler(new org.xml.sax.ErrorHandler() {
             //Ignore the fatal errors
@@ -129,7 +129,7 @@ public class InputLoader {
                 System.exit(0);
             }
         });
-        if (logger.isTraceEnabled()) { logger.trace("setErroHanler is ok"); }
+        //if (logger.isTraceEnabled()) { logger.trace("setErroHanler is ok"); }
         
         xmlDoc = builder.parse(this.is);
         return xmlDoc;
