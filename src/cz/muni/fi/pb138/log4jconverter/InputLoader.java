@@ -19,6 +19,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.io.FilenameUtils;
 import org.w3c.dom.Document;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -33,15 +35,14 @@ public class InputLoader {
     
     public enum Type {
         XML, PROPERTIES, OTHER
-    }
-    
+    }    
     private Document xmlDoc = null;
     private Properties propertiesDoc = null;
     
     private String nameOfFile;
     private BufferedReader in;
     private InputStream is;
-    
+        
     private static org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(InputLoader.class);
     
     
@@ -106,9 +107,22 @@ public class InputLoader {
     
     
     public Document getDOM() throws ParserConfigurationException, IOException, SAXException {
+    	
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(true);
         DocumentBuilder builder = factory.newDocumentBuilder();
+        
+        builder.setEntityResolver(new EntityResolver() {
+            @Override
+            public InputSource resolveEntity(String publicId, String systemId)
+                    throws SAXException, IOException {
+                if (systemId.contains("log4j.dtd")) {
+                    return new InputSource(this.getClass().getResourceAsStream("log4j.dtd"));
+                } else {
+                    return null;
+                }
+            }
+        });
         
         if (logger.isTraceEnabled()) { logger.trace("DocumentBuilder is ok"); }
         
