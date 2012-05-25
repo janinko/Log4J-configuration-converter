@@ -9,8 +9,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author Admin
+ * This class represents the Layout configuration from Abstract Model 
+ * Each field represent every single component of Log4j layout configuration
+ * 
+ * @author Steve
  */
 public class Layout {
     //required

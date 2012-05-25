@@ -8,8 +8,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author Admin
+ * This class represents the ConnectionSource configuration from Abstract Model 
+ * Each field represent every single component of Log4j connectionSource configuration
+ * 
+ * @author Steve
  */
 public class ConnectionSource {
     //required

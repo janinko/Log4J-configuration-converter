@@ -8,8 +8,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author Admin
+ * This class represents the Plugin configuration from Abstract Model 
+ * Each field represent every single component of Log4j plugin configuration
+ * 
+ * @author Steve
  */
 public class Plugin {
     //required

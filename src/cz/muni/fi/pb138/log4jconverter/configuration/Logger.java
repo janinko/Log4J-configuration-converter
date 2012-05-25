@@ -8,8 +8,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author Admin
+ * This class represents the Logger configuration from Abstract Model 
+ * Each field represent every single component of Log4j logger configuration
+ * 
+ * @author Steve
  */
 public class Logger {
     //required
@@ -149,7 +151,7 @@ public class Logger {
             logger = doc.createElement("category");
         }
         logger.setAttribute("name", name);
-        if (className != null) {
+        if (!className.equals("")) {
             logger.setAttribute("class", className);
         }
         if (additivity) {

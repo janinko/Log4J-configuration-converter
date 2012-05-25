@@ -8,7 +8,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 /**
- *
+ * Parse Configuration from XML external file.
+ * 
  * @author Jonge
  */
 public class XMLParser implements Parser {
@@ -23,7 +24,12 @@ public class XMLParser implements Parser {
             this.doc = doc;
             this.configuration = null;
 	}
-        
+         /*
+         * Return Configuration from XML doc
+         * 
+         * @return Configuration 
+         *  
+         */
         @Override
 	public Configuration parse() {
             if (configuration == null) {
@@ -32,7 +38,10 @@ public class XMLParser implements Parser {
             }
             return configuration;
 	}
-        
+        /* 
+        * This method parses XML document  to Abstract Model of Configuration
+        * 
+        */
         public void parseXML() {            
             int i;
             
@@ -102,7 +111,12 @@ public class XMLParser implements Parser {
                 }
             }
         }
-        
+        /* 
+        * This method parses Renderer element  to Abstract Model 
+        * 
+        * @param rendererElement renderer element from XML doc
+        * @return                Renderer  from Abstract Model of configuration
+        */
         private Renderer parseRenderer(Element rendererElement) {
             Renderer renderer = new Renderer();
             
@@ -111,7 +125,12 @@ public class XMLParser implements Parser {
             
             return renderer;
         }
-        
+         /* 
+        * This method parses ThrowableRenderer element  to Abstract Model 
+        * 
+        * @param throwableRendererElement throwableRenderer element from XML doc
+        * @return                         ThrowableRenderer from Abstract Model of configuration
+        */
         private ThrowableRenderer parseThrowableRenderer(Element throwableRendererElement) {
             ThrowableRenderer throwableRenderer = new ThrowableRenderer();
             int i;
@@ -131,7 +150,11 @@ public class XMLParser implements Parser {
             
             return throwableRenderer;
         }
-        
+         /* 
+        * This method parses Appender element  to Abstract Model 
+        * @param appenderElement appender element from XML doc
+        * @return                Appender from Abstract Model of configuration 
+        */
         private Appender parseAppender(Element appenderElement) {
             Appender appender = new Appender();
             int i;
@@ -181,7 +204,11 @@ public class XMLParser implements Parser {
             
             return appender;
         }
-        
+         /* 
+        * This method parses Plugin element  to Abstract Model 
+        * @param pluginElement plugin element from XML doc
+        * @return              Plugin from Abstract Model of configuration  
+        */
         private Plugin parsePlugin(Element pluginElement) {
             Plugin plugin = new Plugin();
             int i;
@@ -207,7 +234,12 @@ public class XMLParser implements Parser {
             
             return plugin;
         }
-        
+         /* 
+        * This method parses Logger element  to Abstract Model 
+        * 
+        * @param loggerElement logger element from XML doc
+        * @return              Logger from Abstract Model of configuration  
+        */
         private Logger parseLogger(Element loggerElement) {
             Logger logger = new Logger();
             int i;
@@ -251,7 +283,12 @@ public class XMLParser implements Parser {
             
             return logger;
         }
-        
+        /* 
+        * This method parses LoggerFactory element  to Abstract Model 
+        * 
+        * @param loggerFactoryElement loggerFactory element from XML doc
+        * @return                     LoggerFactory from Abstract Model of configuration 
+        */
         private LoggerFactory parseLoggerFactory(Element loggerFactoryElement) {
             LoggerFactory loggerFactory = new LoggerFactory();
             int i;
@@ -271,7 +308,12 @@ public class XMLParser implements Parser {
             
             return loggerFactory;
         }
-        
+        /* 
+        * This method parses Root element  to Abstract Model 
+        * 
+        * @param rootElement root element from XML doc
+        * @return            Root from Abstract Model of configuration 
+        */
         private Root parseRoot(Element rootElement) {
             Root root = new Root();
             int i;
@@ -301,7 +343,12 @@ public class XMLParser implements Parser {
         }
         
         
-        
+        /* 
+        * This method parses ErrorHandler element  to Abstract Model 
+        * 
+        * @param errorHandlerElement errorHandler element from XML doc
+        * @return                    ErrorHandler from Abstract Model of configuration 
+        */
         private ErrorHandler parseErrorHandler(Element errorHandlerElement) {
             ErrorHandler errorHandler = new ErrorHandler();
             int i;
@@ -334,7 +381,13 @@ public class XMLParser implements Parser {
             
             return errorHandler;
         }
-        
+          
+        /* 
+        * This method parses RollingPolicy element  to Abstract Model 
+        *
+        * @param rollingPolicyElement rollingPolicy element from XML doc
+        * @return                     RollingPolicy from Abstract Model of configuration 
+        */
         private RollingPolicy parseRollingPolicy(Element rollingPolicyElement) {
             RollingPolicy rollingPolicy = new RollingPolicy();
             int i;
@@ -358,7 +411,12 @@ public class XMLParser implements Parser {
             
             return rollingPolicy;
         }
-        
+        /* 
+        * This method parses TriggeringPolicy element  to Abstract Model 
+        * 
+        * @param triggeringPolicyElement triggeringPolicy element from XML doc
+        * @return                        TriggeringPolicy from Abstract Model of configuration 
+        */
         private TriggeringPolicy parseTriggeringPolicy(Element triggeringPolicyElement) {
             TriggeringPolicy triggeringPolicy = new TriggeringPolicy();
             int i;
@@ -386,7 +444,12 @@ public class XMLParser implements Parser {
             
             return triggeringPolicy;
         }
-        
+         /* 
+        * This method parses ConnectionSource element  to Abstract Model 
+        * 
+        * @param connectionSourceElement connectionSource element from XML doc
+        * @return                        ConnectionSource from Abstract Model of configuration 
+        */
         private ConnectionSource parseConnectionSource(Element connectionSourceElement) {
             ConnectionSource connectionSource = new ConnectionSource();
             int i;
@@ -410,7 +473,12 @@ public class XMLParser implements Parser {
             
             return connectionSource;
         }
-        
+        /* 
+        * This method parses Filter element  to Abstract Model 
+        * 
+        * @param filterElement filter element from XML doc
+        * @return                        Filter from Abstract Model of configuration 
+        */
         private Filter parseFilter(Element filterElement) {
             Filter filter = new Filter();
             int i;
@@ -430,7 +498,12 @@ public class XMLParser implements Parser {
             
             return filter;
         }
-        
+        /* 
+        * This method parses DataSource element  to Abstract Model 
+        * 
+        * @param filterElement filter element from XML doc
+        * @return              Filter from Abstract Model of configuration
+        */
         private DataSource parseDataSource(Element dataSourceElement) {
             DataSource dataSource = new DataSource();
             int i;
@@ -450,7 +523,12 @@ public class XMLParser implements Parser {
             
             return dataSource;
         }
-        
+        /* 
+        * This method parses Layout element  to Abstract Model 
+        * 
+        * @param layoutElement layout element from XML doc
+        * @return              Layout from Abstract Model of configuration
+        */
         private Layout parseLayout(Element layoutElement) {
             Layout layout = new Layout();
             int i;
@@ -470,7 +548,12 @@ public class XMLParser implements Parser {
             
             return layout;
         }
-        
+        /* 
+        * This method parses Level element  to Abstract Model 
+        * 
+        * @param levelElement level element from XML doc
+        * @return              Level from Abstract Model of configuration
+        */
         private Level parseLevel(Element levelElement) {
             Level level = new Level();
             int i;

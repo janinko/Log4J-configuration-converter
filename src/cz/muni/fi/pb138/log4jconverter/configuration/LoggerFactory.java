@@ -11,8 +11,10 @@ import org.w3c.dom.Element;
 import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 
 /**
- *
- * @author Admin
+ * This class represents the LoggerFactory configuration from Abstract Model 
+ * Each field represent every single component of Log4j loggerFactory configuration
+ * 
+ * @author Steve
  */
 public class LoggerFactory {
     //required

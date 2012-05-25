@@ -16,6 +16,16 @@ import org.w3c.dom.Element;
 import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 
 
+/*
+ * This class represents the Abstract model of Configuration
+ * Each field represent every single component of Log4j configuration
+ * 
+ * @author Steve
+ */
+
+
+
+
 public class Configuration{
     
     public enum Threshold {
@@ -173,7 +183,10 @@ public class Configuration{
     public void addAppender(Appender a) {
         appenders.put(a.getAppenderName(), a);
     }
-
+/*
+ * Returns Configuration as XML Document from the Abstract Model 
+ * @return configuration as XML Document
+ */
     public Document generateXML() {
     	DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
@@ -243,7 +256,10 @@ public class Configuration{
         
         return doc;
     }
-
+/*
+ * Returns Configuration as Properties from the Abstract Model 
+ * @return configuration as Properties
+ */
     public Properties generateProperties() {
     	Properties props = new Properties();
     	

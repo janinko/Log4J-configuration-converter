@@ -8,7 +8,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
+ * This class represents the ThrowableRenderer configuration from Abstract Model 
+ * Each field represent every single component of Log4j throwableRenderer  configuration
+ * 
  * @author Steve
  */
 public class ThrowableRenderer {

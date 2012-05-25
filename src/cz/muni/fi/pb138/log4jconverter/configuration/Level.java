@@ -8,8 +8,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author Admin
+ * This class represents the Level configuration from Abstract Model 
+ * Each field represent every single component of Log4j level configuration
+ * 
+ * @author Steve
  */
 public class Level {
 

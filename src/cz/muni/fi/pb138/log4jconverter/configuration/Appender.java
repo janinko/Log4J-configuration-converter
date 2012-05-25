@@ -8,54 +8,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author Admin
- */
-/**
- * <h3>Appender configuration</h3>
- *
- * <p>Appender configuration syntax is:
- * <pre>
- * # For appender named <i>appenderName</i>, set its class.
- * # Note: The appender name can contain dots.
- * log4j.appender.appenderName=fully.qualified.name.of.appender.class
- *
- * # Set appender specific options.
- * log4j.appender.appenderName.option1=value1
- * ...
- * log4j.appender.appenderName.optionN=valueN
- * </pre>
- *
- * For each named appender you can configure its {@link Layout}. The syntax for
- * configuring an appender's layout is:
- * <pre>
- * log4j.appender.appenderName.layout=fully.qualified.name.of.layout.class
- * log4j.appender.appenderName.layout.option1=value1
- * ....
- * log4j.appender.appenderName.layout.optionN=valueN
- * </pre>
- *
- * The syntax for adding {@link Filter}s to an appender is:
- * <pre>
- * log4j.appender.appenderName.filter.ID=fully.qualified.name.of.filter.class
- * log4j.appender.appenderName.filter.ID.option1=value1
- * ...
- * log4j.appender.appenderName.filter.ID.optionN=valueN
- * </pre> The first line defines the class name of the filter identified by ID;
- * subsequent lines with the same ID specify filter option - value paris.
- * Multiple filters are added to the appender in the lexicographic order of IDs.
- *
- * The syntax for adding an {@link ErrorHandler} to an appender is:
- * <pre>
- * log4j.appender.appenderName.errorhandler=fully.qualified.name.of.filter.class
- * log4j.appender.appenderName.errorhandler.root-ref={true|false}
- * log4j.appender.appenderName.errorhandler.logger-ref=loggerName
- * log4j.appender.appenderName.errorhandler.appender-ref=appenderName
- * log4j.appender.appenderName.errorhandler.option1=value1
- * ...
- * log4j.appender.appenderName.errorhandler.optionN=valueN
- * </pre>
- *
+ * This class represents the Appender configuration from Abstract Model 
+ * Each field represent every single component of Log4j appender configuration
+ * 
+ * @author Steve
  */
 public class Appender {
     //required

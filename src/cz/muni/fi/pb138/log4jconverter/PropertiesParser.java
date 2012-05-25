@@ -17,7 +17,7 @@ import cz.muni.fi.pb138.log4jconverter.configuration.Root;
 
 /**
  * 
- * Init Configuration from property external file.
+ * Parse Configuration from property external file.
  * 
  * 
  *
@@ -83,6 +83,12 @@ public class PropertiesParser implements Parser {
             System.out.println(key + " -- " + properties.getProperty(key));
         }
     }
+    
+    
+    /* 
+     * This method parses Properties  to Abstract Model of Configuration
+     * 
+     */
 
 	// goes for all properties, split key into array and parse
     private void parsePropeties(){
@@ -98,6 +104,12 @@ public class PropertiesParser implements Parser {
     	}
     	
     }
+     /* 
+     * This method parses one property  according to first part of key of property configuration
+     * 
+     * @throws ParseException if parse exception occured
+     * 
+     */
     
     private void parseProperty(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing key: " + concateKeyParts(key, 0)); }
@@ -145,7 +157,11 @@ public class PropertiesParser implements Parser {
     	
 	}
 
-
+     /* 
+     * This method parses one Root Logger property  according to first part of key of root logger
+     * 
+     * @throws ParseException if parse exception occured
+     */
 	private void parseRootLogger(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing root logger: '" + value + "'"); }
 		if(ROOT_CATEGORY.equals(key[1]) && configuration.getRoot() != null ){
@@ -183,7 +199,11 @@ public class PropertiesParser implements Parser {
         if (logger.isTraceEnabled()) { logger.trace("configuration saved"); }		
 	}
 
-
+        /* 
+        * This method parses one  Logger property  according to first part of key of  logger
+        * 
+        * @throws ParseException if parse exception occured
+        */
 	private void parseLogger(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing logger: " +concateKeyParts(key, 0)+"=" + value); }
 		
@@ -211,7 +231,11 @@ public class PropertiesParser implements Parser {
 		}
 	}
 
-
+        /* 
+        * This method parses one  Appender property  according to first part of key of  appender
+        * 
+        * @throws ParseException if parse exception occured
+        */
 	private void parseAppender(String[] key, String value) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing appender: " +concateKeyParts(key, 0)+"=" + value); }
 		if(key.length < 3) throw new ParseException("Appender key must have at least 3 parts");
@@ -234,7 +258,12 @@ public class PropertiesParser implements Parser {
 		}
 		
 	}
-
+         
+        /* 
+        * This method parses one  Filter property  according to first part of key of  filter
+        * 
+        * @throws ParseException if parse exception occured
+        */
 	private void parseFilter(String[] key, String value, Appender appender) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing appender filter: " +concateKeyParts(key, 0)+"=" + value); }
 		if(key.length < 5) throw new ParseException("Appender filter key must have at least 5 parts");
@@ -248,8 +277,12 @@ public class PropertiesParser implements Parser {
 			throw new ParseException("Unknown filter key");
 		}
 	}
-
-
+        /* 
+        * This method parses one  Layout property  according to first part of key of layout
+        * 
+        * @throws ParseException if parse exception occured
+        */
+        
 	private void parseLayout(String[] key, String value, Appender appender) throws ParseException {
 		if (logger.isTraceEnabled()) { logger.trace("parsing appender layout: " +concateKeyParts(key, 0)+"=" + value); }
 		if(key.length < 4) throw new ParseException("Appender layout key must have at least 4 parts");
@@ -263,6 +296,12 @@ public class PropertiesParser implements Parser {
 		}
 	}
 
+        /*
+         * Return Configuration from Properties
+         * 
+         * @return Configuration 
+         *  
+         */
 	@Override
 	public Configuration parse() {
 		if(configuration == null){

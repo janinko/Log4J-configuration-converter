@@ -9,8 +9,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- *
- * @author Admin
+ * This class represents the ErrorHandler configuration from Abstract Model 
+ * Each field represent every single component of Log4j errorHandler configuration
+ * 
+ * @author Steve
  */
 public class ErrorHandler {
     //required

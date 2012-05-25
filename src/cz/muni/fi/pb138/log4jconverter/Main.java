@@ -146,7 +146,7 @@ public class Main {
 		
 	}
     
-    // nvm ci sa to hodi do tejto classy
+   
     private static void serializetoXML(OutputStream output, Document doc) throws TransformerException {
        // Vytvorime instanci tovarni tridy
        TransformerFactory factory = TransformerFactory.newInstance();

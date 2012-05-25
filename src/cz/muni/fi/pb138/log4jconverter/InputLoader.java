@@ -69,6 +69,15 @@ public class InputLoader {
     
     // for now we recognize typ of input according to extension of file
     // in the future we'll do it according content
+    
+    
+    /** 
+     * Returns type of input file
+     * 
+     * @return             type of input file    
+     * @throws IOException If an input exception occurred
+     *    
+     */
     public Type getType() throws IOException {
     	if(nameOfFile != null){
 	        String extension = FilenameUtils.getExtension(nameOfFile);
@@ -80,7 +89,13 @@ public class InputLoader {
         }
     	return getInputStreamType();
     }
-    
+    /** 
+     * Returns type of input Stream
+     * 
+     * @return             type of input Stream
+     * @throws IOException If an input exception occurred
+ *                      
+     */
     private Type getInputStreamType() throws IOException{
     	Type t = Type.OTHER;
 		in.mark(1000);
@@ -103,7 +118,13 @@ public class InputLoader {
     	in.reset();
 		return t;
     }
-    
+    /* Returns Document object model from InputStream
+     * 
+     * @return                               Document object model
+     * @throws  IOException                  if input exception occured
+     * @throws  ParserConfigurationException if parserConfigurationException exception occured
+     * @throws  SAXException                 if some validation errors occured
+     */
     
     public Document getDOM() throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -134,7 +155,12 @@ public class InputLoader {
         xmlDoc = builder.parse(this.is);
         return xmlDoc;
     }
-    
+    /*
+     * Returns Properties document loaded from Buffered reader
+     * 
+     * @return             Properties document
+     * @throws IOException if input exception occured
+     */
     
     public Properties getProperties() throws IOException {
         propertiesDoc = new Properties();
