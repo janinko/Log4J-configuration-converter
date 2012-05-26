@@ -1,16 +1,23 @@
 package cz.muni.fi.pb138.logTesting;
 
+import cz.muni.fi.pb138.logTesting.foo.ClassFive;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
-import cz.muni.fi.pb138.logTesting.foo.ClassFive;
+import org.apache.log4j.xml.DOMConfigurator;
 
 public class Main {
 	private static Logger logger = Logger.getLogger(Main.class);
 	
 	public static void main(String[] args) {
-		PropertyConfigurator.configure(args[0]);
+		if (FilenameUtils.getExtension(args[0]).equals("xml")) {				// input is XML
+			DOMConfigurator.configure(args[0]);
+		} else if (FilenameUtils.getExtension(args[0]).equals("properties")) {	// input is properties
+			PropertyConfigurator.configure(args[0]);
+		} else {
+			throw new IllegalArgumentException("wrong input file");
+		}
 		Logger.getRootLogger().setLevel(Level.ALL);
 
 		method1();
