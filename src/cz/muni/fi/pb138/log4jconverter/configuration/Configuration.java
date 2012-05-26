@@ -290,7 +290,7 @@ public class Configuration{
 		if (logFactory != null) logFactory.generateProperties(props);
 		
 		// log4j.debug
-		if ((debug != null) && debug) props.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.DEBUG, "true");
+		if (debug != null) props.setProperty(PropertiesParser.PREFIX + "." + PropertiesParser.DEBUG, debug.toString());
 		
 		return props;
     }
