@@ -151,7 +151,7 @@ public class Logger {
             logger = doc.createElement("category");
         }
         logger.setAttribute("name", name);
-        if (!className.equals("")) {
+        if (className != null && !className.isEmpty()) {
             logger.setAttribute("class", className);
         }
         if (additivity) {

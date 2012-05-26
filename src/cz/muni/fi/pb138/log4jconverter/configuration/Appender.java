@@ -179,7 +179,7 @@ public class Appender {
     public void generateProperties(Properties p) {
 		// log4j.appender.appenderName
 		String prefixKey = PropertiesParser.APPENDER_PREFIX + appenderName;
-		
+			
 		// log4j.appender.appenderName=fully.qualified.name.of.appender.class
 		if (className != null) p.setProperty(prefixKey, className);
 
