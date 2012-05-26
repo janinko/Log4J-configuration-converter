@@ -119,7 +119,7 @@ public class InputLoader {
     	in.reset();
 		return t;
     }
-    /* Returns Document object model from InputStream
+    /** Returns Document object model from InputStream
      * 
      * @return                               Document object model
      * @throws  IOException                  if input exception occured
@@ -138,7 +138,7 @@ public class InputLoader {
             public InputSource resolveEntity(String publicId, String systemId)
                     throws SAXException, IOException {
                 if (systemId.contains("log4j.dtd")) {
-                    return new InputSource(this.getClass().getResourceAsStream("log4j.dtd"));
+                    return new InputSource(this.getClass().getResourceAsStream("/log4j.dtd"));
                 } else {
                     return null;
                 }
@@ -169,7 +169,7 @@ public class InputLoader {
         xmlDoc = builder.parse(this.is);
         return xmlDoc;
     }
-    /*
+    /**
      * Returns Properties document loaded from Buffered reader
      * 
      * @return             Properties document
