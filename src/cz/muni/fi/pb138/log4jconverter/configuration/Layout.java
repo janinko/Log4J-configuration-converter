@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -21,7 +22,7 @@ public class Layout {
     private HashMap<String,String> params;
 
     public Layout() {
-        this.params = new HashMap<String,String>();
+        this.params = new LinkedHashMap<String,String>();
     }
     
     public String getClassName() {

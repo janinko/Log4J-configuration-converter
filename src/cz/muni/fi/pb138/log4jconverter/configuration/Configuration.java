@@ -3,6 +3,8 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -49,10 +51,10 @@ public class Configuration{
     
 
     public Configuration() {
-        renderers = new HashSet<Renderer>();
-        appenders = new HashMap<String, Appender>();
-        loggers = new HashSet<Logger>();
-        plugins = new HashMap<String, Plugin>();
+        renderers = new LinkedHashSet<Renderer>();
+        appenders = new LinkedHashMap<String, Appender>();
+        loggers = new LinkedHashSet<Logger>();
+        plugins = new LinkedHashMap<String, Plugin>();
     }
 
     /* returns Appender by its name, if it does'n exists,

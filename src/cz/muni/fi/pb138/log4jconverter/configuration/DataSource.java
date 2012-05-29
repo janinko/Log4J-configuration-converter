@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -17,7 +18,7 @@ public class DataSource {
     //required
     private String className;
     //optional
-    private HashMap<String,String> params = new HashMap<String,String>();
+    private HashMap<String,String> params = new LinkedHashMap<String,String>();
 
     public String getClassName() {
         return className;

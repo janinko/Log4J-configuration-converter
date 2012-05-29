@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -24,7 +25,7 @@ public class Filter implements Comparable<Filter> {
     private String name;
 
     public Filter() {
-        this.params = new HashMap<String, String>();
+        this.params = new LinkedHashMap<String, String>();
     }
 
     public Filter(Filter f) {

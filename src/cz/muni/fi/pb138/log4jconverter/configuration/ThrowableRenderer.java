@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import org.w3c.dom.Document;
@@ -20,7 +21,7 @@ public class ThrowableRenderer {
     private HashMap<String,String> params;
 
     public ThrowableRenderer() {
-        this.params = new HashMap<String, String>() ;
+        this.params = new LinkedHashMap<String, String>() ;
     }
 
     public void setClassName(String className) {

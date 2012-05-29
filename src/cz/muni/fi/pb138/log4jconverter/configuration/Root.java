@@ -4,9 +4,10 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,7 +24,7 @@ import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 public class Root {
     //optional
 
-    private HashMap<String, String> params = new HashMap<String, String>();
+    private HashMap<String, String> params = new LinkedHashMap<String, String>();
     private Level level;
     private HashSet<String> appenderRefs = new LinkedHashSet<String>();
 

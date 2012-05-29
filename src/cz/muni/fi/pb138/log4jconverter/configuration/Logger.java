@@ -32,7 +32,7 @@ public class Logger {
     private boolean isCategory = false;
 
     public Logger() {
-        this.params = new HashMap<String, String>();
+        this.params = new LinkedHashMap<String, String>();
         this.appenderRefs = new LinkedHashSet<String>();
     }
 

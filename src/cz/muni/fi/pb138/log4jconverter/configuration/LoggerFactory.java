@@ -2,6 +2,7 @@ package cz.muni.fi.pb138.log4jconverter.configuration;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Properties;
 
@@ -21,7 +22,7 @@ public class LoggerFactory {
 
     private String className;
     //optional
-    private HashMap<String, String> params = new HashMap<String, String>();
+    private HashMap<String, String> params = new LinkedHashMap<String, String>();
 
     /*
      * CategoryFactory is deprecated synonym of LoggerFactory, this boolean

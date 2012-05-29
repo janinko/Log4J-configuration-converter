@@ -1,11 +1,20 @@
 package cz.muni.fi.pb138.log4jconverter.configuration;
 
-import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import cz.muni.fi.pb138.log4jconverter.PropertiesParser;
 
 /**
  * This class represents the Appender configuration from Abstract Model 
@@ -29,16 +38,14 @@ public class Appender {
     private HashSet<String> appenderRefs;
 
     public Appender() {
-        this.filters = new ArrayList<Filter>();
-        this.params = new HashMap<String, String>();
-        this.appenderRefs = new HashSet<String>();
+    	this(null);
     }
 
     public Appender(String name) {
         this.appenderName = name;
         this.filters = new ArrayList<Filter>();
-        this.params = new HashMap<String, String>();
-        this.appenderRefs = new HashSet<String>();
+        this.params = new LinkedHashMap<String, String>();
+        this.appenderRefs = new LinkedHashSet<String>();
     }
 
     public String getClassName() {
