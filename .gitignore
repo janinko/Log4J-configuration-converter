@@ -15,5 +15,3 @@ bin/
 JaninkoTest.java
 /private/
 log4jcc.jar
-examples/testExamples/
-final_test.sh

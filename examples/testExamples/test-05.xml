@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<!--
+   Document   : jboss-log4j.xml
+   Created on : 14. listopad 2010, 20:55
+   Author     : gaim
+   Description:
+   Purpose of the document follows.
+-->
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <logger name="org.hibernate.SQL">
+    <level value="ALL"/>
+    <appender-ref ref="FILE"/>
+  </logger>
+</log4j:configuration>
