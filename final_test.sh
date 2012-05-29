@@ -40,8 +40,14 @@ for a in *.properties; do
 done
 
 for a in *[0-9].properties; do
-	cat $a | grep -vE "^(\s*$|#)" | sed 's/\\:/:/;s/, /,/g;s/ *= */=/' | sponge $a;
+	cat $a | sed 's/\\*:/\\:/g;s/, */, /g;s/ *= */=/' | sponge $a; #WA filter for not perfect input properties
 done
+
+for a in *.properties; do
+	cat $a | grep -vE "^(\s*$|#)" | sed 's/=$//' | sponge $a; #filter for removing comments, blank lines, and WA for not perfect input properties
+done
+
+echo; echo; echo; echo;
 
 for a in *[0-9].properties; do
 	diff $a $a.properties -U0 | grep "^[+-]"
